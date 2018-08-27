@@ -1,0 +1,8 @@
+<!-- pages/sign-up/sign-up.wxml -->
+<view>
+    <view class="container">
+        <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" />
+        <input class="input-password" placeholder="请输入密码" password confirm-type="done" />
+        <button class="btn-sign-up" type="primary" bindtap="toSignUp">注册</button>
+    </view>
+</view>

@@ -1,0 +1,25 @@
+/* pages/sign-up/sign-up.wxss */
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 80rpx;
+}
+
+.input-username,
+.input-password {
+    width: 100%;
+    height: 80rpx;
+    border: 1rpx solid silver;
+}
+
+.input-password {
+    margin-top: 20rpx;
+}
+
+.btn-sign-up {
+    margin-top: 20rpx;
+}

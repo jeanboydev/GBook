@@ -1,0 +1,40 @@
+/* pages/sign-in/sign-in.wxss */
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 80rpx;
+}
+
+.input-username,
+.input-password {
+    width: 100%;
+    height: 80rpx;
+    border: 1rpx solid silver;
+}
+
+.input-password {
+    margin-top: 20rpx;
+}
+
+.sign-up-container {
+    width: 100%;
+    height: 80rpx;
+    margin-top: 20rpx;
+    position: relative;
+}
+
+.sign-up-container .btn-sign-up {
+    width: 180rpx;
+    height: 80rpx;
+    position: absolute;
+    right: 0;
+    line-height: 80rpx;
+}
+
+.btn-sign-in {
+    margin-top: 20rpx;
+}

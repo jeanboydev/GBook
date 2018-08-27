@@ -1,0 +1,47 @@
+/* pages/mine/mine.wxss */
+
+/**
+<view class="info-container">
+        <image class="avatar" src="/images/book.jpg" aspectFill />
+        <view class="username">jeanboy</view>
+    </view>
+    <view class="list-container">
+        <view class="item">设置</view>
+        <view class="item">关于</view>
+    </view>*/
+
+.info-container {
+    width: 100%;
+    height: 200rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    padding: 0 80rpx;
+    background-color: gray;
+}
+
+.info-container .avatar {
+    width: 120rpx;
+    height: 120rpx;
+}
+
+.info-container .username {
+    margin-left: 80rpx;
+    line-height: 200rpx;
+}
+
+.list-container {
+    width: 100%;
+}
+
+.list-container .item {
+    width: 100%;
+    height: 100rpx;
+    padding: 0 80rpx;
+    margin-top: 80rpx;
+    line-height: 100rpx;
+    background-color: gray;
+}

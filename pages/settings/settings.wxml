@@ -1,0 +1,8 @@
+<!-- pages/settings/settings.wxml -->
+<view>
+    <view class="list-container">
+        <view class="item">关于</view>
+        <view class="item">版本号</view>
+        <view class="item">退出登录</view>
+    </view>
+</view>

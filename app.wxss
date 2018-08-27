@@ -1,0 +1,33 @@
+/**app.wxss**/
+
+page,
+view,
+scroll-view,
+swiper,
+icon,
+text,
+progress,
+button,
+checkbox,
+form,
+input,
+label,
+picker,
+picker-view,
+radio,
+slider,
+switch,
+textarea,
+navigator,
+image,
+map,
+canvas,
+web-view,
+cover-view {
+    box-sizing: border-box;
+}
+
+page {
+  background-color: #ffffff;
+  font-family: PingFangSC-Regular;
+}
