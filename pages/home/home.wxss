@@ -1,5 +1,4 @@
 /* pages/home/home.wxss */
-
 page {
     background-color: #f2f2f2;
 }
@@ -23,15 +22,21 @@ page {
 .list-container {
     width: 100%;
     padding: 40rpx 0 80rpx 40rpx;
+    /* 使用 flex 布局 */
     display: flex;
+    /* 方向为纵向 */
     flex-direction: row;
+    /* 设置为可换行 */
     flex-wrap: wrap;
+    /* 从左边开始布局 */
     justify-content: flex-start;
+    /* 垂直居中 */
     align-content: center;
     align-items: center;
 }
 
 .list-container .item {
+    /* 这里使用到了 css 中的 calc 计算函数，详见下面介绍 */
     width: calc(100% * 0.5 - 40rpx);
     margin-right: 40rpx;
     margin-top: 20rpx;

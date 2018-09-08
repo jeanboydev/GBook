@@ -4,11 +4,13 @@
         <view class="logo-container">
             <image class="logo" src="/images/logo.png" aspectFill />
         </view>
+        <!-- bindinput 键盘输入时触发，用于接收键盘输入的值 -->
         <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" bindinput="onUsernameInput" />
         <input class="input-password" placeholder="请输入密码" password confirm-type="done" bindinput="onPasswordInput" />
         <view class="sign-up-container">
             <button class="btn-sign-up" bindtap="toSignUp">注册</button>
         </view>
+        <!-- bindtap 当用户点击时触发绑定的函数 -->
         <button class="btn-sign-in" type="primary" bindtap="toSignIn">登录</button>
     </view>
 </view>

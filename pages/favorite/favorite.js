@@ -5,6 +5,7 @@ Page({
     dataList: []
   },
   onLoad: function (query) {
+    //读取收藏的图书列表
     let favoriteBooks = wx.getStorageSync(config.cacheKey.favoriteBooks);
     this.setData({
       dataList: favoriteBooks

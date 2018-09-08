@@ -2,7 +2,7 @@
 import config from '../../config/config.js';
 Page({
   data: {
-    dataList: [{
+    dataList: [{ //这里应该是从服务期获取数据，暂时为模拟数据。后面再修改
         id: 1,
         imageUrl: "/images/book.jpg",
         name: "Android",
@@ -53,9 +53,12 @@ Page({
     ]
   },
   onLoad: function (options) {
+    //读取用户登录信息
     let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
-    if (!userInfo) {
-      wx.navigateTo({
+    if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
+      getApp().globalData.userInfo = userInfo;
+    } else {
+      wx.navigateTo({ //用户未登录，则直接跳转至登录页面
         url: "/pages/sign-in/sign-in"
       });
     }
@@ -66,7 +69,7 @@ Page({
   onUnload: function () {},
   onItemClick: function (e) {
     let item = e.currentTarget.dataset.item;
-    wx.navigateTo({
+    wx.navigateTo({ //通过 url 传递参数，是不是跟 html 很像？
       url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
     });
   }

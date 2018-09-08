@@ -22,8 +22,7 @@ Page({
     });
   },
   doSignOut: function () {
-    wx.removeStorageSync(config.cacheKey.username);
-    wx.removeStorageSync(config.cacheKey.password);
+    wx.removeStorageSync(config.cacheKey.userInfo);
     wx.showToast({
       title: "退出登录成功！",
       icon: "success",

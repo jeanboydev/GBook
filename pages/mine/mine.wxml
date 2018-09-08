@@ -2,7 +2,7 @@
 <view>
     <view class="info-container">
         <image class="avatar" src="/images/logo.png" aspectFill />
-        <view class="username">jeanboy</view>
+        <view class="username">{{userInfo.username}}</view>
     </view>
     <view class="list-container">
         <view class="item" bindtap="toFavorite">收藏</view>
