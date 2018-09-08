@@ -1,8 +1,11 @@
 <!-- pages/sign-in/sign-in.wxml -->
 <view>
     <view class="container">
-        <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" />
-        <input class="input-password" placeholder="请输入密码" password confirm-type="done" />
+        <view class="logo-container">
+            <image class="logo" src="/images/logo.png" aspectFill />
+        </view>
+        <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" bindinput="onUsernameInput" />
+        <input class="input-password" placeholder="请输入密码" password confirm-type="done" bindinput="onPasswordInput" />
         <view class="sign-up-container">
             <button class="btn-sign-up" bindtap="toSignUp">注册</button>
         </view>

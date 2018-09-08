@@ -9,6 +9,15 @@
     padding: 0 80rpx;
 }
 
+.logo-container {
+    text-align: center;
+}
+
+.logo {
+    width: 200rpx;
+    height: 200rpx;
+}
+
 .input-username,
 .input-password {
     width: 100%;

@@ -9,6 +9,11 @@ Page({
   onShow: function () {},
   onHide: function () {},
   onUnload: function () {},
+  toFavorite: function () {
+    wx.navigateTo({
+      url: '/pages/favorite/favorite'
+    });
+  },
   toSettings: function () {
     wx.navigateTo({
       url: '/pages/settings/settings'

@@ -5,7 +5,8 @@
     "pages/sign-up/sign-up",
     "pages/settings/settings",
     "pages/mine/mine",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/favorite/favorite"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -18,7 +19,8 @@
     "selectedColor": "#2F96F9",
     "backgroundColor": "#FFFFFF",
     "borderStyle": "white",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/home/home",
         "iconPath": "images/tabbar/ic_home_normal_2x.png",
         "selectedIconPath": "images/tabbar/ic_home_selected_2x.png",

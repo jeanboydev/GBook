@@ -1,11 +1,11 @@
 <!-- pages/mine/mine.wxml -->
 <view>
     <view class="info-container">
-        <image class="avatar" src="/images/book.jpg" aspectFill />
+        <image class="avatar" src="/images/logo.png" aspectFill />
         <view class="username">jeanboy</view>
     </view>
     <view class="list-container">
-        <view class="item">编辑资料</view>
+        <view class="item" bindtap="toFavorite">收藏</view>
         <view class="item" bindtap="toSettings">设置</view>
     </view>
 </view>

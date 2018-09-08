@@ -1,0 +1,9 @@
+<!-- pages/favorite/favorite.wxml -->
+<view>
+    <view class="list-container">
+        <view class="item" wx:for="{{dataList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+            <image class="cover" src="{{item.image}}" aspectFill />
+            <view class="title">{{item.name}}</view>
+        </view>
+    </view>
+</view>

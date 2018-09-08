@@ -1,0 +1,30 @@
+/* pages/favorite/favorite.wxss */
+
+.list-container {
+    width: 100%;
+    padding: 40rpx 0;
+}
+
+.list-container .item {
+    width: 100%;
+    height: 200rpx;
+    padding: 0 80rpx;
+    line-height: 200rpx;
+    margin-top: 10rpx;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.list-container .item .cover {
+    width: 160rpx;
+    height: 160rpx;
+}
+
+.list-container .item .title {
+    margin-left: 20rpx;
+}

@@ -1,13 +1,13 @@
 <!-- pages/home/home.wxml -->
 <view>
-    <view class="tab-menu">
+    <!-- <view class="tab-menu">
         <view class="item">设计模式</view>
         <view class="item">Android</view>
-    </view>
+    </view> -->
     <view class="list-container">
-        <view class="item" wx:for="{{dataList}}" wx:key="index" bindtap="onItemClick">
+        <view class="item" wx:for="{{dataList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
             <view class="cover">
-                <image src="{{item.imageUrl}}" aspectFit />
+                <image src="{{item.imageUrl}}" aspectFill />
             </view>
             <view class="name">{{item.name}}</view>
         </view>

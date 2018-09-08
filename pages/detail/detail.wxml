@@ -1,2 +1,11 @@
-<!--pages/detail/detail.wxml-->
-<text>pages/detail/detail.wxml</text>
+<!-- pages/detail/detail.wxml -->
+<view>
+    <view class="cover">
+        <image src="{{bookInfo.image}}" aspectFill />
+    </view>
+    <view class="title-container">
+        <view class="title">{{bookInfo.name}}</view>
+        <view class="favorite" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
+    </view>
+    <view class="introduce">{{bookInfo.introduce}}</view>
+</view>

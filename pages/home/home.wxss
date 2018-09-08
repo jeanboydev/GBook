@@ -1,5 +1,9 @@
 /* pages/home/home.wxss */
 
+page {
+    background-color: #f2f2f2;
+}
+
 .tab-menu {
     width: 100%;
     height: 100rpx;
@@ -28,9 +32,13 @@
 }
 
 .list-container .item {
-    width: calc(100% * 0.5 - 80rpx);
-    margin-right: 80rpx;
+    width: calc(100% * 0.5 - 40rpx);
+    margin-right: 40rpx;
     margin-top: 20rpx;
+    border: 2rpx solid #f2f2f2;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    background-color: #ffffff;
 }
 
 .list-container .item .cover {
@@ -44,5 +52,7 @@
 }
 
 .list-container .item .name {
+    border-top: 2rpx solid #f2f2f2;
     text-align: center;
+    padding-top: 20rpx;
 }

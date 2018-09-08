@@ -1,15 +1,5 @@
 /* pages/mine/mine.wxss */
 
-/**
-<view class="info-container">
-        <image class="avatar" src="/images/book.jpg" aspectFill />
-        <view class="username">jeanboy</view>
-    </view>
-    <view class="list-container">
-        <view class="item">设置</view>
-        <view class="item">关于</view>
-    </view>*/
-
 .info-container {
     width: 100%;
     height: 200rpx;
@@ -20,7 +10,7 @@
     align-content: center;
     align-items: center;
     padding: 0 80rpx;
-    background-color: gray;
+    background-color: #f2f2f2;
 }
 
 .info-container .avatar {
@@ -35,13 +25,14 @@
 
 .list-container {
     width: 100%;
+    margin-top: 80rpx;
 }
 
 .list-container .item {
     width: 100%;
-    height: 100rpx;
+    height: 120rpx;
     padding: 0 80rpx;
-    margin-top: 80rpx;
-    line-height: 100rpx;
-    background-color: gray;
+    line-height: 120rpx;
+    margin-top: 10rpx;
+    background-color: #f2f2f2;
 }
