@@ -6,7 +6,9 @@
 
 首先我们使用微信开发者工具创建一个项目，并选中左上角编辑器的按钮。我们会在右边看到下图的内容：
 
-![b01](/Users/next/Desktop/GBook/images/b01.png)
+![7-1-1](/Users/next/Desktop/GBook/images/7-1-1.png)
+
+图 7-1-1 微信开发者工具中的编辑器
 
 上图内容就是我们创建好的项目的目录，其中：
 
@@ -19,7 +21,9 @@
 
 仅仅只有上面的两个目录是不够用的，我们可以多创建几个目录来方便管理我们的代码：
 
-![b02](/Users/next/Desktop/GBook/images/b02.png)
+![7-1-2](/Users/next/Desktop/GBook/images/7-1-2.png)
+
+图 7-1-2 项目目录
 
 - `component` 目录用于存放我们自定义的组件。
 - `config` 目录中用于存放项目的各种配置。
@@ -29,13 +33,19 @@
 
 接下来我们进入项目实战部分，我们的图书商城需求主要分为以下几个部分。
 
-![b03](/Users/next/Desktop/GBook/images/b03.png)
+![7-2-1](/Users/next/Desktop/GBook/images/7-2-1.png)
+
+图 7-2-1 项目框架
 
 - 7.2.1 登录与注册页面
 
-![b04](/Users/next/Desktop/GBook/images/b04.png)
+  首先我们先实现登录与注册页面，由于登录与注册页面很相似，这里仅展示注册页面，页面效果如下图：
 
-我们先来实现登录页面，页面结构代码如下：
+![7-2-2](/Users/next/Desktop/GBook/images/7-2-2.png)
+
+图 7-2-2 注册页面
+
+页面结构代码如下：
 
 ```html
 <!-- pages/sign-in/sign-in.wxml -->
@@ -140,7 +150,7 @@ Page({
   },
   toSignIn: function () { //上面为按钮绑定的点击事件回调函数
     if (!this.data.username) { //用户名为空
-      wx.showToast({ //吐司以下提示用户输入用户名
+      wx.showToast({ //吐司一下提示用户输入用户名
         title: "请输入用户名！",
         icon: "none",
         mask: true
@@ -209,9 +219,13 @@ module.exports = {
 
 - 7.2.2 首页
 
-![b06](/Users/next/Desktop/GBook/images/b06.png)
+  接下来我们来实现首页页面，效果图如下：
 
-接下来我们来实现首页的效果，页面结构代码如下：
+![7-2-3](/Users/next/Desktop/GBook/images/7-2-3.png)
+
+图 7-2-3 首页页面
+
+页面结构代码如下：
 
 ```html
 <!-- pages/home/home.wxml -->
@@ -346,9 +360,13 @@ Page({
 
 - 7.2.3 个人中心页面
 
-  ![b07](/Users/next/Desktop/GBook/images/b07.png)
+  接下来我们来实现个人中心页面，效果图如下：
 
-  接下来我们来实现个人中心的效果，页面结构代码如下：
+  ![7-2-4](/Users/next/Desktop/GBook/images/7-2-4.png)
+
+  图 7-2-4 我的页面
+
+  页面结构代码如下：
 
   ```html
   <!-- pages/mine/mine.wxml -->
@@ -439,9 +457,13 @@ Page({
 
 - 7.2.4 图书详情页面
 
-![b08](/Users/next/Desktop/GBook/images/b08.png)
+  接下来我们来实现图书详情页面，效果图如下：
 
-接下来我们来实现个人中心的效果，页面结构代码如下：
+![7-2-5](/Users/next/Desktop/GBook/images/7-2-5.png)
+
+图 7-2-5 图书详情页面
+
+页面结构代码如下：
 
   ```html
 <!-- pages/detail/detail.wxml -->
@@ -582,9 +604,13 @@ Page({
 
 - 7.2.5 收藏页面
 
-![b09](/Users/next/Desktop/GBook/images/b09.png)
+  最后来我们来实现收藏页面，效果图如下：
 
-接下来我们来实现个人中心的效果，页面结构代码如下：
+![7-2-6](/Users/next/Desktop/GBook/images/7-2-6.png)
+
+图 7-2-6 收藏页面
+
+页面结构代码如下：
 
   ```html
 <!-- pages/favorite/favorite.wxml -->
@@ -669,20 +695,28 @@ Page({
 
   项目开发完成后就可以上传代码了，在微信开发者工具右上角可以找到 `上传` 按钮，点击上传然后再点击确定。
 
-  ![b10](/Users/next/Desktop/GBook/images/b10.png)
+  ![7-3-1](/Users/next/Desktop/GBook/images/7-3-1.png)
+
+  图 7-3-1 微信开发者工具中的上传
 
   下面需要填写上传的版本信息，填写完成后点击上传即可。
 
-  ![b11](/Users/next/Desktop/GBook/images/b11.png)
+  ![7-3-2](/Users/next/Desktop/GBook/images/7-3-2.png)
+
+  图 7-3-2 填写上传信息
 
 - 提交审核
 
   代码上传后，我们需要登录到微信公众平台。在微信公众平台的左侧找到 `开发管理`。
 
-  ![b12](/Users/next/Desktop/GBook/images/b12.png)
+  ![7-3-3](/Users/next/Desktop/GBook/images/7-3-3.png)
+
+  图 7-3-3 开发管理
 
   点击开发管理之后，我们在底部可以看到刚才上传的代码。
 
-  ![b13](/Users/next/Desktop/GBook/images/b13.png)
+  ![7-3-4](/Users/next/Desktop/GBook/images/7-3-4.png)
+
+  图 7-3-4 提交审核
 
   点击提交审核，一般 2-3 小时就审核通过了，审核通过后需要进行公测，最后是上线。（该部分需要补充资料，稍后补充完整）
