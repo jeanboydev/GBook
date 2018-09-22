@@ -2,7 +2,7 @@
 import config from '../../config/config.js';
 Page({
   data: {
-    id: 0,
+    id: '',
     bookInfo: {},
     androidBookInfo: {
       "image": "http://renyugang.io/wp-content/uploads/2018/09/android.jpg",
@@ -26,10 +26,14 @@ Page({
     },
     favoriteList: [],
     isMarked: false,
+    commentList: [],
+    currentComment: '',
+    userInfo: null,
   },
   onLoad: function (query) {
     //query 是通过 url 传过来的参数的集合
-    if (query.id) { //处理是否有 id
+    if (query.id && query.name) { //处理是否有 id 和 name
+      //匹配模拟数据
       let bookInfo = {};
       if (query.id.indexOf('android_') != -1) {
         bookInfo = this.data.androidBookInfo;
@@ -57,6 +61,19 @@ Page({
       });
       this.setData({ //更新收藏状态
         isMarked: this.isMarked()
+      });
+    }
+    //读取评论列表
+    let commentList = wx.getStorageSync(this.data.id);
+    if (commentList) {
+      this.setData({
+        commentList: commentList
+      });
+    }
+    let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
+    if (userInfo) {
+      this.setData({
+        userInfo: userInfo
       });
     }
   },
@@ -95,5 +112,29 @@ Page({
       }
     }
     return false;
+  },
+  onCommentInput: function (e) {
+    this.setData({
+      currentComment: e.detail.value
+    });
+  },
+  toSubmitComment: function () {
+    if (!this.data.currentComment) return;
+    let comment = {
+      username: this.data.userInfo.username,
+      content: this.data.currentComment
+    };
+    let commentList = wx.getStorageSync(this.data.id);
+    if (!commentList) {
+      commentList = [];
+    }
+    commentList.push(comment);
+    this.setData({
+      commentList: commentList
+    });
+    wx.setStorageSync(this.data.id, commentList);
+    this.setData({
+      currentComment: ''
+    });
   }
 })

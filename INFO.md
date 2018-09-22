@@ -230,11 +230,20 @@ module.exports = {
 ```html
 <!-- pages/home/home.wxml -->
 <view>
+    <!-- 使用 scroll-view 实现 x 轴滑动 -->
+    <scroll-view scroll-x="{{true}}">
+        <view class="tab-menu" style="width:{{tabList.length*150}}rpx;">
+            <!-- 使用 for 循环便利生成 item 的 view -->
+            <view class="item {{currentTabIndex==index?'active':''}}" wx:for="{{tabList}}" data-item="{{item}}" data-index="{{index}}" wx:key="index" bindtap="onTabItemClick">
+                {{item.name}}
+            </view>
+        </view>
+    </scroll-view>
     <view class="list-container">
         <!-- 使用 for 循环便利生成 item 的 view -->
-        <view class="item" wx:for="{{dataList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+        <view class="item" wx:for="{{dataList[currentTabIndex]}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
             <view class="cover">
-                <image src="{{item.imageUrl}}" aspectFill />
+                <image src="{{item.image}}" scaleToFill />
             </view>
             <view class="name">{{item.name}}</view>
         </view>
@@ -247,12 +256,45 @@ module.exports = {
 ```css
 /* pages/home/home.wxss */
 page {
-    background-color: #f2f2f2;
+    background-color: #F4F4F4;
+}
+
+.tab-menu {
+    min-width: 750rpx;
+    height: 104rpx;
+    background-color: #EAE9E7;
+    /* 使用 flex 布局 */
+    display: flex;
+    /* 方向为纵向 */
+    flex-direction: row;
+    /* 设置为不可换行 */
+    flex-wrap: nowrap;
+    /* 从左边开始布局 */
+    justify-content: flex-start;
+    /* 垂直居中 */
+    align-content: center;
+    align-items: center;
+    padding: 0 34rpx;
+}
+
+.tab-menu .item {
+    height: 74rpx;
+    line-height: 74rpx;
+    padding: 0 10rpx;
+    margin-right: 34rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: bold;
+    color: rgba(99, 99, 98, 1);
+}
+
+.tab-menu .active {
+    border-bottom: #636362 solid 4rpx;
 }
 
 .list-container {
     width: 100%;
-    padding: 40rpx 0 80rpx 40rpx;
+    padding: 60rpx 0 60rpx 60rpx;
     /* 使用 flex 布局 */
     display: flex;
     /* 方向为纵向 */
@@ -268,18 +310,19 @@ page {
 
 .list-container .item {
     /* 这里使用到了 css 中的 calc 计算函数，详见下面介绍 */
-    width: calc(100% * 0.5 - 40rpx);
-    margin-right: 40rpx;
+    width: calc((100% - 180rpx) / 3);
+    margin-right: 60rpx;
     margin-top: 20rpx;
-    border: 2rpx solid #f2f2f2;
     border-radius: 10rpx;
-    padding: 20rpx;
-    background-color: #ffffff;
+    padding: 5rpx;
 }
 
 .list-container .item .cover {
     width: 100%;
-    height: 400rpx;
+    height: 240rpx;
+    border: 2rpx solid #B9B9BB;
+    background-color: #ffffff;
+    border-radius: 6rpx;
 }
 
 .list-container .item .cover image {
@@ -288,9 +331,13 @@ page {
 }
 
 .list-container .item .name {
-    border-top: 2rpx solid #f2f2f2;
     text-align: center;
-    padding-top: 20rpx;
+    height: 70rpx;
+    font-size: 24rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(52, 52, 52, 1);
+    line-height: 70rpx;
 }
 ```
 
@@ -308,10 +355,12 @@ page {
 import config from '../../config/config.js';
 Page({
   data: {
-    dataList: []//这里应该是从服务期获取数据，暂时为模拟数据。后面再修改
+    tabList: [],//模拟数据
+    currentTabIndex: 0, //当前选择的 tab
+    dataList: []//模拟数据
   },
   onLoad: function (options) {
-     //读取用户登录信息
+    //读取用户登录信息
     let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
     if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
       getApp().globalData.userInfo = userInfo;
@@ -321,9 +370,21 @@ Page({
       });
     }
   },
+  onReady: function () {},
+  onShow: function () {},
+  onHide: function () {},
+  onUnload: function () {},
+  onTabItemClick: function (e) {
+    console.error(e);
+    let item = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    this.setData({
+      currentTabIndex: index
+    });
+  },
   onItemClick: function (e) {
     let item = e.currentTarget.dataset.item;
-    wx.navigateTo({//通过 url 传递参数，是不是跟 html 很像？
+    wx.navigateTo({ //通过 url 传递参数，是不是跟 html 很像？
       url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
     });
   }
@@ -532,27 +593,35 @@ import config from '../../config/config.js';
 Page({
   data: {
     id: 0,
-    bookInfo: {
-      "name": "Android开发艺术探索",
-      "image": "http://t.im/36pa",
-      "url": "https://book.douban.com/subject/26599538/",
-      "introduce": "《Android开发艺术探索》是一本Android进阶类书籍，采用理论、源码和实践相结合的方式来阐述高水准的Android应用开发要点。《Android开发艺术探索》从三个方面来组织内容。第一，介绍Android开发者不容易掌握的一些知识点；第二，结合Android源代码和应用层开发过程，融会贯通，介绍一些比较深入的知识点；第三，介绍一些核心技术和Android的性能优化思想。"
-    },
+    bookInfo: {},
+    androidBookInfo: {}, // 模拟数据
+    iosBookInfo: {}, // 模拟数据
+    feBookInfo: {}, // 模拟数据
+    backendBookInfo: {}, // 模拟数据
+    aiBookInfo: {}, // 模拟数据
     favoriteList: [],
     isMarked: false,
   },
   onLoad: function (query) {
     //query 是通过 url 传过来的参数的集合
-    if (query.id) { //处理是否有 id
-      this.setData({
-        id: parseInt(query.id)
-      });
-    }
-    if (query.name) { //处理是否有 name
-      let bookInfo = this.data.bookInfo;
-      bookInfo.id = this.data.id;
+    if (query.id & query.name) { //处理是否有 id 和 name
+      //匹配模拟数据
+      let bookInfo = {};
+      if (query.id.indexOf('android_') != -1) {
+        bookInfo = this.data.androidBookInfo;
+      } else if (query.id.indexOf('ios_') != -1) {
+        bookInfo = this.data.iosBookInfo;
+      } else if (query.id.indexOf('fe_') != -1) {
+        bookInfo = this.data.feBookInfo;
+      } else if (query.id.indexOf('backend_') != -1) {
+        bookInfo = this.data.backendBookInfo;
+      } else if (query.id.indexOf('ai_') != -1) {
+        bookInfo = this.data.aiBookInfo;
+      }
+      bookInfo.id = query.id;
       bookInfo.name = query.name;
-      this.setData({ //这里应该通过 api 获取数据，这里仅做模拟，以后修改
+      this.setData({
+        id: query.id,
         bookInfo: bookInfo
       });
     }
@@ -567,6 +636,10 @@ Page({
       });
     }
   },
+  onReady: function () {},
+  onShow: function () {},
+  onHide: function () {},
+  onUnload: function () {},
   toFavorite: function () { //收藏按钮点击
     if (this.isMarked()) { //图书已被收藏，则取消收藏
       let favoriteList = this.data.favoriteList;
@@ -719,4 +792,19 @@ Page({
 
   图 7-3-4 提交审核
 
-  点击提交审核，一般 2-3 小时就审核通过了，审核通过后需要进行公测，最后是上线。（该部分需要补充资料，稍后补充完整）
+  点击提交审核，然后会看到一些条款不管他打赏对勾点击下一步。
+
+![7-3-5](/Users/next/Desktop/GBook/images/7-3-5.png)
+
+到这里需要我们填写一些信息，首先需要选中首页页面路径，也就是 `app.json` 中 `pages` 下的第一个路径。
+
+然后填写完信息点击提交审核。
+
+![7-3-6](/Users/next/Desktop/GBook/images/7-3-6.png)
+
+提交审核之后会在 `开发管理` 下看到小程序已经处于审核中的状态了。
+
+![7-3-7](/Users/next/Desktop/GBook/images/7-3-7.png)
+
+一般 2-3 小时就会审核通过了，审核通过后需要我们点击进行公测。最后是上线，上线之后就能在微信中搜索到我们的小程序了。
+

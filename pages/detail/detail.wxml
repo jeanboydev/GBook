@@ -8,4 +8,18 @@
         <view class="favorite" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
     </view>
     <view class="introduce">{{bookInfo.introduce}}</view>
+    <view class="comment-title-container">评论</view>
+    <view class="comment-info-container">
+        <block wx:if="{{commentList.length>0}}">
+            <view class="item" wx:for="{{commentList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+                {{item.username}} : {{item.content}}
+            </view>
+        </block>
+        <view wx:else>暂无评论</view>
+    </view>
+</view>
+<!-- 底部评论框 -->
+<view class="comment-container">
+    <input class="input-comment" placeholder="请输入评论信息" auto-focus confirm-type="done" bindinput="onCommentInput" value="{{currentComment}}" />
+    <button class="btn-submit" bindtap="toSubmitComment">完成</button>
 </view>

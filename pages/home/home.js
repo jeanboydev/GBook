@@ -15,7 +15,7 @@ Page({
     }, {
       "name": "小说"
     }],
-    currentTabIndex: 0,
+    currentTabIndex: 0, //当前选择的 tab
     dataList: [
       [{
         "id": "android_0",
