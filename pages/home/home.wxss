@@ -1,27 +1,39 @@
 /* pages/home/home.wxss */
 page {
-    background-color: #f2f2f2;
+    background-color: #F4F4F4;
 }
 
 .tab-menu {
-    width: 100%;
-    height: 100rpx;
-    background-color: cornflowerblue;
+    min-width: 750rpx;
+    height: 104rpx;
+    background-color: #EAE9E7;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-content: center;
     align-items: center;
+    padding: 0 34rpx;
 }
 
 .tab-menu .item {
-    padding: 0 40rpx;
+    height: 74rpx;
+    line-height: 74rpx;
+    padding: 0 10rpx;
+    margin-right: 34rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: bold;
+    color: rgba(99, 99, 98, 1);
+}
+
+.tab-menu .active {
+    border-bottom: #636362 solid 4rpx;
 }
 
 .list-container {
     width: 100%;
-    padding: 40rpx 0 80rpx 40rpx;
+    padding: 60rpx 0 60rpx 60rpx;
     /* 使用 flex 布局 */
     display: flex;
     /* 方向为纵向 */
@@ -37,18 +49,19 @@ page {
 
 .list-container .item {
     /* 这里使用到了 css 中的 calc 计算函数，详见下面介绍 */
-    width: calc(100% * 0.5 - 40rpx);
-    margin-right: 40rpx;
+    width: calc((100% - 180rpx) / 3);
+    margin-right: 60rpx;
     margin-top: 20rpx;
-    border: 2rpx solid #f2f2f2;
     border-radius: 10rpx;
-    padding: 20rpx;
-    background-color: #ffffff;
+    padding: 5rpx;
 }
 
 .list-container .item .cover {
     width: 100%;
-    height: 400rpx;
+    height: 240rpx;
+    border: 2rpx solid #B9B9BB;
+    background-color: #ffffff;
+    border-radius: 6rpx;
 }
 
 .list-container .item .cover image {
@@ -57,7 +70,11 @@ page {
 }
 
 .list-container .item .name {
-    border-top: 2rpx solid #f2f2f2;
     text-align: center;
-    padding-top: 20rpx;
+    height: 70rpx;
+    font-size: 24rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(52, 52, 52, 1);
+    line-height: 70rpx;
 }
