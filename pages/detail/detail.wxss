@@ -43,6 +43,7 @@
     width: 100%;
     height: 160rpx;
     background-color: #EAE9E7;
+    /* 使用 fixed 定位使 view 固定在底部 */
     position: fixed;
     left: 0;
     bottom: 0;

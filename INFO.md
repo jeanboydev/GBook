@@ -537,13 +537,27 @@ Page({
         <view class="favorite" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
     </view>
     <view class="introduce">{{bookInfo.introduce}}</view>
+    <view class="comment-title-container">评论</view>
+    <view class="comment-info-container">
+        <block wx:if="{{commentList.length>0}}">
+            <view class="item" wx:for="{{commentList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+                {{item.username}} : {{item.content}}
+            </view>
+        </block>
+        <view wx:else>暂无评论</view>
+    </view>
+</view>
+<!-- 底部评论框 -->
+<view class="comment-container">
+    <input class="input-comment" placeholder="请输入评论信息" confirm-type="done" bindinput="onCommentInput" value="{{currentComment}}" />
+    <button class="btn-submit" bindtap="toSubmitComment">完成</button>
 </view>
   ```
 
   页面样式代码如下：
 
   ```css
-  /* pages/detail/detail.wxss */
+ /* pages/detail/detail.wxss */
 .cover {
     width: 100%;
     height: 800rpx;
@@ -583,6 +597,52 @@ Page({
 .introduce {
     padding: 40rpx;
 }
+
+.comment-container {
+    width: 100%;
+    height: 160rpx;
+    background-color: #EAE9E7;
+    /* 使用 fixed 定位使 view 固定在底部 */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    /* 使用 flex 布局 */
+    display: flex;
+    /* 方向为纵向 */
+    flex-direction: row;
+    /* 设置为不可换行 */
+    flex-wrap: nowrap;
+    /* 从左右两端开始布局，中间留间隙 */
+    justify-content: space-between;
+    /* 垂直居中 */
+    align-content: center;
+    align-items: center;
+}
+
+.comment-container .input-comment {
+    flex-grow: 1;
+    height: 100rpx;
+    border: 1rpx solid silver;
+    margin-left: 20rpx;
+}
+
+.comment-container .btn-submit {
+    width: 180rpx;
+    height: 100rpx;
+    margin: 0 20rpx;
+}
+
+.comment-title-container {
+    font-weight: bold;
+    padding: 0 40rpx;
+    height: 120rpx;
+    background-color: #f2f2f2;
+    line-height: 120rpx;
+}
+
+.comment-info-container {
+    padding: 40rpx 40rpx 200rpx 40rpx;
+}
   ```
 
   业务逻辑代码如下：
@@ -601,10 +661,13 @@ Page({
     aiBookInfo: {}, // 模拟数据
     favoriteList: [],
     isMarked: false,
+    commentList: [],
+    currentComment: '',
+    userInfo: null,
   },
   onLoad: function (query) {
     //query 是通过 url 传过来的参数的集合
-    if (query.id & query.name) { //处理是否有 id 和 name
+    if (query.id && query.name) { //处理是否有 id 和 name
       //匹配模拟数据
       let bookInfo = {};
       if (query.id.indexOf('android_') != -1) {
@@ -633,6 +696,19 @@ Page({
       });
       this.setData({ //更新收藏状态
         isMarked: this.isMarked()
+      });
+    }
+    //读取评论列表
+    let commentList = wx.getStorageSync(this.data.id);
+    if (commentList) {
+      this.setData({
+        commentList: commentList
+      });
+    }
+    let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
+    if (userInfo) {
+      this.setData({
+        userInfo: userInfo
       });
     }
   },
@@ -671,6 +747,30 @@ Page({
       }
     }
     return false;
+  },
+  onCommentInput: function (e) { //当评论输入框输入内容时回调
+    this.setData({
+      currentComment: e.detail.value
+    });
+  },
+  toSubmitComment: function () { //保存评论
+    if (!this.data.currentComment) return;
+    let comment = {
+      username: this.data.userInfo.username,
+      content: this.data.currentComment
+    };
+    let commentList = wx.getStorageSync(this.data.id);
+    if (!commentList) {
+      commentList = [];
+    }
+    commentList.push(comment);
+    this.setData({
+      commentList: commentList
+    });
+    wx.setStorageSync(this.data.id, commentList);
+    this.setData({
+      currentComment: ''
+    });
   }
 })
   ```

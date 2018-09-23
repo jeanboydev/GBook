@@ -20,6 +20,6 @@
 </view>
 <!-- 底部评论框 -->
 <view class="comment-container">
-    <input class="input-comment" placeholder="请输入评论信息" auto-focus confirm-type="done" bindinput="onCommentInput" value="{{currentComment}}" />
+    <input class="input-comment" placeholder="请输入评论信息" confirm-type="done" bindinput="onCommentInput" value="{{currentComment}}" />
     <button class="btn-submit" bindtap="toSubmitComment">完成</button>
 </view>

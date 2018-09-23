@@ -113,12 +113,12 @@ Page({
     }
     return false;
   },
-  onCommentInput: function (e) {
+  onCommentInput: function (e) { //当评论输入框输入内容时回调
     this.setData({
       currentComment: e.detail.value
     });
   },
-  toSubmitComment: function () {
+  toSubmitComment: function () { //保存评论
     if (!this.data.currentComment) return;
     let comment = {
       username: this.data.userInfo.username,
