@@ -13,7 +13,7 @@
         <!-- 使用 for 循环便利生成 item 的 view -->
         <view class="item" wx:for="{{dataList[currentTabIndex]}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
             <view class="cover">
-                <image src="{{item.image}}" scaleToFill />
+                <image src="{{item.image}}" mode="aspectFit" />
             </view>
             <view class="name">{{item.name}}</view>
         </view>
