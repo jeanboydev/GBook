@@ -1,30 +1,64 @@
 /* pages/mine/mine.wxss */
-.info-container {
-    width: 100%;
-    height: 200rpx;
-    /* 使用 flex 布局 */
-    display: flex;
-    /* 方向为纵向 */
-    flex-direction: row;
-    /* 设置为不可换行 */
-    flex-wrap: nowrap;
-    /* 从左边开始布局 */
-    justify-content: flex-start;
-    /* 垂直居中 */
-    align-content: center;
-    align-items: center;
-    padding: 0 80rpx;
-    background-color: #f2f2f2;
+
+.info-container .username {
+    height: 90rpx;
+    font-size: 36rpx;
+    line-height: 90rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(53, 53, 53, 1);
+    text-align: center;
+}
+
+.info-container .avatar-container {
+    text-align: center;
 }
 
 .info-container .avatar {
-    width: 120rpx;
-    height: 120rpx;
+    width: 169rpx;
+    height: 169rpx;
+    margin: 0 auto;
+    border-radius: 169rpx;
 }
 
-.info-container .username {
-    margin-left: 80rpx;
-    line-height: 200rpx;
+.info-container .card-container {
+    width: 715rpx;
+    height: 280rpx;
+    margin: 8rpx auto;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/bg_mine_hot_2x.png);
+    background-repeat: no-repeat;
+    background-size: 715rpx 280rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.info-container .card-container .title {
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    line-height: 64rpx;
+}
+
+.info-container .card-container .tips {
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    line-height: 64rpx;
+}
+
+.info-container .card-container .button {
+    margin-left: 120rpx;
+    width: 203rpx;
+    height: 63rpx;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/btn_get_2x.png);
+    background-repeat: no-repeat;
+    background-size: 203rpx 63rpx;
 }
 
 .list-container {

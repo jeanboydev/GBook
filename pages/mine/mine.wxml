@@ -1,8 +1,17 @@
 <!-- pages/mine/mine.wxml -->
 <view>
     <view class="info-container">
-        <image class="avatar" src="/images/logo.png" aspectFill />
         <view class="username">{{userInfo.username}}</view>
+        <view class="avatar-container">
+            <image class="avatar" src="/images/logo.png" aspectFill />
+        </view>
+        <view class="card-container">
+            <view class="left">
+                <view class="title">强力推荐卡</view>
+                <view class="tips">最给力的书单都在这里</view>
+            </view>
+            <view class="button">立即领取</view>
+        </view>
     </view>
     <view class="list-container">
         <view class="item" bindtap="toFavorite">收藏</view>
