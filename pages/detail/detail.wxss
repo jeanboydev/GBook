@@ -1,13 +1,19 @@
 /* pages/detail/detail.wxss */
+
 .cover {
     width: 100%;
-    height: 800rpx;
-    padding: 20rpx 40rpx;
+    height: 414rpx;
+    position: relative;
+    background-color: #ffffff;
 }
 
 .cover image {
-    width: 100%;
-    height: 100%;
+    width: 235rpx;
+    height: 306rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .title-container {
@@ -23,20 +29,48 @@
     align-content: center;
     align-items: center;
     padding: 0 40rpx;
-    height: 120rpx;
-    background-color: #f2f2f2;
+    height: 133rpx;
+    background-color: #ffffff;
 }
 
 .title-container .title {
-    font-weight: bold;
+    font-size: 36rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 133rpx;
 }
 
 .title-container .favorite {
-    color: #808080;
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 133rpx;
+    padding-right: 123rpx;
+}
+
+.title-container .normal {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_favorite_normal_2x.png);
+    background-repeat: no-repeat;
+    background-size: 46rpx 46rpx;
+    background-position: right center;
+}
+
+.title-container .selected {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_favorite_selected_2x.png);
+    background-repeat: no-repeat;
+    background-size: 46rpx 46rpx;
+    background-position: right center;
 }
 
 .introduce {
     padding: 40rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 64rpx;
 }
 
 .comment-container {

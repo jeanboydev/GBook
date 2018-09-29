@@ -5,7 +5,7 @@
     </view>
     <view class="title-container">
         <view class="title">{{bookInfo.name}}</view>
-        <view class="favorite" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
+        <view class="favorite {{isMarked?'selected':'normal'}}" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
     </view>
     <view class="introduce">{{bookInfo.introduce}}</view>
     <view class="comment-title-container">评论</view>
