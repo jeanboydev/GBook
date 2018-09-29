@@ -2,10 +2,14 @@
 <view>
     <view class="container">
         <view class="logo-container">
-            <image class="logo" src="/images/logo.png" aspectFill />
+            <image class="logo" src="/images/signup/bg_avatar_2x.png" aspectFill />
+        </view>
+        <view class="tips-container">
+            <text class="title">您好！</text>
+            <view class="tips">欢迎来到注册页面</view>
         </view>
         <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" bindinput="onUsernameInput" />
         <input class="input-password" placeholder="请输入密码" password confirm-type="done" bindinput="onPasswordInput" />
-        <button class="btn-sign-up" type="primary" bindtap="toSignUp">注册</button>
+        <view class="btn-sign-up" bindtap="toSignUp"></view>
     </view>
 </view>

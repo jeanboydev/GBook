@@ -1,5 +1,9 @@
 /* pages/mine/mine.wxss */
 
+.info-container {
+    background-color: #ffffff;
+}
+
 .info-container .username {
     height: 90rpx;
     font-size: 36rpx;
@@ -63,14 +67,38 @@
 
 .list-container {
     width: 100%;
-    margin-top: 80rpx;
 }
 
 .list-container .item {
     width: 100%;
-    height: 120rpx;
-    padding: 0 80rpx;
-    line-height: 120rpx;
-    margin-top: 10rpx;
-    background-color: #f2f2f2;
+    height: 160rpx;
+    padding: 0 91rpx;
+    line-height: 160rpx;
+    margin-top: 16rpx;
+    background-color: rgba(255, 255, 255, 1);
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+}
+
+.list-container .favorite {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_favorite_2x.png);
+    background-repeat: no-repeat;
+    background-size: 44rpx 38rpx;
+    background-position: 31rpx center;
+}
+
+.list-container .collection {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_collect_2x.png);
+    background-repeat: no-repeat;
+    background-size: 30rpx 41rpx;
+    background-position: 31rpx center;
+}
+
+.list-container .settings {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_agree_2x.png);
+    background-repeat: no-repeat;
+    background-size: 43rpx 43rpx;
+    background-position: 31rpx center;
 }
