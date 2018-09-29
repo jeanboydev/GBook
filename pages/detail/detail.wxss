@@ -31,6 +31,7 @@
     padding: 0 40rpx;
     height: 133rpx;
     background-color: #ffffff;
+    border-top: 6rpx dashed rgba(130, 129, 129, 1);
 }
 
 .title-container .title {
@@ -42,12 +43,13 @@
 }
 
 .title-container .favorite {
+    height: 133rpx;
     font-size: 33rpx;
     font-family: SourceHanSansCN-Medium;
     font-weight: 500;
     color: rgba(99, 99, 98, 1);
     line-height: 133rpx;
-    padding-right: 123rpx;
+    padding-right: 66rpx;
 }
 
 .title-container .normal {
@@ -73,9 +75,97 @@
     line-height: 64rpx;
 }
 
+.comment-title-container {
+    padding: 0 40rpx;
+    height: 133rpx;
+    background-color: #ffffff;
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 133rpx;
+    border-bottom: 6rpx dashed rgba(130, 129, 129, 1);
+}
+
+.comment-info-container {
+    padding: 40rpx 40rpx 200rpx 40rpx;
+    background-color: #ffffff;
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+}
+
+.comment-info-container .item {
+    height: 140rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.comment-info-container .item .avatar {
+    width: 89rpx;
+    height: 89rpx;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/logo.png);
+    background-repeat: no-repeat;
+    background-size: 89rpx 89rpx;
+    border-radius: 89rpx;
+}
+
+.comment-info-container .item .right {
+    flex-grow: 1;
+    margin-left: 10rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.comment-info-container .item .right .text {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.comment-info-container .item .right .text .username {
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+}
+
+.comment-info-container .item .right .text .content {
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    margin-top: 10rpx;
+}
+
+.comment-info-container .item .right .agree {
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 64rpx;
+    padding-right: 65rpx;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_agree_2x.png);
+    background-repeat: no-repeat;
+    background-size: 45rpx 45rpx;
+    background-position: right center;
+}
+
 .comment-container {
     width: 100%;
-    height: 160rpx;
+    height: 116rpx;
     background-color: #EAE9E7;
     /* 使用 fixed 定位使 view 固定在底部 */
     position: fixed;
@@ -96,25 +186,25 @@
 
 .comment-container .input-comment {
     flex-grow: 1;
-    height: 100rpx;
-    border: 1rpx solid silver;
+    height: 70rpx;
+    border: 1rpx dashed #D3D0D0;
     margin-left: 20rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 70rpx;
+    padding: 0 20rpx;
+    background-color: #DFDDDD;
 }
 
 .comment-container .btn-submit {
     width: 180rpx;
-    height: 100rpx;
+    height: 70rpx;
     margin: 0 20rpx;
-}
-
-.comment-title-container {
-    font-weight: bold;
-    padding: 0 40rpx;
-    height: 120rpx;
-    background-color: #f2f2f2;
-    line-height: 120rpx;
-}
-
-.comment-info-container {
-    padding: 40rpx 40rpx 200rpx 40rpx;
+    font-size: 36rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 70rpx;
 }
