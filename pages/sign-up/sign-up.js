@@ -5,11 +5,11 @@ Page({
     username: "",
     password: ""
   },
-  onLoad: function (options) {},
-  onReady: function () {},
-  onShow: function () {},
-  onHide: function () {},
-  onUnload: function () {},
+  onLoad: function (options) {}, //生命周期回调函数
+  onReady: function () {}, //生命周期回调函数
+  onShow: function () {}, //生命周期回调函数
+  onHide: function () {}, //生命周期回调函数
+  onUnload: function () {}, //生命周期回调函数
   onUsernameInput: function (e) {
     this.setData({
       username: e.detail.value

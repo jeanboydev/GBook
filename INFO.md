@@ -39,11 +39,11 @@
 
 - 7.2.1 登录与注册页面
 
-  首先我们先实现登录与注册页面，由于登录与注册页面很相似，这里仅展示注册页面，页面效果如下图：
+  首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，这里仅展示登录页面，两个页面效果如下图：
 
 ![7-2-2](/Users/next/Desktop/GBook/images/7-2-2.png)
 
-图 7-2-2 注册页面
+图 7-2-2 登录页面
 
 页面结构代码如下：
 
@@ -51,17 +51,18 @@
 <!-- pages/sign-in/sign-in.wxml -->
 <view>
     <view class="container">
-        <view class="logo-container">
-            <image class="logo" src="/images/logo.png" aspectFill />
+        <view class="tips-container">
+            <text class="title">您好！</text>
+            <view class="tips">欢迎来到登录页面</view>
         </view>
         <!-- bindinput 键盘输入时触发，用于接收键盘输入的值 -->
         <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" bindinput="onUsernameInput" />
         <input class="input-password" placeholder="请输入密码" password confirm-type="done" bindinput="onPasswordInput" />
         <view class="sign-up-container">
-            <button class="btn-sign-up" bindtap="toSignUp">注册</button>
+            <view class="btn-sign-up" bindtap="toSignUp">没有账号？注册一个吧</view>
         </view>
         <!-- bindtap 当用户点击时触发绑定的函数 -->
-        <button class="btn-sign-in" type="primary" bindtap="toSignIn">登录</button>
+        <view class="btn-sign-in" bindtap="toSignIn"></view>
     </view>
 </view>
 ```
@@ -70,6 +71,11 @@
 
 ```css
 /* pages/sign-in/sign-in.wxss */
+
+page {
+    background-color: #ffffff;
+}
+
 .container {
     /* 组合使用开始，使用绝对定位 */
     position: absolute;
@@ -82,20 +88,37 @@
     padding: 0 80rpx;
 }
 
-.logo-container {
+.tips-container {
     text-align: center;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 64rpx;
 }
 
-.logo {
-    width: 200rpx;
-    height: 200rpx;
+.tips-container .title {
+    font-size: 36rpx;
 }
 
-.input-username,
-.input-password {
+.tips-container .tips {
+    font-size: 44rpx;
+}
+
+.input-username, .input-password {
     width: 100%;
     height: 80rpx;
-    border: 1rpx solid silver;
+    background: rgba(229, 229, 229, 1);
+    border-radius: 15rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 80rpx;
+    padding: 0 15rpx;
+}
+
+.input-username {
+    margin-top: 84rpx;
 }
 
 .input-password {
@@ -110,15 +133,23 @@
 }
 
 .sign-up-container .btn-sign-up {
-    width: 180rpx;
-    height: 80rpx;
+    height: 70rpx;
     position: absolute;
-    right: 0;
-    line-height: 80rpx;
+    left: 0;
+    line-height: 70rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(89, 193, 227, 1);
 }
 
 .btn-sign-in {
-    margin-top: 20rpx;
+    margin: 52rpx auto 111rpx;
+    width: 303rpx;
+    height: 81rpx;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/sign_in/btn_sign_in_2x.png);
+    background-repeat: no-repeat;
+    background-size: 303rpx 81rpx;
 }
 ```
 
@@ -150,7 +181,7 @@ Page({
   },
   toSignIn: function () { //上面为按钮绑定的点击事件回调函数
     if (!this.data.username) { //用户名为空
-      wx.showToast({ //吐司一下提示用户输入用户名
+      wx.showToast({ //吐司以下提示用户输入用户名
         title: "请输入用户名！",
         icon: "none",
         mask: true
@@ -433,12 +464,22 @@ Page({
   <!-- pages/mine/mine.wxml -->
   <view>
       <view class="info-container">
-          <image class="avatar" src="/images/logo.png" aspectFill />
           <view class="username">{{userInfo.username}}</view>
+          <view class="avatar-container">
+              <image class="avatar" src="/images/logo.png" aspectFill />
+          </view>
+          <view class="card-container">
+              <view class="left">
+                  <view class="title">强力推荐卡</view>
+                  <view class="tips">最给力的书单都在这里</view>
+              </view>
+              <view class="button"></view>
+          </view>
       </view>
       <view class="list-container">
-          <view class="item" bindtap="toFavorite">收藏</view>
-          <view class="item" bindtap="toSettings">设置</view>
+          <view class="item favorite">我想要的书籍</view>
+          <view class="item collection" bindtap="toFavorite">我收藏的书籍</view>
+          <view class="item settings" bindtap="toSettings">设置</view>
       </view>
   </view>
   ```
@@ -447,46 +488,108 @@ Page({
 
   ```css
   /* pages/mine/mine.wxss */
-  .info-container {
-      width: 100%;
-      height: 200rpx;
-      /* 使用 flex 布局 */
-      display: flex;
-      /* 方向为纵向 */
-      flex-direction: row;
-      /* 设置为不可换行 */
-      flex-wrap: nowrap;
-      /* 从左边开始布局 */
-      justify-content: flex-start;
-      /* 垂直居中 */
-      align-content: center;
-      align-items: center;
-      padding: 0 80rpx;
-      background-color: #f2f2f2;
-  }
   
-  .info-container .avatar {
-      width: 120rpx;
-      height: 120rpx;
+  .info-container {
+      background-color: #ffffff;
   }
   
   .info-container .username {
-      margin-left: 80rpx;
-      line-height: 200rpx;
+      height: 90rpx;
+      font-size: 36rpx;
+      line-height: 90rpx;
+      font-family: SourceHanSansCN-Medium;
+      font-weight: 500;
+      color: rgba(53, 53, 53, 1);
+      text-align: center;
+  }
+  
+  .info-container .avatar-container {
+      text-align: center;
+  }
+  
+  .info-container .avatar {
+      width: 169rpx;
+      height: 169rpx;
+      margin: 0 auto;
+      border-radius: 169rpx;
+  }
+  
+  .info-container .card-container {
+      width: 715rpx;
+      height: 280rpx;
+      margin: 8rpx auto;
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/bg_mine_hot_2x.png);
+      background-repeat: no-repeat;
+      background-size: 715rpx 280rpx;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+  }
+  
+  .info-container .card-container .title {
+      font-size: 33rpx;
+      font-family: SourceHanSansCN-Medium;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 1);
+      line-height: 64rpx;
+  }
+  
+  .info-container .card-container .tips {
+      font-size: 28rpx;
+      font-family: SourceHanSansCN-Medium;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 64rpx;
+  }
+  
+  .info-container .card-container .button {
+      margin-left: 120rpx;
+      width: 203rpx;
+      height: 63rpx;
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/btn_get_2x.png);
+      background-repeat: no-repeat;
+      background-size: 203rpx 63rpx;
   }
   
   .list-container {
       width: 100%;
-      margin-top: 80rpx;
   }
   
   .list-container .item {
       width: 100%;
-      height: 120rpx;
-      padding: 0 80rpx;
-      line-height: 120rpx;
-      margin-top: 10rpx;
-      background-color: #f2f2f2;
+      height: 160rpx;
+      padding: 0 91rpx;
+      line-height: 160rpx;
+      margin-top: 16rpx;
+      background-color: rgba(255, 255, 255, 1);
+      font-size: 28rpx;
+      font-family: SourceHanSansCN-Medium;
+      font-weight: 500;
+      color: rgba(99, 99, 98, 1);
+  }
+  
+  .list-container .favorite {
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_favorite_2x.png);
+      background-repeat: no-repeat;
+      background-size: 44rpx 38rpx;
+      background-position: 31rpx center;
+  }
+  
+  .list-container .collection {
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_collect_2x.png);
+      background-repeat: no-repeat;
+      background-size: 30rpx 41rpx;
+      background-position: 31rpx center;
+  }
+  
+  .list-container .settings {
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_agree_2x.png);
+      background-repeat: no-repeat;
+      background-size: 43rpx 43rpx;
+      background-position: 31rpx center;
   }
   ```
 
@@ -499,10 +602,14 @@ Page({
       userInfo: null
     },
     onLoad: function (options) {
-      this.setData({//读取全局数据保存到当前页面中
+      this.setData({ //读取全局数据保存到当前页面中
         userInfo: getApp().globalData.userInfo
       });
     },
+    onReady: function () {},
+    onShow: function () {},
+    onHide: function () {},
+    onUnload: function () {},
     toFavorite: function () {
       wx.navigateTo({
         url: '/pages/favorite/favorite'
@@ -530,18 +637,25 @@ Page({
 <!-- pages/detail/detail.wxml -->
 <view>
     <view class="cover">
-        <image src="{{bookInfo.image}}" aspectFill />
+        <image src="{{bookInfo.image}}" mode="aspectFit" />
     </view>
     <view class="title-container">
         <view class="title">{{bookInfo.name}}</view>
-        <view class="favorite" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
+        <view class="favorite {{isMarked?'selected':'normal'}}" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
     </view>
     <view class="introduce">{{bookInfo.introduce}}</view>
     <view class="comment-title-container">评论</view>
     <view class="comment-info-container">
         <block wx:if="{{commentList.length>0}}">
             <view class="item" wx:for="{{commentList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
-                {{item.username}} : {{item.content}}
+                <view class="avatar"></view>
+                <view class="right">
+                    <view class="text">
+                        <view class="username">{{item.username}}</view>
+                        <view class="content">{{item.content}}</view>
+                    </view>
+                    <view class="agree">0</view>
+                </view>
             </view>
         </block>
         <view wx:else>暂无评论</view>
@@ -558,15 +672,21 @@ Page({
 
   ```css
  /* pages/detail/detail.wxss */
+
 .cover {
     width: 100%;
-    height: 800rpx;
-    padding: 20rpx 40rpx;
+    height: 414rpx;
+    position: relative;
+    background-color: #ffffff;
 }
 
 .cover image {
-    width: 100%;
-    height: 100%;
+    width: 235rpx;
+    height: 306rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .title-container {
@@ -582,25 +702,143 @@ Page({
     align-content: center;
     align-items: center;
     padding: 0 40rpx;
-    height: 120rpx;
-    background-color: #f2f2f2;
+    height: 133rpx;
+    background-color: #ffffff;
+    border-top: 6rpx dashed rgba(130, 129, 129, 1);
 }
 
 .title-container .title {
-    font-weight: bold;
+    font-size: 36rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 133rpx;
 }
 
 .title-container .favorite {
-    color: #808080;
+    height: 133rpx;
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 133rpx;
+    padding-right: 66rpx;
+}
+
+.title-container .normal {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_favorite_normal_2x.png);
+    background-repeat: no-repeat;
+    background-size: 46rpx 46rpx;
+    background-position: right center;
+}
+
+.title-container .selected {
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_favorite_selected_2x.png);
+    background-repeat: no-repeat;
+    background-size: 46rpx 46rpx;
+    background-position: right center;
 }
 
 .introduce {
     padding: 40rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 64rpx;
+}
+
+.comment-title-container {
+    padding: 0 40rpx;
+    height: 133rpx;
+    background-color: #ffffff;
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    line-height: 133rpx;
+    border-bottom: 6rpx dashed rgba(130, 129, 129, 1);
+}
+
+.comment-info-container {
+    padding: 40rpx 40rpx 200rpx 40rpx;
+    background-color: #ffffff;
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+}
+
+.comment-info-container .item {
+    height: 140rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.comment-info-container .item .avatar {
+    width: 89rpx;
+    height: 89rpx;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/logo.png);
+    background-repeat: no-repeat;
+    background-size: 89rpx 89rpx;
+    border-radius: 89rpx;
+}
+
+.comment-info-container .item .right {
+    flex-grow: 1;
+    margin-left: 10rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.comment-info-container .item .right .text {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+}
+
+.comment-info-container .item .right .text .username {
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+}
+
+.comment-info-container .item .right .text .content {
+    font-size: 33rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(99, 99, 98, 1);
+    margin-top: 10rpx;
+}
+
+.comment-info-container .item .right .agree {
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 64rpx;
+    padding-right: 65rpx;
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_agree_2x.png);
+    background-repeat: no-repeat;
+    background-size: 45rpx 45rpx;
+    background-position: right center;
 }
 
 .comment-container {
     width: 100%;
-    height: 160rpx;
+    height: 116rpx;
     background-color: #EAE9E7;
     /* 使用 fixed 定位使 view 固定在底部 */
     position: fixed;
@@ -621,27 +859,27 @@ Page({
 
 .comment-container .input-comment {
     flex-grow: 1;
-    height: 100rpx;
-    border: 1rpx solid silver;
+    height: 70rpx;
+    border: 1rpx dashed #D3D0D0;
     margin-left: 20rpx;
+    font-size: 28rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 70rpx;
+    padding: 0 20rpx;
+    background-color: #DFDDDD;
 }
 
 .comment-container .btn-submit {
     width: 180rpx;
-    height: 100rpx;
+    height: 70rpx;
     margin: 0 20rpx;
-}
-
-.comment-title-container {
-    font-weight: bold;
-    padding: 0 40rpx;
-    height: 120rpx;
-    background-color: #f2f2f2;
-    line-height: 120rpx;
-}
-
-.comment-info-container {
-    padding: 40rpx 40rpx 200rpx 40rpx;
+    font-size: 36rpx;
+    font-family: SourceHanSansCN-Medium;
+    font-weight: 500;
+    color: rgba(130, 129, 129, 1);
+    line-height: 70rpx;
 }
   ```
 
@@ -652,13 +890,13 @@ Page({
 import config from '../../config/config.js';
 Page({
   data: {
-    id: 0,
-    bookInfo: {},
-    androidBookInfo: {}, // 模拟数据
-    iosBookInfo: {}, // 模拟数据
-    feBookInfo: {}, // 模拟数据
-    backendBookInfo: {}, // 模拟数据
-    aiBookInfo: {}, // 模拟数据
+    id: '',
+    bookInfo: {},//模拟数据
+    androidBookInfo: {},//模拟数据
+    iosBookInfo: {},//模拟数据
+    feBookInfo: {},//模拟数据
+    backendBookInfo: {},//模拟数据
+    aiBookInfo: {},//模拟数据
     favoriteList: [],
     isMarked: false,
     commentList: [],
@@ -802,6 +1040,7 @@ Page({
 
   ```css
  /* pages/favorite/favorite.wxss */
+
 .list-container {
     width: 100%;
     padding: 40rpx 0;
@@ -813,7 +1052,7 @@ Page({
     padding: 0 80rpx;
     line-height: 200rpx;
     margin-top: 10rpx;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     /* 使用 flex 布局 */
     display: flex;
     /* 方向为纵向 */
