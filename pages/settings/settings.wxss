@@ -11,5 +11,5 @@
     padding: 0 80rpx;
     margin-top: 10rpx;
     line-height: 120rpx;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }

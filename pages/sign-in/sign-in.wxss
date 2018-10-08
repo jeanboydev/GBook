@@ -72,7 +72,7 @@ page {
 }
 
 .btn-sign-in {
-    margin: 117rpx auto 111rpx;
+    margin: 52rpx auto 111rpx;
     width: 303rpx;
     height: 81rpx;
     background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/sign_in/btn_sign_in_2x.png);
