@@ -2,7 +2,7 @@
 <view>
     <view class="container">
         <view class="logo-container">
-            <image class="logo" src="/images/signup/bg_avatar_2x.png" aspectFill />
+            <image class="logo" src="/images/sign_up/bg_avatar_2x.png" aspectFill />
         </view>
         <view class="tips-container">
             <text class="title">您好！</text>

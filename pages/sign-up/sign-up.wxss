@@ -57,7 +57,7 @@ page {
     margin: 117rpx auto 111rpx;
     width: 303rpx;
     height: 81rpx;
-    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/signup/btn_sign_up_2x.png);
+    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/sign_up/btn_sign_up_2x.png);
     background-repeat: no-repeat;
     background-size: 303rpx 81rpx;
 }
