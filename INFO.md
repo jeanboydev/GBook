@@ -21,7 +21,7 @@
 
 ![图 7-1-2 项目目录](/Users/next/Desktop/GBook/images/7-1-2.png)
 
-- `component` 目录用于存放我们自定义的组件。
+- `component` 目录用于存放我们自定义的组件（注：该项目未用到）。
 - `config` 目录中用于存放项目的各种配置。
 - `images` 目录中用于存放图片资源。
 
@@ -33,11 +33,11 @@
 
 - 7.2.1 登录与注册页面
 
-  首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，这里仅展示登录页面的实现过程也能够。两个页面效果如下图：
+  首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，所以这里仅展示登录页面的实现过程。两个页面效果如下图：
 
 ![图 7-2-2 登录页面](/Users/next/Desktop/GBook/images/7-2-2.png)
 
-由上图可以看到登录页面有一个标题，一个描述，两个输入框，一个注册按钮，一个登录按钮。看过上一章小程序入门的小伙伴应该很容易就能实现。具体实现的页面结构代码如下：
+由上图可以看到登录页面有一个标题，一个描述，两个输入框，一个注册按钮，一个登录按钮。看过上一章小程序入门的小伙伴应该很容易就能实现。登录页面结构实现代码如下：
 
 ```html
 <!-- pages/sign-in/sign-in.wxml -->
@@ -59,7 +59,7 @@
 </view>
 ```
 
-由于微信小程序自带的控件可操作性不强，并且有写样式无法覆盖，这里使用 `view` 来实现按钮的效果。
+由于微信小程序自带的控件可操作性不强，并且有些样式无法覆盖，这里使用 `view` 来实现按钮的效果。
 
 登录页面样式实现代码如下：
 
@@ -259,14 +259,14 @@ module.exports = {
     <scroll-view scroll-x="{{true}}">
         <!-- 更具 tabList 数量动态计算导航栏的宽度 -->
         <view class="tab-menu" style="width:{{tabList.length*150}}rpx;">
-            <!-- 使用 for 循环便利生成 item 的 view -->
+            <!-- 使用 for 循环遍历生成 item 的 view -->
             <view class="item {{currentTabIndex==index?'active':''}}" wx:for="{{tabList}}" data-item="{{item}}" data-index="{{index}}" wx:key="index" bindtap="onTabItemClick">
                 {{item.name}}
             </view>
         </view>
     </scroll-view>
     <view class="list-container">
-        <!-- 使用 for 循环便利生成 item 的 view -->
+        <!-- 使用 for 循环遍历生成 item 的 view -->
         <view class="item" wx:for="{{dataList[currentTabIndex]}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
             <view class="cover">
                 <image src="{{item.image}}" scaleToFill />
@@ -451,7 +451,7 @@ Page({
 
   ![图 7-2-4 我的页面](/Users/next/Desktop/GBook/images/7-2-4.png)
 
-  如上图所示，个人中心页面也比较简单，所有的样式都可以通过 `CSS3` 的特性来实现。由上图我们可以看到头像可以使用 `<image>` 标签来实现，`<image>` 的链接可以使用本地或者线上链接都可以。下面的“我想要的书籍”、“我收藏的书籍”、“设置”左边的图标可以使用 `<image>` 标签或者 `background-image` 来实现。但需要注意的是 `background-image` 只能使用线上链接，本地链接会编译报错。
+  如上图所示，个人中心页面也比较简单，所有的样式都可以通过 `CSS3` 的特性来实现。由上图我们可以看到头像可以使用 `<image>` 标签来实现，`<image>` 的链接可以使用本地或者线上链接都可以。下面的“我想要的书籍”、“我收藏的书籍”、“设置”左边的图标可以使用 `<image>` 标签或者 `background-image` 来实现。但需要注意的是 `background-image` 只能使用线上链接，使用本地链接编译会报错。
 
   个人中心页面结构实现代码如下：
 
@@ -1018,7 +1018,7 @@ Page({
 <!-- pages/favorite/favorite.wxml -->
 <view>
     <view class="list-container">
-        <!-- 使用 for 循环便利生成 item 的 view -->
+        <!-- 使用 for 循环遍历生成 item 的 view -->
         <view class="item" wx:for="{{dataList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
             <image class="cover" src="{{item.image}}" aspectFill />
             <view class="title">{{item.name}}</view>
@@ -1114,7 +1114,7 @@ Page({
 
   ![图 7-3-4 提交审核](/Users/next/Desktop/GBook/images/7-3-4.png)
 
-  点击提交审核，然后会看到一些条款不管他打赏对勾点击下一步。
+  点击提交审核，然后会看到一些条款不管它，打上对勾点击下一步。
 
   ![图 7-3-5 确认提交审核](/Users/next/Desktop/GBook/images/7-3-5.png)
 
