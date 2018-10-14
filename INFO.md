@@ -6,9 +6,7 @@
 
 首先我们使用微信开发者工具创建一个项目，并选中左上角编辑器的按钮。我们会在右边看到下图的内容：
 
-![7-1-1](/Users/next/Desktop/GBook/images/7-1-1.png)
-
-图 7-1-1 微信开发者工具中的编辑器
+![图 7-1-1 微信开发者工具中的编辑器](/Users/next/Desktop/GBook/images/7-1-1.png)
 
 上图内容就是我们创建好的项目的目录，其中：
 
@@ -21,9 +19,7 @@
 
 仅仅只有上面的两个目录是不够用的，我们可以多创建几个目录来方便管理我们的代码：
 
-![7-1-2](/Users/next/Desktop/GBook/images/7-1-2.png)
-
-图 7-1-2 项目目录
+![图 7-1-2 项目目录](/Users/next/Desktop/GBook/images/7-1-2.png)
 
 - `component` 目录用于存放我们自定义的组件。
 - `config` 目录中用于存放项目的各种配置。
@@ -31,21 +27,17 @@
 
 ### 7.2 项目实战
 
-接下来我们进入项目实战部分，我们的图书商城需求主要分为以下几个部分。
+接下来我们进入项目实战部分，我们的图书商城需求主要分为以下几个部分。如下图所示我们可以看到，图书商城主要有登录与注册页面、首页、个人中心页面，图书详情页面、收藏页面。下面我们将一一介绍它们是如何实现的。
 
-![7-2-1](/Users/next/Desktop/GBook/images/7-2-1.png)
-
-图 7-2-1 项目框架
+![图 7-2-1 项目框架](/Users/next/Desktop/GBook/images/7-2-1.png)
 
 - 7.2.1 登录与注册页面
 
-  首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，这里仅展示登录页面，两个页面效果如下图：
+  首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，这里仅展示登录页面的实现过程也能够。两个页面效果如下图：
 
-![7-2-2](/Users/next/Desktop/GBook/images/7-2-2.png)
+![图 7-2-2 登录页面](/Users/next/Desktop/GBook/images/7-2-2.png)
 
-图 7-2-2 登录页面
-
-页面结构代码如下：
+由上图可以看到登录页面有一个标题，一个描述，两个输入框，一个注册按钮，一个登录按钮。看过上一章小程序入门的小伙伴应该很容易就能实现。具体实现的页面结构代码如下：
 
 ```html
 <!-- pages/sign-in/sign-in.wxml -->
@@ -67,7 +59,9 @@
 </view>
 ```
 
-页面样式代码如下：
+由于微信小程序自带的控件可操作性不强，并且有写样式无法覆盖，这里使用 `view` 来实现按钮的效果。
+
+登录页面样式实现代码如下：
 
 ```css
 /* pages/sign-in/sign-in.wxss */
@@ -153,7 +147,7 @@ page {
 }
 ```
 
-业务逻辑代码如下：
+登录页面业务逻辑代码如下：
 
 ```javascript
 // pages/sign-in/sign-in.js
@@ -252,17 +246,18 @@ module.exports = {
 
   接下来我们来实现首页页面，效果图如下：
 
-![7-2-3](/Users/next/Desktop/GBook/images/7-2-3.png)
+![图 7-2-3 首页页面](/Users/next/Desktop/GBook/images/7-2-3.png)
 
-图 7-2-3 首页页面
+由上图可以看到，首页顶部有一个导航栏。由于微信小程序没有官方的导航栏，这里需要自定义一个导航栏，导航栏使用 `scroll-view` 来实现，具体实现见下面代码。导航栏下面是一个列表，基于小程序的特性我们只需要使用 `Flex` 布局将每个 item 追加到页面上即可，当页面 item 数量足够多时就会把页面撑开，页面也就可以滚动了。
 
-页面结构代码如下：
+首页页面结构实现代码如下：
 
 ```html
 <!-- pages/home/home.wxml -->
 <view>
     <!-- 使用 scroll-view 实现 x 轴滑动 -->
     <scroll-view scroll-x="{{true}}">
+        <!-- 更具 tabList 数量动态计算导航栏的宽度 -->
         <view class="tab-menu" style="width:{{tabList.length*150}}rpx;">
             <!-- 使用 for 循环便利生成 item 的 view -->
             <view class="item {{currentTabIndex==index?'active':''}}" wx:for="{{tabList}}" data-item="{{item}}" data-index="{{index}}" wx:key="index" bindtap="onTabItemClick">
@@ -282,7 +277,7 @@ module.exports = {
 </view>
 ```
 
-页面样式代码如下：
+首页页面样式实现代码如下：
 
 ```css
 /* pages/home/home.wxss */
@@ -379,7 +374,7 @@ page {
 > - calc() 函数支持 "+", "-", "*", "/" 运算；
 > - calc() 函数使用标准的数学运算优先级规则。
 
-业务逻辑代码如下：
+首页业务逻辑实现代码如下：
 
 ```javascript
 // pages/home/home.js
@@ -422,7 +417,7 @@ Page({
 });
 ```
 
-首页底部有一条 tabbar，tabbar 需要在 `app.json` 中配置：
+首页页面底部有一条 tabbar，tabbar 在 `app.json` 中配置下即可：
 
 ```json
 {
@@ -454,11 +449,11 @@ Page({
 
   接下来我们来实现个人中心页面，效果图如下：
 
-  ![7-2-4](/Users/next/Desktop/GBook/images/7-2-4.png)
+  ![图 7-2-4 我的页面](/Users/next/Desktop/GBook/images/7-2-4.png)
 
-  图 7-2-4 我的页面
+  如上图所示，个人中心页面也比较简单，所有的样式都可以通过 `CSS3` 的特性来实现。由上图我们可以看到头像可以使用 `<image>` 标签来实现，`<image>` 的链接可以使用本地或者线上链接都可以。下面的“我想要的书籍”、“我收藏的书籍”、“设置”左边的图标可以使用 `<image>` 标签或者 `background-image` 来实现。但需要注意的是 `background-image` 只能使用线上链接，本地链接会编译报错。
 
-  页面结构代码如下：
+  个人中心页面结构实现代码如下：
 
   ```html
   <!-- pages/mine/mine.wxml -->
@@ -484,7 +479,7 @@ Page({
   </view>
   ```
 
-  页面样式代码如下：
+  个人中心页面样式实现代码如下：
 
   ```css
   /* pages/mine/mine.wxss */
@@ -627,11 +622,9 @@ Page({
 
   接下来我们来实现图书详情页面，效果图如下：
 
-![7-2-5](/Users/next/Desktop/GBook/images/7-2-5.png)
+![图 7-2-5 图书详情页面](/Users/next/Desktop/GBook/images/7-2-5.png)
 
-图 7-2-5 图书详情页面
-
-页面结构代码如下：
+图书详情页面结构实现代码如下：
 
   ```html
 <!-- pages/detail/detail.wxml -->
@@ -668,7 +661,7 @@ Page({
 </view>
   ```
 
-  页面样式代码如下：
+图书详情页面样式实现代码如下：
 
   ```css
  /* pages/detail/detail.wxss */
@@ -883,7 +876,7 @@ Page({
 }
   ```
 
-  业务逻辑代码如下：
+图书详情业务逻辑实现代码如下：
 
   ```javascript
  // pages/detail/detail.js
@@ -1017,11 +1010,9 @@ Page({
 
   最后来我们来实现收藏页面，效果图如下：
 
-![7-2-6](/Users/next/Desktop/GBook/images/7-2-6.png)
+![图 7-2-6 收藏页面](/Users/next/Desktop/GBook/images/7-2-6.png)
 
-图 7-2-6 收藏页面
-
-页面结构代码如下：
+收藏页面结构实现代码如下：
 
   ```html
 <!-- pages/favorite/favorite.wxml -->
@@ -1036,7 +1027,7 @@ Page({
 </view>
   ```
 
-  页面样式代码如下：
+收藏页面样式实现代码如下：
 
   ```css
  /* pages/favorite/favorite.wxss */
@@ -1076,7 +1067,7 @@ Page({
 }
   ```
 
-  业务逻辑代码如下：
+收藏页面业务逻辑实现代码如下：
 
   ```javascript
 // pages/favorite/favorite.js
@@ -1107,43 +1098,35 @@ Page({
 
   项目开发完成后就可以上传代码了，在微信开发者工具右上角可以找到 `上传` 按钮，点击上传然后再点击确定。
 
-  ![7-3-1](/Users/next/Desktop/GBook/images/7-3-1.png)
-
-  图 7-3-1 微信开发者工具中的上传
+  ![图 7-3-1 微信开发者工具中的上传](/Users/next/Desktop/GBook/images/7-3-1.png)
 
   下面需要填写上传的版本信息，填写完成后点击上传即可。
 
-  ![7-3-2](/Users/next/Desktop/GBook/images/7-3-2.png)
-
-  图 7-3-2 填写上传信息
+  ![图 7-3-2 填写上传信息](/Users/next/Desktop/GBook/images/7-3-2.png)
 
 - 提交审核
 
   代码上传后，我们需要登录到微信公众平台。在微信公众平台的左侧找到 `开发管理`。
 
-  ![7-3-3](/Users/next/Desktop/GBook/images/7-3-3.png)
-
-  图 7-3-3 开发管理
+  ![图 7-3-3 开发管理](/Users/next/Desktop/GBook/images/7-3-3.png)
 
   点击开发管理之后，我们在底部可以看到刚才上传的代码。
 
-  ![7-3-4](/Users/next/Desktop/GBook/images/7-3-4.png)
-
-  图 7-3-4 提交审核
+  ![图 7-3-4 提交审核](/Users/next/Desktop/GBook/images/7-3-4.png)
 
   点击提交审核，然后会看到一些条款不管他打赏对勾点击下一步。
 
-![7-3-5](/Users/next/Desktop/GBook/images/7-3-5.png)
+  ![图 7-3-5 确认提交审核](/Users/next/Desktop/GBook/images/7-3-5.png)
 
-到这里需要我们填写一些信息，首先需要选中首页页面路径，也就是 `app.json` 中 `pages` 下的第一个路径。
+  到这里需要我们填写一些信息，首先需要选中首页页面路径，也就是 `app.json` 中 `pages` 下的第一个路径。
 
-然后填写完信息点击提交审核。
+  然后填写完信息点击提交审核。
 
-![7-3-6](/Users/next/Desktop/GBook/images/7-3-6.png)
+  ![图 7-3-6 填写项目配置](/Users/next/Desktop/GBook/images/7-3-6.png)
 
-提交审核之后会在 `开发管理` 下看到小程序已经处于审核中的状态了。
+  提交审核之后会在 `开发管理` 下看到小程序已经处于审核中的状态了。
 
-![7-3-7](/Users/next/Desktop/GBook/images/7-3-7.png)
+  ![图 7-3-7 已提交的审核版本](/Users/next/Desktop/GBook/images/7-3-7.png)
 
-一般 2-3 小时就会审核通过了，审核通过后需要我们点击进行公测。最后是上线，上线之后就能在微信中搜索到我们的小程序了。
+  一般 2-3 小时就会审核通过了，审核通过后需要我们点击进行公测。最后是上线，上线之后就能在微信中搜索到我们的小程序了。
 
