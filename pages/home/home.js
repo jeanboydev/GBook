@@ -535,7 +535,7 @@ Page({
     if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
       getApp().globalData.userInfo = userInfo;
     } else {
-      wx.navigateTo({ //用户未登录，则直接跳转至登录页面
+      wx.reLaunch({ //用户未登录，则直接跳转至登录页面
         url: "/pages/sign-in/sign-in"
       });
     }
