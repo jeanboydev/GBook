@@ -12,6 +12,7 @@
             </view>
             <view class="button"></view>
         </view>
+        <official-account></official-account>
     </view>
     <view class="list-container">
         <view class="item favorite">我想要的书籍</view>

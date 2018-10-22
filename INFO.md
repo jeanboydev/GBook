@@ -6,7 +6,7 @@
 
 首先我们使用微信开发者工具创建一个项目，并选中左上角编辑器的按钮。我们会在右边看到下图的内容：
 
-![图 7-1-1 微信开发者工具中的编辑器](/Users/next/Desktop/GBook/images/7-1-1.png)
+![图7-1-1 微信开发者工具中的编辑器](/Users/next/Work/Web-App/GBook/images/7-1-1.png "图7-1-1 微信开发者工具中的编辑器")
 
 上图内容就是我们创建好的项目的目录，其中：
 
@@ -19,7 +19,7 @@
 
 仅仅只有上面的两个目录是不够用的，我们可以多创建几个目录来方便管理我们的代码：
 
-![图 7-1-2 项目目录](/Users/next/Desktop/GBook/images/7-1-2.png)
+![图7-1-2 项目目录](/Users/next/Work/Web-App/GBook/images/7-1-2.png "图7-1-2 项目目录")
 
 - `component` 目录用于存放我们自定义的组件（注：该项目未用到）。
 - `config` 目录中用于存放项目的各种配置。
@@ -29,13 +29,13 @@
 
 接下来我们进入项目实战部分，我们的图书商城需求主要分为以下几个部分。如下图所示我们可以看到，图书商城主要有登录与注册页面、首页、个人中心页面，图书详情页面、收藏页面。下面我们将一一介绍它们是如何实现的。
 
-![图 7-2-1 项目框架](/Users/next/Desktop/GBook/images/7-2-1.png)
+![图7-2-1 项目框架](/Users/next/Work/Web-App/GBook/images/7-2-1.png "图7-2-1 项目框架")
 
 - 7.2.1 登录与注册页面
 
   首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，所以这里仅展示登录页面的实现过程。两个页面效果如下图：
 
-![图 7-2-2 登录页面](/Users/next/Desktop/GBook/images/7-2-2.png)
+![图7-2-2 登录页面](/Users/next/Work/Web-App/GBook/images/7-2-2.png "图7-2-2 登录页面")
 
 由上图可以看到登录页面有一个标题，一个描述，两个输入框，一个注册按钮，一个登录按钮。看过上一章小程序入门的小伙伴应该很容易就能实现。登录页面结构实现代码如下：
 
@@ -48,8 +48,16 @@
             <view class="tips">欢迎来到登录页面</view>
         </view>
         <!-- bindinput 键盘输入时触发，用于接收键盘输入的值 -->
-        <input class="input-username" placeholder="请输入用户名" auto-focus confirm-type="next" bindinput="onUsernameInput" />
-        <input class="input-password" placeholder="请输入密码" password confirm-type="done" bindinput="onPasswordInput" />
+        <input class="input-username" 
+               placeholder="请输入用户名" 
+               auto-focus 
+               confirm-type="next" 
+               bindinput="onUsernameInput" />
+        <input class="input-password" 
+               placeholder="请输入密码" 
+               password 
+               confirm-type="done" 
+               bindinput="onPasswordInput" />
         <view class="sign-up-container">
             <view class="btn-sign-up" bindtap="toSignUp">没有账号？注册一个吧</view>
         </view>
@@ -174,8 +182,8 @@ Page({
     });
   },
   toSignIn: function () { //上面为按钮绑定的点击事件回调函数
-    if (!this.data.username) { //用户名为空
-      wx.showToast({ //吐司以下提示用户输入用户名
+    if (!this.data.username) { //当用户名为空时
+      wx.showToast({ //吐司一下提示用户输入用户名
         title: "请输入用户名！",
         icon: "none",
         mask: true
@@ -246,7 +254,7 @@ module.exports = {
 
   接下来我们来实现首页页面，效果图如下：
 
-![图 7-2-3 首页页面](/Users/next/Desktop/GBook/images/7-2-3.png)
+![图7-2-3 首页页面](/Users/next/Work/Web-App/GBook/images/7-2-3.png "图7-2-3 首页页面")
 
 由上图可以看到，首页顶部有一个导航栏。由于微信小程序没有官方的导航栏，这里需要自定义一个导航栏，导航栏使用 `scroll-view` 来实现，具体实现见下面代码。导航栏下面是一个列表，基于小程序的特性我们只需要使用 `Flex` 布局将每个 item 追加到页面上即可，当页面 item 数量足够多时就会把页面撑开，页面也就可以滚动了。
 
@@ -260,14 +268,23 @@ module.exports = {
         <!-- 更具 tabList 数量动态计算导航栏的宽度 -->
         <view class="tab-menu" style="width:{{tabList.length*150}}rpx;">
             <!-- 使用 for 循环遍历生成 item 的 view -->
-            <view class="item {{currentTabIndex==index?'active':''}}" wx:for="{{tabList}}" data-item="{{item}}" data-index="{{index}}" wx:key="index" bindtap="onTabItemClick">
+            <view class="item {{currentTabIndex==index?'active':''}}" 
+                  wx:for="{{tabList}}" 
+                  data-item="{{item}}" 
+                  data-index="{{index}}" 
+                  wx:key="index" 
+                  bindtap="onTabItemClick">
                 {{item.name}}
             </view>
         </view>
     </scroll-view>
     <view class="list-container">
         <!-- 使用 for 循环遍历生成 item 的 view -->
-        <view class="item" wx:for="{{dataList[currentTabIndex]}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+        <view class="item" 
+              wx:for="{{dataList[currentTabIndex]}}" 
+              data-item="{{item}}" 
+              wx:key="index" 
+              bindtap="onItemClick">
             <view class="cover">
                 <image src="{{item.image}}" scaleToFill />
             </view>
@@ -449,7 +466,7 @@ Page({
 
   接下来我们来实现个人中心页面，效果图如下：
 
-  ![图 7-2-4 我的页面](/Users/next/Desktop/GBook/images/7-2-4.png)
+  ![图7-2-4 我的页面](/Users/next/Work/Web-App/GBook/images/7-2-4.png "图7-2-4 我的页面")
 
   如上图所示，个人中心页面也比较简单，所有的样式都可以通过 `CSS3` 的特性来实现。由上图我们可以看到头像可以使用 `<image>` 标签来实现，`<image>` 的链接可以使用本地或者线上链接都可以。下面的“我想要的书籍”、“我收藏的书籍”、“设置”左边的图标可以使用 `<image>` 标签或者 `background-image` 来实现。但需要注意的是 `background-image` 只能使用线上链接，使用本地链接编译会报错。
 
@@ -622,7 +639,7 @@ Page({
 
   接下来我们来实现图书详情页面，效果图如下：
 
-![图 7-2-5 图书详情页面](/Users/next/Desktop/GBook/images/7-2-5.png)
+![图7-2-5 图书详情页面](/Users/next/Work/Web-App/GBook/images/7-2-5.png "图7-2-5 图书详情页面")
 
 图书详情页面结构实现代码如下：
 
@@ -640,7 +657,11 @@ Page({
     <view class="comment-title-container">评论</view>
     <view class="comment-info-container">
         <block wx:if="{{commentList.length>0}}">
-            <view class="item" wx:for="{{commentList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+            <view class="item" 
+                  wx:for="{{commentList}}" 
+                  data-item="{{item}}" 
+                  wx:key="index" 
+                  bindtap="onItemClick">
                 <view class="avatar"></view>
                 <view class="right">
                     <view class="text">
@@ -656,7 +677,11 @@ Page({
 </view>
 <!-- 底部评论框 -->
 <view class="comment-container">
-    <input class="input-comment" placeholder="请输入评论信息" confirm-type="done" bindinput="onCommentInput" value="{{currentComment}}" />
+    <input class="input-comment" 
+           placeholder="请输入评论信息" 
+           confirm-type="done" 
+           bindinput="onCommentInput" 
+           value="{{currentComment}}" />
     <button class="btn-submit" bindtap="toSubmitComment">完成</button>
 </view>
   ```
@@ -1010,7 +1035,7 @@ Page({
 
   最后来我们来实现收藏页面，效果图如下：
 
-![图 7-2-6 收藏页面](/Users/next/Desktop/GBook/images/7-2-6.png)
+![图7-2-6 收藏页面](/Users/next/Work/Web-App/GBook/images/7-2-6.png "图7-2-6 收藏页面")
 
 收藏页面结构实现代码如下：
 
@@ -1019,7 +1044,11 @@ Page({
 <view>
     <view class="list-container">
         <!-- 使用 for 循环遍历生成 item 的 view -->
-        <view class="item" wx:for="{{dataList}}" data-item="{{item}}" wx:key="index" bindtap="onItemClick">
+        <view class="item" 
+              wx:for="{{dataList}}" 
+              data-item="{{item}}" 
+              wx:key="index" 
+              bindtap="onItemClick">
             <image class="cover" src="{{item.image}}" aspectFill />
             <view class="title">{{item.name}}</view>
         </view>
@@ -1098,35 +1127,35 @@ Page({
 
   项目开发完成后就可以上传代码了，在微信开发者工具右上角可以找到 `上传` 按钮，点击上传然后再点击确定。
 
-  ![图 7-3-1 微信开发者工具中的上传](/Users/next/Desktop/GBook/images/7-3-1.png)
+  ![图7-3-1 微信开发者工具中的上传](/Users/next/Work/Web-App/GBook/images/7-3-1.png "图7-3-1 微信开发者工具中的上传")
 
   下面需要填写上传的版本信息，填写完成后点击上传即可。
 
-  ![图 7-3-2 填写上传信息](/Users/next/Desktop/GBook/images/7-3-2.png)
+  ![图7-3-2 填写上传信息](/Users/next/Work/Web-App/GBook/images/7-3-2.png "图7-3-2 填写上传信息")
 
 - 提交审核
 
   代码上传后，我们需要登录到微信公众平台。在微信公众平台的左侧找到 `开发管理`。
 
-  ![图 7-3-3 开发管理](/Users/next/Desktop/GBook/images/7-3-3.png)
+  ![图7-3-3 开发管理](/Users/next/Work/Web-App/GBook/images/7-3-3.png "图7-3-3 开发管理")
 
   点击开发管理之后，我们在底部可以看到刚才上传的代码。
 
-  ![图 7-3-4 提交审核](/Users/next/Desktop/GBook/images/7-3-4.png)
+  ![图7-3-4 提交审核](/Users/next/Work/Web-App/GBook/images/7-3-4.png "图7-3-4 提交审核")
 
   点击提交审核，然后会看到一些条款不管它，打上对勾点击下一步。
 
-  ![图 7-3-5 确认提交审核](/Users/next/Desktop/GBook/images/7-3-5.png)
+  ![图7-3-5 确认提交审核](/Users/next/Work/Web-App/GBook/images/7-3-5.png "图7-3-5 确认提交审核")
 
   到这里需要我们填写一些信息，首先需要选中首页页面路径，也就是 `app.json` 中 `pages` 下的第一个路径。
 
   然后填写完信息点击提交审核。
 
-  ![图 7-3-6 填写项目配置](/Users/next/Desktop/GBook/images/7-3-6.png)
+  ![图7-3-6 填写项目配置](/Users/next/Work/Web-App/GBook/images/7-3-6.png "图7-3-6 填写项目配置")
 
   提交审核之后会在 `开发管理` 下看到小程序已经处于审核中的状态了。
 
-  ![图 7-3-7 已提交的审核版本](/Users/next/Desktop/GBook/images/7-3-7.png)
+  ![图7-3-7 已提交的审核版本](/Users/next/Work/Web-App/GBook/images/7-3-7.png "图7-3-7 已提交的审核版本")
 
   一般 2-3 小时就会审核通过了，审核通过后需要我们点击进行公测。最后是上线，上线之后就能在微信中搜索到我们的小程序了。
 
