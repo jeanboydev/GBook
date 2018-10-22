@@ -6,7 +6,7 @@
 
 首先我们使用微信开发者工具创建一个项目，并选中左上角编辑器的按钮。我们会在右边看到下图的内容：
 
-![图7-1-1 微信开发者工具中的编辑器](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-1-1.png "图7-1-1 微信开发者工具中的编辑器")
+![图7-1-1 微信开发者工具中的编辑器](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-1-1-1.png "图7-1-1 微信开发者工具中的编辑器")
 
 上图内容就是我们创建好的项目的目录，其中：
 
@@ -1127,21 +1127,21 @@ Page({
 
   项目开发完成后就可以上传代码了，在微信开发者工具右上角可以找到 `上传` 按钮，点击上传然后再点击确定。
 
-  ![图7-3-1 微信开发者工具中的上传](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-1.png "图7-3-1 微信开发者工具中的上传")
+  ![图7-3-1 微信开发者工具中的上传](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-1-1.png "图7-3-1 微信开发者工具中的上传")
 
   下面需要填写上传的版本信息，填写完成后点击上传即可。
 
-  ![图7-3-2 填写上传信息](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-2.png "图7-3-2 填写上传信息")
+  ![图7-3-2 填写上传信息](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-2-1.png "图7-3-2 填写上传信息")
 
 - 提交审核
 
   代码上传后，我们需要登录到微信公众平台。在微信公众平台的左侧找到 `开发管理`。
 
-  ![图7-3-3 开发管理](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-3.png "图7-3-3 开发管理")
+  ![图7-3-3 开发管理](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-3-1.png "图7-3-3 开发管理")
 
   点击开发管理之后，我们在底部可以看到刚才上传的代码。
 
-  ![图7-3-4 提交审核](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-4.png "图7-3-4 提交审核")
+  ![图7-3-4 提交审核](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-4-1.png "图7-3-4 提交审核")
 
   点击提交审核，然后会看到一些条款不管它，打上对勾点击下一步。
 
@@ -1151,7 +1151,7 @@ Page({
 
   然后填写完信息点击提交审核。
 
-  ![图7-3-6 填写项目配置](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-6.png "图7-3-6 填写项目配置")
+  ![图7-3-6 填写项目配置](https://raw.githubusercontent.com/jeanboydev/GBook/master/images/7-3-6-1.png "图7-3-6 填写项目配置")
 
   提交审核之后会在 `开发管理` 下看到小程序已经处于审核中的状态了。
 
