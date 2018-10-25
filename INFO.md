@@ -23,7 +23,7 @@
 ![图7-1-2 项目目录](/Users/next/Desktop/GBook/images/7-1-2.png)
 <center>图7-1-2 项目目录</center>
 
-- `component` 目录用于存放我们自定义的组件（注：该项目未用到）。
+- `component` 目录用于存放我们自定义的组件（注：该项目暂未用到）。
 - `config` 目录中用于存放项目的各种配置。
 - `images` 目录中用于存放图片资源。
 
@@ -57,24 +57,33 @@
   });
   ```
 
-  所有通过网络获取的数据，都使用该方式请求数据即可。需要注意的是，服务器域名仅支持 `HTTPS`，域名不能使用 `IP` 或者 `localhost`，域名必须经过 `ICP 备案`。HTTPS 的配置和域名备案不属于本书讨论的范围，所以数据获取的方式使用本地数据来模拟。
+  所有通过网络获取的数据，都使用该方式请求数据即可。需要注意的是，服务器域名仅支持 `HTTPS`，域名不能使用 `IP` 或者 `localhost`，域名必须经过 `ICP 备案`。HTTPS 的配置和域名备案不在本书讨论的范围中，所以数据的获取使用本地数据来模拟。
 
 - 7.2.2 登录与注册页面
 
-  首先我们先实现登录页面与注册页面，由于注册页面与登录页面很相似，所以这里仅展示登录页面的实现过程。两个页面效果如下图：
+  首先我们先实现登录页面与注册页面，由于登录页面与注册页面很相似，所以这里仅展示注册页面的实现过程。两个页面效果如下图：
 
-![图7-2-2 登录页面](/Users/next/Desktop/GBook/images/7-2-2.png)
-<center>图7-2-2 登录页面</center>
+![图7-2-2 登录与注册页面](/Users/next/Desktop/GBook/images/7-2-2.png)
+<center>图7-2-2 注册页面</center>
 
-由上图可以看到登录页面有一个标题，一个描述，两个输入框，一个注册按钮，一个登录按钮。看过上一章小程序入门的小伙伴应该很容易就能实现。登录页面结构实现代码如下：
+通过效果图可以看到注册页面有一个 Logo，一个标题，一个描述，两个输入框，一个注册按钮。如果您看过上一章小程序入门的话实现起来就很容易了。我们先来看下注册页面结构图：
+
+![图7-2-3 登录页面结构图](/Users/next/Desktop/GBook/images/7-2-2-3.png)
+
+<center>图7-2-3 登录页面结构图</center>
+
+通过结构图可以看出，整个页面需要有一个大容器  `view` 水平和垂直都居中。容器中第一部分需要一个 `view` 作为 `image` 的容器使 Logo 水平居中。容器中第二部分为标题和描述，下面比较简单了两个 `input` 输入框，一个注册按钮。我们先来看下注册页面的结构代码：
 
 ```html
-<!-- pages/sign-in/sign-in.wxml -->
+<!-- pages/sign-up/sign-up.wxml -->
 <view>
     <view class="container">
+        <view class="logo-container">
+            <image class="logo" src="/images/sign_up/bg_avatar_2x.png" aspectFill />
+        </view>
         <view class="tips-container">
             <text class="title">您好！</text>
-            <view class="tips">欢迎来到登录页面</view>
+            <view class="tips">欢迎来到注册页面</view>
         </view>
         <!-- bindinput 键盘输入时触发，用于接收键盘输入的值 -->
         <input class="input-username" 
@@ -87,25 +96,18 @@
                password 
                confirm-type="done" 
                bindinput="onPasswordInput" />
-        <view class="sign-up-container">
-            <view class="btn-sign-up" bindtap="toSignUp">没有账号？注册一个吧</view>
-        </view>
         <!-- bindtap 当用户点击时触发绑定的函数 -->
-        <view class="btn-sign-in" bindtap="toSignIn"></view>
+        <view class="btn-sign-up" bindtap="toSignUp"></view>
     </view>
 </view>
 ```
 
 由于微信小程序自带的控件可操作性不强，并且有些样式无法覆盖，这里使用 `view` 来实现按钮的效果。
 
-登录页面样式实现代码如下：
+整个页面的水平垂直居中是注册页面中复杂的部分，我们来看下它是怎么实现的：
 
-```css
-/* pages/sign-in/sign-in.wxss */
-
-page {
-    background-color: #ffffff;
-}
+```CSS
+/* pages/sign-up/sign-up.wxss */
 
 .container {
     /* 组合使用开始，使用绝对定位 */
@@ -118,108 +120,55 @@ page {
     width: 100%;
     padding: 0 80rpx;
 }
+```
 
-.tips-container {
+接下来我们来看下 Logo 是怎么居中的：
+
+```css
+/* pages/sign-up/sign-up.wxss */
+
+.logo-container {
     text-align: center;
-    font-family: SourceHanSansCN-Medium;
-    font-weight: 500;
-    color: rgba(99, 99, 98, 1);
-    line-height: 64rpx;
 }
 
-.tips-container .title {
-    font-size: 36rpx;
-}
-
-.tips-container .tips {
-    font-size: 44rpx;
-}
-
-.input-username, .input-password {
-    width: 100%;
-    height: 80rpx;
-    background: rgba(229, 229, 229, 1);
-    border-radius: 15rpx;
-    font-size: 28rpx;
-    font-family: SourceHanSansCN-Medium;
-    font-weight: 500;
-    color: rgba(130, 129, 129, 1);
-    line-height: 80rpx;
-    padding: 0 15rpx;
-}
-
-.input-username {
-    margin-top: 84rpx;
-}
-
-.input-password {
-    margin-top: 20rpx;
-}
-
-.sign-up-container {
-    width: 100%;
-    height: 80rpx;
-    margin-top: 20rpx;
-    position: relative;
-}
-
-.sign-up-container .btn-sign-up {
-    height: 70rpx;
-    position: absolute;
-    left: 0;
-    line-height: 70rpx;
-    font-size: 28rpx;
-    font-family: SourceHanSansCN-Medium;
-    font-weight: 500;
-    color: rgba(89, 193, 227, 1);
-}
-
-.btn-sign-in {
-    margin: 52rpx auto 111rpx;
-    width: 303rpx;
-    height: 81rpx;
-    background-image: url(/Users/next/Desktop/GBook/images/sign_in/btn_sign_in_2x.png);
-    background-repeat: no-repeat;
-    background-size: 303rpx 81rpx;
+.logo {
+    width: 200rpx;
+    height: 200rpx;
 }
 ```
 
-登录页面业务逻辑代码如下：
+通过前面的章节学习我们知道 `image` 标签属于行内标签，所以我们只需要在其父容器中设置 `text-align: center;` 就行了。
+
+最后我们来看下注册页面的业务逻辑处理：
 
 ```javascript
-// pages/sign-in/sign-in.js
 import config from '../../config/config.js';
+
 Page({
   data: {
     username: "",
     password: ""
   },
-  onLoad: function (options) {}, //生命周期回调函数
-  onReady: function () {}, //生命周期回调函数
-  onShow: function () {}, //生命周期回调函数
-  onHide: function () {}, //生命周期回调函数
-  onUnload: function () {}, //生命周期回调函数
-  onUsernameInput: function (e) { //上面为输入框绑定的键盘事件监听回调函数
-    // e.detail.value 是取到键盘输入的值
-    this.setData({
+  onUsernameInput: function (e) {//当用户名输入框有内容输入时被回调
+    this.setData({//将输入内容保存到 username 中
       username: e.detail.value
     });
   },
-  onPasswordInput: function (e) {
-    this.setData({
+  onPasswordInput: function (e) {//当密码输入框有内容输入时被回调
+    this.setData({//将输入内容保存到 password 中
       password: e.detail.value
     });
   },
-  toSignIn: function () { //上面为按钮绑定的点击事件回调函数
-    if (!this.data.username) { //当用户名为空时
-      wx.showToast({ //吐司一下提示用户输入用户名
+  toSignUp: function () {//当注册按钮点击时被调用
+    if (!this.data.username) {//用户名为空，提示用户输入用户名
+      wx.showToast({
         title: "请输入用户名！",
         icon: "none",
         mask: true
       });
       return;
     }
-    if (!this.data.password) {
+    if (!this.data.password) {//密码为空，提示用户输入密码
       wx.showToast({
         title: "请输入密码！",
         icon: "none",
@@ -227,48 +176,28 @@ Page({
       });
       return;
     }
-    //读取本地已经存入的用户注册的信息
-    let authUsername = wx.getStorageSync(config.cacheKey.username);
-    let authPassword = wx.getStorageSync(config.cacheKey.password);
-    if (this.data.username != authUsername) {
-      wx.showToast({
-        title: "用户名不正确！",
-        icon: "none",
-        mask: true
-      });
-      return;
-    }
-    if (this.data.password != authPassword) {
-      wx.showToast({
-        title: "密码不正确！",
-        icon: "none",
-        mask: true
-      });
-      return;
-    }
-    //将用户登录的信息记录下
-    wx.setStorageSync(config.cacheKey.userInfo, {
-      username: this.data.username
+    //分别将用户名，密码保存到 local storage 中
+    wx.setStorageSync(config.cacheKey.username, this.data.username);
+    wx.setStorageSync(config.cacheKey.password, this.data.password);
+    wx.showToast({
+      title: "注册成功请登录",
+      icon: "success",
+      mask: true
     });
-    //跳转到首页，并关闭当前以及其他页面
-    wx.reLaunch({
-      url: '/pages/home/home'
-    });
-  },
-  toSignUp: function () {
-    //跳转到注册页面，不关闭当前页面
-    wx.navigateTo({
-      url: '/pages/sign-up/sign-up'
+    wx.reLaunch({//关闭所有页面，并打开登录页面
+      url: '/pages/sign-in/sign-in'
     });
   }
 })
 ```
 
+`config.js` 中代码如下：
+
 ```javascript
 // pages/config/config.js
 
 module.exports = {
-    cacheKey: { //配置缓存中的key，方便统一管理
+    cacheKey: { //配置缓存中的 key，方便统一管理
         userInfo: "userInfo",
         username: "username",
         password: "password",
@@ -277,22 +206,27 @@ module.exports = {
 };
 ```
 
-由于注册页面与登录页面比较相似，这里不再赘述。
+由于登录页面与注册页面比较相似，这里不再赘述。
 
 - 7.2.3 首页
 
-  接下来我们来实现首页页面，效果图如下：
+  接下来我们来实现首页页面，先来看下效果图：
 
-![图7-2-3 首页页面](/Users/next/Desktop/GBook/images/7-2-3.png)
-<center>图7-2-3 首页页面</center>
+![图7-2-4 首页页面](/Users/next/Desktop/GBook/images/7-2-3.png)
+<center>图7-2-4 首页页面</center>
 
-由上图可以看到，首页顶部有一个导航栏。由于微信小程序没有官方的导航栏，这里需要自定义一个导航栏，导航栏使用 `scroll-view` 来实现，具体实现见下面代码。导航栏下面是一个列表，基于小程序的特性我们只需要使用 `Flex` 布局将每个 item 追加到页面上即可，当页面 item 数量足够多时就会把页面撑开，页面也就可以滚动了。
+通过效果图可以看到，首页页面主要分为上下两个部分，上面部分主要是导航菜单，下面部分是一个列表。通过拆分我们看下页面结构图：
 
-首页页面结构实现代码如下：
+![图7-2-3-1 首页页面结构图](/Users/next/Desktop/GBook/images/7-2-3-1.png)
+
+<center>图7-2-4 首页页面结构图</center>
+
+我们先来看下首页页面的结构代码：
 
 ```html
 <!-- pages/home/home.wxml -->
 <view>
+    <!-- 导航菜单 -->
     <!-- 使用 scroll-view 实现 x 轴滑动 -->
     <scroll-view scroll-x="{{true}}">
         <!-- 更具 tabList 数量动态计算导航栏的宽度 -->
@@ -308,6 +242,7 @@ module.exports = {
             </view>
         </view>
     </scroll-view>
+    <!-- 滑动列表 -->
     <view class="list-container">
         <!-- 使用 for 循环遍历生成 item 的 view -->
         <view class="item" 
@@ -324,13 +259,10 @@ module.exports = {
 </view>
 ```
 
-首页页面样式实现代码如下：
+由于微信小程序没有官方的导航菜单，这里需要自定义一个导航菜单，导航菜单使用 `scroll-view` 来实现，具体实现见下面代码。我们先来看下导航菜单的样式实现：
 
 ```css
 /* pages/home/home.wxss */
-page {
-    background-color: #F4F4F4;
-}
 
 .tab-menu {
     min-width: 750rpx;
@@ -364,6 +296,12 @@ page {
 .tab-menu .active {
     border-bottom: #636362 solid 4rpx;
 }
+```
+
+导航菜单下面是一个列表，基于小程序的特性我们只需要使用 `Flex` 布局将每个 `item` 追加到页面上即可，当页面 item 数量足够多时就会把页面撑开，页面也就可以滚动了。我们来看下滑动列表的样式实现：
+
+```css
+/* pages/home/home.wxss */
 
 .list-container {
     width: 100%;
@@ -421,50 +359,54 @@ page {
 > - calc() 函数支持 "+", "-", "*", "/" 运算；
 > - calc() 函数使用标准的数学运算优先级规则。
 
-首页业务逻辑实现代码如下：
+最后我们来看下首页页面的业务逻辑处理：
 
 ```javascript
 // pages/home/home.js
 import config from '../../config/config.js';
+import data from '../../utils/data.js';
 Page({
-  data: {
-    tabList: [],//模拟数据
-    currentTabIndex: 0, //当前选择的 tab
-    dataList: []//模拟数据
-  },
-  onLoad: function (options) {
-    //读取用户登录信息
-    let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
-    if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
-      getApp().globalData.userInfo = userInfo;
-    } else {
-      wx.navigateTo({ //用户未登录，则直接跳转至登录页面
-        url: "/pages/sign-in/sign-in"
-      });
+    data: {
+        tabList: [],
+        currentTabIndex: 0, //当前选择的 tab
+        dataList: []
+    },
+    onLoad: function (options) {
+        //读取用户登录信息
+        let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
+        if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
+            getApp().globalData.userInfo = userInfo;
+            this.toLoadData();
+        } else {
+            wx.reLaunch({ //用户未登录，则直接跳转至登录页面
+                url: "/pages/sign-in/sign-in"
+            });
+        }
+    },
+    toLoadData: function () {
+        this.setData({
+            tabList: data.tabList,
+            dataList: data.dataList
+        });
+    },
+    onTabItemClick: function (e) {
+        console.error(e);
+        let item = e.currentTarget.dataset.item;
+        let index = e.currentTarget.dataset.index;
+        this.setData({
+            currentTabIndex: index
+        });
+    },
+    onItemClick: function (e) {
+        let item = e.currentTarget.dataset.item;
+        wx.navigateTo({ //通过 url 传递参数，是不是跟 html 很像？
+            url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
+        });
     }
-  },
-  onReady: function () {},
-  onShow: function () {},
-  onHide: function () {},
-  onUnload: function () {},
-  onTabItemClick: function (e) {
-    console.error(e);
-    let item = e.currentTarget.dataset.item;
-    let index = e.currentTarget.dataset.index;
-    this.setData({
-      currentTabIndex: index
-    });
-  },
-  onItemClick: function (e) {
-    let item = e.currentTarget.dataset.item;
-    wx.navigateTo({ //通过 url 传递参数，是不是跟 html 很像？
-      url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
-    });
-  }
 });
 ```
 
-首页页面底部有一条 tabbar，tabbar 在 `app.json` 中配置下即可：
+首页页面底部有一条 tabbar，tabbar 需要在 `app.json` 中配置下：
 
 ```json
 {
@@ -494,23 +436,29 @@ Page({
 
 - 7.2.4 个人中心页面
 
-  接下来我们来实现个人中心页面，效果图如下：
+  接下来我们来实现个人中心页面，先来看下效果图：
 
-  ![图7-2-4 我的页面](/Users/next/Desktop/GBook/images/7-2-4.png)
-  <center>图7-2-4 我的页面</center>
+  ![图7-2-4 个人中心页面](/Users/next/Desktop/GBook/images/7-2-4.png)
+  <center>图7-2-4 个人中心页面</center>
 
-  如上图所示，个人中心页面也比较简单，所有的样式都可以通过 `CSS3` 的特性来实现。由上图我们可以看到头像可以使用 `<image>` 标签来实现，`<image>` 的链接可以使用本地或者线上链接都可以。下面的“我想要的书籍”、“我收藏的书籍”、“设置”左边的图标可以使用 `<image>` 标签或者 `background-image` 来实现。但需要注意的是 `background-image` 只能使用线上链接，使用本地链接编译会报错。
+  通过效果图可以看到，个人中心页面主要分为两大部分，上面个人信息部分和下面滑动列表部分。通过拆分我们来看下页面结构图：
 
-  个人中心页面结构实现代码如下：
+  ![图7-2-4 个人中心页面](/Users/next/Desktop/GBook/images/7-2-4-1.png)
+
+  <center>图7-2-4 个人中心页面结构图</center>
+
+  通过页面结构图我们可以看到，个人中心页面可以分为上面个人信息展示部分和下面功能滑动列表部分。我们先来看下个人中心页面的结构代码：
 
   ```html
   <!-- pages/mine/mine.wxml -->
   <view>
+      <!-- 个人信息 -->
       <view class="info-container">
           <view class="username">{{userInfo.username}}</view>
           <view class="avatar-container">
               <image class="avatar" src="/images/logo.png" aspectFill />
           </view>
+      	<!-- 推荐卡 -->
           <view class="card-container">
               <view class="left">
                   <view class="title">强力推荐卡</view>
@@ -519,6 +467,7 @@ Page({
               <view class="button"></view>
           </view>
       </view>
+      <!-- 滑动列表 -->
       <view class="list-container">
           <view class="item favorite">我想要的书籍</view>
           <view class="item collection" bindtap="toFavorite">我收藏的书籍</view>
@@ -527,35 +476,10 @@ Page({
   </view>
   ```
 
-  个人中心页面样式实现代码如下：
+  上面个人信息展示部分中头像居中的效果，我们在注册页面章节已经介绍过了这里不再赘述。比较复杂的是推荐卡了，我们来看下推荐卡的样式实现：
 
   ```css
   /* pages/mine/mine.wxss */
-  
-  .info-container {
-      background-color: #ffffff;
-  }
-  
-  .info-container .username {
-      height: 90rpx;
-      font-size: 36rpx;
-      line-height: 90rpx;
-      font-family: SourceHanSansCN-Medium;
-      font-weight: 500;
-      color: rgba(53, 53, 53, 1);
-      text-align: center;
-  }
-  
-  .info-container .avatar-container {
-      text-align: center;
-  }
-  
-  .info-container .avatar {
-      width: 169rpx;
-      height: 169rpx;
-      margin: 0 auto;
-      border-radius: 169rpx;
-  }
   
   .info-container .card-container {
       width: 715rpx;
@@ -564,10 +488,15 @@ Page({
       background-image: url(/Users/next/Desktop/GBook/images/mine/bg_mine_hot_2x.png);
       background-repeat: no-repeat;
       background-size: 715rpx 280rpx;
+      /* 使用 flex 布局 */
       display: flex;
+      /* 方向为纵向 */
       flex-direction: row;
-      flex-wrap: nowrap;
+      /* 设置为可换行 */
+      flex-wrap: wrap;
+      /* 水平居中 */
       justify-content: center;
+      /* 垂直居中 */
       align-content: center;
       align-items: center;
   }
@@ -596,6 +525,12 @@ Page({
       background-repeat: no-repeat;
       background-size: 203rpx 63rpx;
   }
+  ```
+
+  下面功能滑动列表部分比较简单，我们来看下怎么实现的：
+
+  ```css
+  /* pages/mine/mine.wxss */
   
   .list-container {
       width: 100%;
@@ -636,7 +571,9 @@ Page({
   }
   ```
 
-  业务逻辑代码如下：
+  怎么样是不是很简单。这里有一点是需要注意的在微信小程序中 `<image>`  标签和 `background-image` 都可以用来展示图片，但只有 `<image>` 的 `src` 属性可以写本地的路径，`background-image` 的路径只能写线上路径，使用本地链接编译会报错。
+
+  最后我们来看下个人中心页面的业务逻辑处理：
 
   ```javascript
   // pages/mine/mine.js
@@ -649,10 +586,6 @@ Page({
         userInfo: getApp().globalData.userInfo
       });
     },
-    onReady: function () {},
-    onShow: function () {},
-    onHide: function () {},
-    onUnload: function () {},
     toFavorite: function () {
       wx.navigateTo({
         url: '/pages/favorite/favorite'
@@ -668,24 +601,39 @@ Page({
 
 - 7.2.5 图书详情页面
 
-  接下来我们来实现图书详情页面，效果图如下：
+  接下来我们来实现图书详情页面，先看下效果图：
 
 ![图7-2-5 图书详情页面](/Users/next/Desktop/GBook/images/7-2-5.png)
 <center>图7-2-5 图书详情页面</center>
 
-图书详情页面结构实现代码如下：
+通过效果图可以看到，页面主要分为图书封面、图书标题、图书介绍、图书评论、底部评论框 5 大部分。接下来我们看下页面结构图一步一步实现它：
+
+![图7-2-5 图书详情页面](/Users/next/Desktop/GBook/images/7-2-5-1.png)
+
+<center>图7-2-5 图书详情页面结构图</center>
+
+从页面结构中可以看出：图书封面需要一个 `view` 父容器，中间 `image` 水平垂直居中显示；图书标题需要一个 `view` 父容器，标题居左、收藏居右显示；图书介绍只需要一个容器直接展示内容即可；图书评论需要一个 `view` 父容器，每条评论也需要一个父容器单独布局；底部评论框需要一个 `view` 父容器，输入框居左，按钮居右显示。
+
+分析完了页面结构，我们先来看下图书详情页面的结构代码：
 
   ```html
 <!-- pages/detail/detail.wxml -->
 <view>
+    <!-- 图书封面 -->
     <view class="cover">
         <image src="{{bookInfo.image}}" mode="aspectFit" />
     </view>
+    <!-- 图书标题 -->
     <view class="title-container">
         <view class="title">{{bookInfo.name}}</view>
-        <view class="favorite {{isMarked?'selected':'normal'}}" bindtap="toFavorite">{{isMarked?'已收藏':'收藏'}}</view>
+        <view class="favorite {{isMarked?'selected':'normal'}}" 
+              bindtap="toFavorite">
+            {{isMarked?'已收藏':'收藏'}}
+        </view>
     </view>
+    <!-- 图书介绍 -->
     <view class="introduce">{{bookInfo.introduce}}</view>
+    <!-- 图书评论 -->
     <view class="comment-title-container">评论</view>
     <view class="comment-info-container">
         <block wx:if="{{commentList.length>0}}">
@@ -718,26 +666,37 @@ Page({
 </view>
   ```
 
-图书详情页面样式实现代码如下：
+我们先来看下图书封面的是怎么实现的：
 
-  ```css
- /* pages/detail/detail.wxss */
+```css
+/* pages/detail/detail.wxss */
 
 .cover {
     width: 100%;
     height: 414rpx;
-    position: relative;
     background-color: #ffffff;
+    /* 设置为相对定位 */
+    position: relative;
 }
 
 .cover image {
     width: 235rpx;
     height: 306rpx;
+    /* 设置为绝对定位 */
     position: absolute;
     top: 50%;
     left: 50%;
+    /* 使用 transform 将 image 向上和向左偏移 50%*/
     transform: translate(-50%, -50%);
 }
+```
+
+通过 CSS 可以看到我们需要先设置父容器的尺寸并设置为相对定位，然后设置图片尺寸并设置为绝对定位，设置上边和左边各为自身 50% 的距离，最后使用 `transform` 将自身向上和向左各偏移 50% 这样图片就在父容器中水平垂直居中了。我们将这种水平垂直居中的方法称为 “position-transform” 居中法。
+
+接下来我们看下图书标题的实现方式：
+
+```css
+/* pages/detail/detail.wxss */
 
 .title-container {
     /* 使用 flex 布局 */
@@ -788,6 +747,14 @@ Page({
     background-size: 46rpx 46rpx;
     background-position: right center;
 }
+```
+
+图书标题主要是使用 `Flex` 布局来实现标题居左，收藏居右的效果。
+
+我们接着来看图书介绍和图书评论的实现方式：
+
+  ```css
+/* pages/detail/detail.wxss */
 
 .introduce {
     padding: 40rpx;
@@ -821,6 +788,7 @@ Page({
 
 .comment-info-container .item {
     height: 140rpx;
+    /* 使用 flex 布局 */
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -839,6 +807,7 @@ Page({
 }
 
 .comment-info-container .item .right {
+    /* 与 flex 布局结合使用，表示该子元素填充剩余的空间 */
     flex-grow: 1;
     margin-left: 10rpx;
     display: flex;
@@ -850,6 +819,7 @@ Page({
 }
 
 .comment-info-container .item .right .text {
+    /* 嵌套使用 flex 布局 */
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -885,6 +855,14 @@ Page({
     background-size: 45rpx 45rpx;
     background-position: right center;
 }
+  ```
+
+图书介绍比较简单这里不再赘述。图书评论主要也是 `Flex` 布局的应用，细心的读者可以发现灵活的使用 `Flex` 布局，可以满足绝大部分界面结构。
+
+我们来看下底部评论框的实现：
+
+```css
+/* pages/detail/detail.wxss */
 
 .comment-container {
     width: 100%;
@@ -931,146 +909,147 @@ Page({
     color: rgba(130, 129, 129, 1);
     line-height: 70rpx;
 }
-  ```
+```
 
-图书详情业务逻辑实现代码如下：
+底部评论框也是 `Flex` 布局的应用，这里不再进行分析，读者自己分析即可。
+
+最后我们来看下图书详情页面的业务逻辑处理：
 
   ```javascript
- // pages/detail/detail.js
+// pages/detail/detail.js
 import config from '../../config/config.js';
+import data from '../../utils/data.js';
+
 Page({
-  data: {
-    id: '',
-    bookInfo: {},//模拟数据
-    androidBookInfo: {},//模拟数据
-    iosBookInfo: {},//模拟数据
-    feBookInfo: {},//模拟数据
-    backendBookInfo: {},//模拟数据
-    aiBookInfo: {},//模拟数据
-    favoriteList: [],
-    isMarked: false,
-    commentList: [],
-    currentComment: '',
-    userInfo: null,
-  },
-  onLoad: function (query) {
-    //query 是通过 url 传过来的参数的集合
-    if (query.id && query.name) { //处理是否有 id 和 name
-      //匹配模拟数据
-      let bookInfo = {};
-      if (query.id.indexOf('android_') != -1) {
-        bookInfo = this.data.androidBookInfo;
-      } else if (query.id.indexOf('ios_') != -1) {
-        bookInfo = this.data.iosBookInfo;
-      } else if (query.id.indexOf('fe_') != -1) {
-        bookInfo = this.data.feBookInfo;
-      } else if (query.id.indexOf('backend_') != -1) {
-        bookInfo = this.data.backendBookInfo;
-      } else if (query.id.indexOf('ai_') != -1) {
-        bookInfo = this.data.aiBookInfo;
-      }
-      bookInfo.id = query.id;
-      bookInfo.name = query.name;
-      this.setData({
-        id: query.id,
-        bookInfo: bookInfo
-      });
+    data: {
+        id: '',
+        bookInfo: {},
+        favoriteList: [],
+        isMarked: false,
+        commentList: [],
+        currentComment: '',
+        userInfo: null,
+    },
+    onLoad: function (query) {
+        //query 是通过 url 传过来的参数的集合
+        if (query.id && query.name) { //处理是否有 id 和 name
+            //匹配模拟数据
+            let bookInfo = {};
+            if (query.id.indexOf('android_') != -1) {
+                bookInfo = data.detail.androidBookInfo;
+            } else if (query.id.indexOf('ios_') != -1) {
+                bookInfo = data.detail.iosBookInfo;
+            } else if (query.id.indexOf('fe_') != -1) {
+                bookInfo = data.detail.feBookInfo;
+            } else if (query.id.indexOf('backend_') != -1) {
+                bookInfo = data.detail.backendBookInfo;
+            } else if (query.id.indexOf('ai_') != -1) {
+                bookInfo = th.data.aiBookInfo;
+            }
+            bookInfo.id = query.id;
+            bookInfo.name = query.name;
+            this.setData({
+                id: query.id,
+                bookInfo: bookInfo
+            });
+        }
+        //读取已经收藏的图书列表
+        let favoriteBooks = wx.getStorageSync(config.cacheKey.favoriteBooks);
+        if (favoriteBooks) {
+            this.setData({
+                favoriteList: favoriteBooks
+            });
+            this.setData({ //更新收藏状态
+                isMarked: this.isMarked()
+            });
+        }
+        //读取评论列表
+        let commentList = wx.getStorageSync(this.data.id);
+        if (commentList) {
+            this.setData({
+                commentList: commentList
+            });
+        }
+        let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
+        if (userInfo) {
+            this.setData({
+                userInfo: userInfo
+            });
+        }
+    },
+    toFavorite: function () { //收藏按钮点击
+        if (this.isMarked()) { //图书已被收藏，则取消收藏
+            let favoriteList = this.data.favoriteList;
+            // indexOf 返回已经收藏的图书在 list 中的下标
+            // splice(0,1); splice 函数有两个参数，第一个表示从哪个坐标开始删除，第二个表示删除多少个
+            favoriteList.splice(favoriteList.indexOf(this.data.bookInfo), 1);
+            // 更新收藏列表
+            wx.setStorageSync(config.cacheKey.favoriteBooks, favoriteList);
+            this.setData({
+                favoriteList: favoriteList,
+                isMarked: this.isMarked()
+            });
+        } else { // 图书未被收藏，则执行收藏
+            let favoriteList = this.data.favoriteList;
+            // push(); push 函数的作用是将元素追加到数组末尾
+            favoriteList.push(this.data.bookInfo);
+            // 更新收藏列表
+            wx.setStorageSync(config.cacheKey.favoriteBooks, favoriteList);
+            this.setData({
+                favoriteList: favoriteList,
+                isMarked: this.isMarked()
+            });
+        }
+    },
+    isMarked: function () { //判断当前图书有没有被收藏过
+        for (let book of this.data.favoriteList) {
+            if (book.id == this.data.id) {
+                return true;
+            }
+        }
+        return false;
+    },
+    onCommentInput: function (e) { //当评论输入框输入内容时回调
+        this.setData({
+            currentComment: e.detail.value
+        });
+    },
+    toSubmitComment: function () { //保存评论
+        if (!this.data.currentComment) return;
+        let comment = {
+            username: this.data.userInfo.username,
+            content: this.data.currentComment
+        };
+        let commentList = wx.getStorageSync(this.data.id);
+        if (!commentList) {
+            commentList = [];
+        }
+        commentList.push(comment);
+        this.setData({
+            commentList: commentList
+        });
+        wx.setStorageSync(this.data.id, commentList);
+        this.setData({
+            currentComment: ''
+        });
     }
-    //读取已经收藏的图书列表
-    let favoriteBooks = wx.getStorageSync(config.cacheKey.favoriteBooks);
-    if (favoriteBooks) {
-      this.setData({
-        favoriteList: favoriteBooks
-      });
-      this.setData({ //更新收藏状态
-        isMarked: this.isMarked()
-      });
-    }
-    //读取评论列表
-    let commentList = wx.getStorageSync(this.data.id);
-    if (commentList) {
-      this.setData({
-        commentList: commentList
-      });
-    }
-    let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
-    if (userInfo) {
-      this.setData({
-        userInfo: userInfo
-      });
-    }
-  },
-  onReady: function () {},
-  onShow: function () {},
-  onHide: function () {},
-  onUnload: function () {},
-  toFavorite: function () { //收藏按钮点击
-    if (this.isMarked()) { //图书已被收藏，则取消收藏
-      let favoriteList = this.data.favoriteList;
-      // indexOf 返回已经收藏的图书在 list 中的下标
-      // splice(0,1); splice 函数有两个参数，第一个表示从哪个坐标开始删除，第二个表示删除多少个
-      favoriteList.splice(favoriteList.indexOf(this.data.bookInfo), 1);
-      // 更新收藏列表
-      wx.setStorageSync(config.cacheKey.favoriteBooks, favoriteList);
-      this.setData({
-        favoriteList: favoriteList,
-        isMarked: this.isMarked()
-      });
-    } else { // 图书未被收藏，则执行收藏
-      let favoriteList = this.data.favoriteList;
-      // push(); push 函数的作用是将元素追加到数组末尾
-      favoriteList.push(this.data.bookInfo);
-      // 更新收藏列表
-      wx.setStorageSync(config.cacheKey.favoriteBooks, favoriteList);
-      this.setData({
-        favoriteList: favoriteList,
-        isMarked: this.isMarked()
-      });
-    }
-  },
-  isMarked: function () { //判断当前图书有没有被收藏过
-    for (let book of this.data.favoriteList) {
-      if (book.id == this.data.id) {
-        return true;
-      }
-    }
-    return false;
-  },
-  onCommentInput: function (e) { //当评论输入框输入内容时回调
-    this.setData({
-      currentComment: e.detail.value
-    });
-  },
-  toSubmitComment: function () { //保存评论
-    if (!this.data.currentComment) return;
-    let comment = {
-      username: this.data.userInfo.username,
-      content: this.data.currentComment
-    };
-    let commentList = wx.getStorageSync(this.data.id);
-    if (!commentList) {
-      commentList = [];
-    }
-    commentList.push(comment);
-    this.setData({
-      commentList: commentList
-    });
-    wx.setStorageSync(this.data.id, commentList);
-    this.setData({
-      currentComment: ''
-    });
-  }
 })
   ```
 
 - 7.2.6 收藏页面
 
-  最后来我们来实现收藏页面，效果图如下：
+  接下来我们来实现商城的最后一个页面图书收藏页面，先看下效果图：
 
 ![图7-2-6 收藏页面](/Users/next/Desktop/GBook/images/7-2-6.png)
 <center>图7-2-6 收藏页面</center>
 
-收藏页面结构实现代码如下：
+通过页面效果图可以看到，收藏页面只有一个滑动列表。我们来看下页面结构图：
+
+![图7-2-6 收藏页面](/Users/next/Desktop/GBook/images/7-2-6-1.png)
+
+<center>图7-2-6 收藏页面结构图</center>
+
+收藏页面整体比较简单，只需要对其中一个 `item` 进行布局就行了。我们先来看下收藏页面的结构代码：
 
   ```html
 <!-- pages/favorite/favorite.wxml -->
@@ -1089,10 +1068,10 @@ Page({
 </view>
   ```
 
-收藏页面样式实现代码如下：
+item 的布局也是 `Flex` 布局的应用，对大家来说已经很熟悉了，我们来看下具体实现：
 
   ```css
- /* pages/favorite/favorite.wxss */
+/* pages/favorite/favorite.wxss */
 
 .list-container {
     width: 100%;
@@ -1129,11 +1108,12 @@ Page({
 }
   ```
 
-收藏页面业务逻辑实现代码如下：
+最后我们来看下收藏页面的业务逻辑处理：
 
   ```javascript
 // pages/favorite/favorite.js
 import config from '../../config/config.js';
+
 Page({
   data: {
     dataList: []

@@ -1,6 +1,7 @@
 // pages/detail/detail.js
 import config from '../../config/config.js';
 import data from '../../utils/data.js';
+
 Page({
     data: {
         id: '',
