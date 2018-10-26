@@ -1,6 +1,7 @@
 // pages/home/home.js
 import config from '../../config/config.js';
 import data from '../../utils/data.js';
+
 Page({
     data: {
         tabList: [],
@@ -19,10 +20,6 @@ Page({
             });
         }
     },
-    onReady: function () { },
-    onShow: function () { },
-    onHide: function () { },
-    onUnload: function () { },
     toLoadData: function () {
         this.setData({
             tabList: data.tabList,

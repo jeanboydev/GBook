@@ -41,22 +41,22 @@
   在开始实战之前，我们先回顾一下上一章入门中网络请求的部分。示例代码如下：
 
 ```javascript
-  wx.request({
-      header: {//自定义响应头
-          xxx:"xxx"
-      },
-      url: "https://www.xxx.com", //请求链接
-      method: "GET",//请求方式
-      data: {//请求参数
-          xxx:"xxx"
-      },
-      success: function (res) {
-          // 处理响应成功
-      },
-      fail: function (error) {
-          // 处理响应失败
-      }
-  });
+wx.request({
+    header: {//自定义响应头
+        xxx: "xxx"
+    },
+    url: "https://www.xxx.com", //请求链接
+    method: "GET",//请求方式
+    data: {//请求参数
+        xxx: "xxx"
+    },
+    success: function (res) {
+        // 处理响应成功
+    },
+    fail: function (error) {
+        // 处理响应失败
+    }
+});
 ```
 
   所有通过网络获取的数据，都可以使用该方式请求数据。需要注意的是，服务器域名仅支持 `HTTPS`，域名不能使用 `IP` 或者 `localhost`，域名必须经过 `ICP 备案`。HTTPS 的配置和域名备案不在本书讨论的范围中，所以数据的获取使用本地数据来模拟。
@@ -77,6 +77,7 @@
 
   ```html
   <!-- pages/sign-up/sign-up.wxml -->
+  
   <view>
       <view class="container">
           <view class="logo-container">
@@ -143,70 +144,71 @@
   最后我们来看下注册页面的业务逻辑处理：
 
   ```javascript
+  // pages/sign-up/sign-up.js
   import config from '../../config/config.js';
   
   Page({
-    data: {
-  ​    username: "",
-  ​    password: ""
-    },
-    onUsernameInput: function (e) {//当用户名输入框有内容输入时被回调
-  ​    this.setData({//将输入内容保存到 username 中
-  ​      username: e.detail.value
-  ​    });
-    },
-    onPasswordInput: function (e) {//当密码输入框有内容输入时被回调
-  ​    this.setData({//将输入内容保存到 password 中
-  ​      password: e.detail.value
-  ​    });
-    },
-    toSignUp: function () {//当注册按钮点击时被调用
-  ​    if (!this.data.username) {//用户名为空，提示用户输入用户名
-  ​      wx.showToast({
-  ​        title: "请输入用户名！",
-  ​        icon: "none",
-  ​        mask: true
-  ​      });
-  ​      return;
-  ​    }
-  ​    if (!this.data.password) {//密码为空，提示用户输入密码
-  ​      wx.showToast({
-  ​        title: "请输入密码！",
-  ​        icon: "none",
-  ​        mask: true
-  ​      });
-  ​      return;
-  ​    }
-  ​    //分别将用户名，密码保存到 local storage 中
-  ​    wx.setStorageSync(config.cacheKey.username, this.data.username);
-  ​    wx.setStorageSync(config.cacheKey.password, this.data.password);
-  ​    wx.showToast({
-  ​      title: "注册成功请登录",
-  ​      icon: "success",
-  ​      mask: true
-  ​    });
-  ​    wx.reLaunch({//关闭所有页面，并打开登录页面
-  ​      url: '/pages/sign-in/sign-in'
-  ​    });
-    }
+      data: {
+          username: "",
+          password: ""
+      },
+      onUsernameInput: function (e) {//当用户名输入框有内容输入时被回调
+          this.setData({//将输入内容保存到 username 中
+              username: e.detail.value
+          });
+      },
+      onPasswordInput: function (e) {//当密码输入框有内容输入时被回调
+          this.setData({//将输入内容保存到 password 中
+              password: e.detail.value
+          });
+      },
+      toSignUp: function () {//当注册按钮点击时被调用
+          if (!this.data.username) {//用户名为空，提示用户输入用户名
+              wx.showToast({
+                  title: "请输入用户名！",
+                  icon: "none",
+                  mask: true
+              });
+              return;
+          }
+          if (!this.data.password) {//密码为空，提示用户输入密码
+              wx.showToast({
+                  title: "请输入密码！",
+                  icon: "none",
+                  mask: true
+              });
+              return;
+          }
+          //分别将用户名，密码保存到 local storage 中
+          wx.setStorageSync(config.cacheKey.username, this.data.username);
+          wx.setStorageSync(config.cacheKey.password, this.data.password);
+          wx.showToast({
+              title: "注册成功请登录",
+              icon: "success",
+              mask: true
+          });
+          wx.reLaunch({//关闭所有页面，并打开登录页面
+              url: '/pages/sign-in/sign-in'
+          });
+      }
   })
   ```
 
   `config.js` 中代码如下：
 
-  ​```javascript
+  ```javascript
   // pages/config/config.js
-
-  module.exports = {
-  ​    cacheKey: { //配置缓存中的 key，方便统一管理
-  ​        userInfo: "userInfo",
-  ​        username: "username",
-  ​        password: "password",
-  ​        favoriteBooks: "favoriteBooks",
-  ​    }
-  ​	};
-  ```
   
+  module.exports = {
+      cacheKey: { //配置缓存中的key，方便统一管理
+          userInfo: "userInfo",
+          username: "username",
+          password: "password",
+          favoriteBooks: "favoriteBooks",
+      }
+  };
+  ```
+
   由于登录页面与注册页面比较相似，这里不再赘述。
 
 - 7.2.3 首页
@@ -220,11 +222,12 @@
 
   ![图7-2-3-1 首页页面结构图](/Users/next/Desktop/GBook/images/7-2-3-1.png)
   <center>图7-2-4 首页页面结构图</center>
-  
+
   从页面结构图可以看出，首页页面需要一个导航菜单和一个滑动列表。我们先来看下首页页面的结构代码：
 
   ```html
   <!-- pages/home/home.wxml -->
+  
   <view>
     <!-- 导航菜单 -->
     <!-- 使用 scroll-view 实现 x 轴滑动 -->
@@ -263,94 +266,94 @@
 
   ```css
   /* pages/home/home.wxss */
-
-	.tab-menu {
-	​    min-width: 750rpx;
-	​    height: 104rpx;
-	​    background-color: #EAE9E7;
-	​    /* 使用 flex 布局 */
-	​    display: flex;
-	​    /* 方向为纵向 */
-	​    flex-direction: row;
-	​    /* 设置为不可换行 */
-	​    flex-wrap: nowrap;
-	​    /* 从左边开始布局 */
-	​    justify-content: flex-start;
-	​    /* 垂直居中 */
-	​    align-content: center;
-	​    align-items: center;
-	​    padding: 0 34rpx;
-	}
-	
-	.tab-menu .item {
-	​    height: 74rpx;
-	​    line-height: 74rpx;
-	​    padding: 0 10rpx;
-	​    margin-right: 34rpx;
-	​    font-size: 28rpx;
-	​    font-family: SourceHanSansCN-Medium;
-	​    font-weight: bold;
-	​    color: rgba(99, 99, 98, 1);
-	}
-	
-	.tab-menu .active {
-	​    border-bottom: #636362 solid 4rpx;
-	}
+  
+  .tab-menu {
+      min-width: 750rpx;
+      height: 104rpx;
+      background-color: #EAE9E7;
+      /* 使用 flex 布局 */
+      display: flex;
+      /* 方向为纵向 */
+      flex-direction: row;
+      /* 设置为不可换行 */
+      flex-wrap: nowrap;
+      /* 从左边开始布局 */
+      justify-content: flex-start;
+      /* 垂直居中 */
+      align-content: center;
+      align-items: center;
+      padding: 0 34rpx;
+  }
+  
+  .tab-menu .item {
+      height: 74rpx;
+      line-height: 74rpx;
+      padding: 0 10rpx;
+      margin-right: 34rpx;
+      font-size: 28rpx;
+      font-family: SourceHanSansCN-Medium;
+      font-weight: bold;
+      color: rgba(99, 99, 98, 1);
+  }
+  
+  .tab-menu .active {
+      border-bottom: #636362 solid 4rpx;
+  }
   ```
   可以看到导航菜单使用了 `Flex` 布局，这也是前面章节介绍过的知识，不清楚的同学可以翻一下前面的章节。这里需要注意的就是在页面结构代码中根据 `tableList` 动态计算宽度的部分。
 
   我们接着来看滑动列表的实现，基于小程序的特性我们只需要使用 `Flex` 进行布局将每个 `item` 追加到页面上即可，当页面 item 数量足够多时就会把页面撑开，页面也就可以滚动了。我们来看下滑动列表的样式实现：
 
   ```css
-	/* pages/home/home.wxss */
-	
-	.list-container {
-	    width: 100%;
-	    padding: 60rpx 0 60rpx 60rpx;
-	    /* 使用 flex 布局 */
-	    display: flex;
-	    /* 方向为纵向 */
-	    flex-direction: row;
-	    /* 设置为可换行 */
-	    flex-wrap: wrap;
-	    /* 从左边开始布局 */
-	    justify-content: flex-start;
-	    /* 垂直居中 */
-	    align-content: center;
-	    align-items: center;
-	}
-	
-	.list-container .item {
-	    /* 这里使用到了 css 中的 calc 计算函数，详见下面介绍 */
-	    width: calc((100% - 180rpx) / 3);
-	    margin-right: 60rpx;
-	    margin-top: 20rpx;
-	    border-radius: 10rpx;
-	    padding: 5rpx;
-	}
-	
-	.list-container .item .cover {
-	    width: 100%;
-	    height: 240rpx;
-	    border: 2rpx solid #B9B9BB;
-	    background-color: #ffffff;
-	    border-radius: 6rpx;
-	}
-	
-	.list-container .item .cover image {
-	    width: 100%;
-	    height: 100%;
-	}
-	
-	.list-container .item .name {
-	    text-align: center;
-	    height: 70rpx;
-	    font-size: 24rpx;
-	    font-family: SourceHanSansCN-Medium;
-	    font-weight: 500;
-	    color: rgba(52, 52, 52, 1);
-	    line-height: 70rpx;
-	}
+  /* pages/home/home.wxss */
+  
+  .list-container {
+      width: 100%;
+      padding: 60rpx 0 60rpx 60rpx;
+      /* 使用 flex 布局 */
+      display: flex;
+      /* 方向为纵向 */
+      flex-direction: row;
+      /* 设置为可换行 */
+      flex-wrap: wrap;
+      /* 从左边开始布局 */
+      justify-content: flex-start;
+      /* 垂直居中 */
+      align-content: center;
+      align-items: center;
+  }
+  
+  .list-container .item {
+      /* 这里使用到了 css 中的 calc 计算函数，详见下面介绍 */
+      width: calc((100% - 180rpx) / 3);
+      margin-right: 60rpx;
+      margin-top: 20rpx;
+      border-radius: 10rpx;
+      padding: 5rpx;
+  }
+  
+  .list-container .item .cover {
+      width: 100%;
+      height: 240rpx;
+      border: 2rpx solid #B9B9BB;
+      background-color: #ffffff;
+      border-radius: 6rpx;
+  }
+  
+  .list-container .item .cover image {
+      width: 100%;
+      height: 100%;
+  }
+  
+  .list-container .item .name {
+      text-align: center;
+      height: 70rpx;
+      font-size: 24rpx;
+      font-family: SourceHanSansCN-Medium;
+      font-weight: 500;
+      color: rgba(52, 52, 52, 1);
+      line-height: 70rpx;
+  }
   ```
 
 > 注：**calc()** = calc(四则运算)，用于动态计算长度值。
@@ -363,76 +366,77 @@
   最后我们来看下首页页面的业务逻辑处理：
 
   ```javascript
-	// pages/home/home.js
-	import config from '../../config/config.js';
-	import data from '../../utils/data.js';
-	Page({
-	    data: {
-	        tabList: [],
-	        currentTabIndex: 0, //当前选择的 tab
-	        dataList: []
-	    },
-	    onLoad: function (options) {
-	        //读取用户登录信息
-	        let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
-	        if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
-	            getApp().globalData.userInfo = userInfo;
-	            this.toLoadData();
-	        } else {
-	            wx.reLaunch({ //用户未登录，则直接跳转至登录页面
-	                url: "/pages/sign-in/sign-in"
-	            });
-	        }
-	    },
-	    toLoadData: function () {
-	        this.setData({
-	            tabList: data.tabList,
-	            dataList: data.dataList
-	        });
-	    },
-	    onTabItemClick: function (e) {
-	        console.error(e);
-	        let item = e.currentTarget.dataset.item;
-	        let index = e.currentTarget.dataset.index;
-	        this.setData({
-	            currentTabIndex: index
-	        });
-	    },
-	    onItemClick: function (e) {
-	        let item = e.currentTarget.dataset.item;
-	        wx.navigateTo({ //通过 url 传递参数，是不是跟 html 很像？
-	            url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
-	        });
-	    }
-	});
+// pages/home/home.js
+import config from '../../config/config.js';
+import data from '../../utils/data.js';
+
+Page({
+    data: {
+        tabList: [],
+        currentTabIndex: 0, //当前选择的 tab
+        dataList: []
+    },
+    onLoad: function (options) {
+        //读取用户登录信息
+        let userInfo = wx.getStorageSync(config.cacheKey.userInfo);
+        if (userInfo) { //用户已登录，则直将用户信息保存到全局变量中
+            getApp().globalData.userInfo = userInfo;
+            this.toLoadData();
+        } else {
+            wx.reLaunch({ //用户未登录，则直接跳转至登录页面
+                url: "/pages/sign-in/sign-in"
+            });
+        }
+    },
+    toLoadData: function () {
+        this.setData({
+            tabList: data.tabList,
+            dataList: data.dataList
+        });
+    },
+    onTabItemClick: function (e) {
+        console.error(e);
+        let item = e.currentTarget.dataset.item;
+        let index = e.currentTarget.dataset.index;
+        this.setData({
+            currentTabIndex: index
+        });
+    },
+    onItemClick: function (e) {
+        let item = e.currentTarget.dataset.item;
+        wx.navigateTo({ //通过 url 传递参数，是不是跟 html 很像？
+            url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
+        });
+    }
+});
   ```
 
   首页页面底部有一条 `tabbar`，tabbar 需要在 `app.json` 中配置下：
 
   ```json
-	{
-	  "...":"省略非主要部分",
-	  "tabBar": {
-	    "color": "#989898",
-	    "selectedColor": "#2F96F9",
-	    "backgroundColor": "#FFFFFF",
-	    "borderStyle": "white",
-	    "list": [
-	      {
-	        "pagePath": "pages/home/home",
-	        "iconPath": "images/tabbar/ic_home_normal_2x.png",
-	        "selectedIconPath": "images/tabbar/ic_home_selected_2x.png",
-	        "text": "首页"
-	      },
-	      {
-	        "pagePath": "pages/mine/mine",
-	        "iconPath": "images/tabbar/ic_mine_normal_2x.png",
-	        "selectedIconPath": "images/tabbar/ic_mine_selected_2x.png",
-	        "text": "我的"
-	      }
-	    ]
-	  }
-	}
+{
+    "...": "省略非主要部分",
+    "tabBar": {
+        "color": "#636362",
+        "selectedColor": "#636362",
+        "backgroundColor": "#EAE9E7",
+        "borderStyle": "white",
+        "list": [
+            {
+                "pagePath": "pages/home/home",
+                "iconPath": "images/tabbar/ic_home_normal_2x.png",
+                "selectedIconPath": "images/tabbar/ic_home_selected_2x.png",
+                "text": "首页"
+            },
+            {
+                "pagePath": "pages/mine/mine",
+                "iconPath": "images/tabbar/ic_mine_normal_2x.png",
+                "selectedIconPath": "images/tabbar/ic_mine_selected_2x.png",
+                "text": "我的"
+            }
+        ]
+    }
+}
   ```
 
 - 7.2.4 个人中心页面
@@ -451,6 +455,7 @@
 
   ```html
   <!-- pages/mine/mine.wxml -->
+  
   <view>
       <!-- 个人信息 -->
       <view class="info-container">
@@ -485,7 +490,7 @@
       width: 715rpx;
       height: 280rpx;
       margin: 8rpx auto;
-      background-image: url(/Users/next/Desktop/GBook/images/mine/bg_mine_hot_2x.png);
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/bg_mine_hot_2x.png);
       background-repeat: no-repeat;
       background-size: 715rpx 280rpx;
       /* 使用 flex 布局 */
@@ -521,7 +526,7 @@
       margin-left: 120rpx;
       width: 203rpx;
       height: 63rpx;
-      background-image: url(/Users/next/Desktop/GBook/images/mine/btn_get_2x.png);
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/btn_get_2x.png);
       background-repeat: no-repeat;
       background-size: 203rpx 63rpx;
   }
@@ -551,21 +556,21 @@
   }
   
   .list-container .favorite {
-      background-image: url(/Users/next/Desktop/GBook/images/mine/ic_favorite_2x.png);
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_favorite_2x.png);
       background-repeat: no-repeat;
       background-size: 44rpx 38rpx;
       background-position: 31rpx center;
   }
   
   .list-container .collection {
-      background-image: url(/Users/next/Desktop/GBook/images/mine/ic_collect_2x.png);
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_collect_2x.png);
       background-repeat: no-repeat;
       background-size: 30rpx 41rpx;
       background-position: 31rpx center;
   }
   
   .list-container .settings {
-      background-image: url(/Users/next/Desktop/GBook/images/mine/ic_agree_2x.png);
+      background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/ic_agree_2x.png);
       background-repeat: no-repeat;
       background-size: 43rpx 43rpx;
       background-position: 31rpx center;
@@ -578,25 +583,30 @@
 
   ```javascript
   // pages/mine/mine.js
+  
   Page({
-    data: {
-      userInfo: null
-    },
-    onLoad: function (options) {
-      this.setData({ //读取全局数据保存到当前页面中
-        userInfo: getApp().globalData.userInfo
-      });
-    },
-    toFavorite: function () {
-      wx.navigateTo({
-        url: '/pages/favorite/favorite'
-      });
-    },
-    toSettings: function () {
-      wx.navigateTo({
-        url: '/pages/settings/settings'
-      });
-    }
+      data: {
+          userInfo: null
+      },
+      onLoad: function (options) {
+          this.setData({ //读取全局数据保存到当前页面中
+              userInfo: getApp().globalData.userInfo
+          });
+      },
+      onReady: function () { },
+      onShow: function () { },
+      onHide: function () { },
+      onUnload: function () { },
+      toFavorite: function () {
+          wx.navigateTo({
+              url: '/pages/favorite/favorite'
+          });
+      },
+      toSettings: function () {
+          wx.navigateTo({
+              url: '/pages/settings/settings'
+          });
+      }
   })
   ```
 
@@ -669,25 +679,25 @@
   我们先来看下图书封面的是怎么实现的：
 
   ```css
-  	/* pages/detail/detail.wxss */
+  /* pages/detail/detail.wxss */
 
 	.cover {
-	​    width: 100%;
-	​    height: 414rpx;
-	​    background-color: #ffffff;
-	​    /* 设置为相对定位 */
-	​    position: relative;
+	    width: 100%;
+	    height: 414rpx;
+	    /* 设置为相对定位 */
+	    position: relative;
+	    background-color: #ffffff;
 	}
 	
 	.cover image {
-	​    width: 235rpx;
-	​    height: 306rpx;
-	​    /* 设置为绝对定位 */
-	​    position: absolute;
-	​    top: 50%;
-	​    left: 50%;
-	​    /* 使用 transform 将 image 向上和向左偏移 50% */
-	​    transform: translate(-50%, -50%);
+	    width: 235rpx;
+	    height: 306rpx;
+	    /* 设置为绝对定位 */
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    /* 使用 transform 将 image 向上和向左偏移 50% */
+	    transform: translate(-50%, -50%);
 	}
   ```
 
@@ -735,14 +745,14 @@
 	}
 	
 	.title-container .normal {
-	    background-image: url(/Users/next/Desktop/GBook/images/detail/ic_favorite_normal_2x.png);
+	    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_favorite_normal_2x.png);
 	    background-repeat: no-repeat;
 	    background-size: 46rpx 46rpx;
 	    background-position: right center;
 	}
 	
 	.title-container .selected {
-	    background-image: url(/Users/next/Desktop/GBook/images/detail/ic_favorite_selected_2x.png);
+	    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_favorite_selected_2x.png);
 	    background-repeat: no-repeat;
 	    background-size: 46rpx 46rpx;
 	    background-position: right center;
@@ -800,7 +810,7 @@
 	.comment-info-container .item .avatar {
 	    width: 89rpx;
 	    height: 89rpx;
-	    background-image: url(/Users/next/Desktop/GBook/images/logo.png);
+	    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/logo.png);
 	    background-repeat: no-repeat;
 	    background-size: 89rpx 89rpx;
 	    border-radius: 89rpx;
@@ -850,7 +860,7 @@
 	    color: rgba(130, 129, 129, 1);
 	    line-height: 64rpx;
 	    padding-right: 65rpx;
-	    background-image: url(/Users/next/Desktop/GBook/images/detail/ic_agree_2x.png);
+	    background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/detail/ic_agree_2x.png);
 	    background-repeat: no-repeat;
 	    background-size: 45rpx 45rpx;
 	    background-position: right center;
@@ -1073,37 +1083,37 @@
   /* pages/favorite/favorite.wxss */
 
 	.list-container {
-	​    width: 100%;
-	​    padding: 40rpx 0;
+	    width: 100%;
+	    padding: 40rpx 0;
 	}
 	
 	.list-container .item {
-	​    width: 100%;
-	​    height: 200rpx;
-	​    padding: 0 80rpx;
-	​    line-height: 200rpx;
-	​    margin-top: 10rpx;
-	​    background-color: #ffffff;
-	​    /* 使用 flex 布局 */
-	​    display: flex;
-	​    /* 方向为纵向 */
-	​    flex-direction: row;
-	​    /* 设置为不可换行 */
-	​    flex-wrap: nowrap;
-	​    /* 从左边开始布局 */
-	​    justify-content: flex-start;
-	​    /* 垂直居中 */
-	​    align-content: center;
-	​    align-items: center;
+	    width: 100%;
+	    height: 200rpx;
+	    padding: 0 80rpx;
+	    line-height: 200rpx;
+	    margin-top: 10rpx;
+	    background-color: #ffffff;
+	    /* 使用 flex 布局 */
+	    display: flex;
+	    /* 方向为纵向 */
+	    flex-direction: row;
+	    /* 设置为不可换行 */
+	    flex-wrap: nowrap;
+	    /* 从左边开始布局 */
+	    justify-content: flex-start;
+	    /* 垂直居中 */
+	    align-content: center;
+	    align-items: center;
 	}
 	
 	.list-container .item .cover {
-	​    width: 160rpx;
-	​    height: 160rpx;
+	    width: 160rpx;
+	    height: 160rpx;
 	}
 	
 	.list-container .item .title {
-	​    margin-left: 20rpx;
+	    margin-left: 20rpx;
 	}
   ```
 
@@ -1114,22 +1124,22 @@
 	import config from '../../config/config.js';
 	
 	Page({
-	  data: {
-	    dataList: []
-	  },
-	  onLoad: function (query) {
-	    //读取收藏的图书列表
-	    let favoriteBooks = wx.getStorageSync(config.cacheKey.favoriteBooks);
-	    this.setData({
-	      dataList: favoriteBooks
-	    });
-	  },
-	  onItemClick: function (e) {
-	    let item = e.currentTarget.dataset.item;
-	    wx.navigateTo({
-	      url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
-	    });
-	  }
+	    data: {
+	        dataList: []
+	    },
+	    onLoad: function (query) {
+	        //读取收藏的图书列表
+	        let favoriteBooks = wx.getStorageSync(config.cacheKey.favoriteBooks);
+	        this.setData({
+	            dataList: favoriteBooks
+	        });
+	    },
+	    onItemClick: function (e) {//图书点击跳转到详情页
+	        let item = e.currentTarget.dataset.item;
+	        wx.navigateTo({
+	            url: "/pages/detail/detail?id=" + item.id + "&name=" + item.name
+	        });
+	    }
 	})
   ```
 

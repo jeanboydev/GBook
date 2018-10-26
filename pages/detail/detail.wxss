@@ -3,6 +3,7 @@
 .cover {
     width: 100%;
     height: 414rpx;
+    /* 设置为相对定位 */
     position: relative;
     background-color: #ffffff;
 }
@@ -10,9 +11,11 @@
 .cover image {
     width: 235rpx;
     height: 306rpx;
+    /* 设置为绝对定位 */
     position: absolute;
     top: 50%;
     left: 50%;
+    /* 使用 transform 将 image 向上和向左偏移 50% */
     transform: translate(-50%, -50%);
 }
 
@@ -116,6 +119,7 @@
 }
 
 .comment-info-container .item .right {
+    /* 与 flex 布局结合使用，表示该子元素填充剩余的空间 */
     flex-grow: 1;
     margin-left: 10rpx;
     display: flex;
@@ -127,6 +131,7 @@
 }
 
 .comment-info-container .item .right .text {
+    /* 嵌套使用 flex 布局 */
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;

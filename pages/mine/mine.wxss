@@ -32,10 +32,15 @@
     background-image: url(https://raw.githubusercontent.com/jeanboydev/GBook/master/images/mine/bg_mine_hot_2x.png);
     background-repeat: no-repeat;
     background-size: 715rpx 280rpx;
+    /* 使用 flex 布局 */
     display: flex;
+    /* 方向为纵向 */
     flex-direction: row;
-    flex-wrap: nowrap;
+    /* 设置为可换行 */
+    flex-wrap: wrap;
+    /* 水平居中 */
     justify-content: center;
+    /* 垂直居中 */
     align-content: center;
     align-items: center;
 }
