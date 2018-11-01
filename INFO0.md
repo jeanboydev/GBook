@@ -102,9 +102,123 @@ AppID 我们可以在 `小程序管理平台` 中的 `设置` -> `开发设置` 
 ## 6.2 小程序框架
 
 - 6.2.1 小程序配置
+
+在小程序项目的跟目录下有一个 `app.json`，这是小程序项目的全局配置，主要配置文件页面的路径、窗口样式、设置多 tab 等。我们来看下文件里面的内容：
+
+```json
+{
+    "pages": [//所有的页面都需要在这里配置，一般开发者工具在新建页面时会自动添加
+        "pages/home/home"
+    ],
+    "window": {//全局页面顶部样式
+        "backgroundTextStyle": "dark",//下拉 loading 的样式
+        "navigationBarBackgroundColor": "white",//导航栏背景颜色
+        "navigationBarTextStyle": "black",//导航栏标题颜色
+        "navigationBarTitleText": "Demo",//默认页面标题
+        "enablePullDownRefresh": false//是否可以下拉刷新
+    },
+    "tabBar": {//底部 tab 的样式配置
+        "color": "#989898",//tab 名称未选中时的颜色
+        "selectedColor": "#2F96F9",//tab 名称未中时的颜色
+        "backgroundColor": "#FFFFFF",//tab 背景颜色
+        "borderStyle": "white",//tab 顶部边框颜色
+        "list": [
+            {
+                "pagePath": "pages/home/home",//tab 的页面路径
+                "iconPath": "",//tab 未选中时的图标
+                "selectedIconPath": "",//tab 选中时的图标
+                "text": "tab1"//tab 名称
+            }
+        ]
+    }
+}
+```
+
+在每个页面文件夹下都有一个与页面同名的 JSON 文件，例如 home.json，我们来看下文件里面的内容：
+
+```json
+{
+    "navigationBarBackgroundColor": "#ffffff",//导航栏背景颜色
+    "navigationBarTextStyle": "black",//导航栏标题颜色
+    "navigationBarTitleText": "首页",//导航栏标题文字内容
+    "backgroundColor": "#eeeeee",//窗口的背景色
+    "backgroundTextStyle": "light"//下拉 loading 的样式
+}
+```
+
+这里列出了常用的配置并备注了功能，更详细的配置可以去查看微信小程序的开发文档在 `小程序开发` -> `框架` -> `配置` -> `全局配置` 中可以找到。
+
 - 6.2.3 小程序生命周期
-- 6.2.4 视图层
-- 6.2.5 自定义组件
+
+我们在项目的根目录还可以看到 `app.js`，这是小程序的入口，管理所有页面和全局数据，以及提供生命周期方法。它也是一个构造方法，生成 App 实例。一个小程序就是一个 App 实例。
+
+在 `app.js` 提供了一些方法，用来处理小程序的生命周期：
+
+```javascript
+App({
+    onLaunch: function (options) {
+        //当小程序初始化完成时触发，全局只触发一次
+    },
+    onShow: function () {
+        //当小程序启动，或从后台进入前台显示时触发
+    },
+    onHide: function () {
+        //当小程序从前台进入后台时触发
+    },
+    onError: function () {
+        //当小程序发生 js 错误时触发
+    },
+    globalData: {//全局数据
+    }
+})
+```
+
+前台与后台定义： 当用户点击左上角关闭，或者按了设备 Home 键离开微信，小程序并没有直接销毁，而是进入了后台；当再次进入微信或再次打开小程序，又会从后台进入前台。需要注意的是：只有当小程序进入后台一定时间，或者系统资源占用过高，才会被真正的销毁。
+
+我们可以使用 `Page(Object)` 函数来注册一个页面。接受的是 `Object` 类型参数，其指定页面的初始数据、生命周期回调、事件处理函数等。比如我们在 home 目录下看到的 `home.js` 的作用就是注册一个页面。
+
+```javascript
+Page({
+    data: {//页面第一次渲染使用的初始数据
+    },
+    onLoad: function (options) {
+        //页面加载时触发，一个页面只会调用一次
+    },
+    onShow: function () {
+        //页面显示/切入前台时触发
+    },
+    onReady: function () {
+        //页面初次渲染完成时触发，一个页面只会调用一次，代表页面已经准备妥当，可以和视图层进行交互
+    },
+    onHide: function () {
+        //页面隐藏/切入后台时触发
+    },
+    onUnload: function () {
+        //页面卸载时触发
+    },
+})
+```
+
+在 Page 中我们可以使用 `getApp()` 函数来获取到小程序 App 的实例，比如我们获取全局数据就可以这样获取 `getApp().globalData`。
+
+我们来通过一张图看一下  Page 实例的生命周期：
+
+![页面生命周期图][]
+
+- 6.2.4 路由
+
+在小程序中所有页面的路由全部由框架进行管理的，框架以栈的形式维护了当前的所有页面。
+
+我们可以在 Page 页面中使用 `getCurrentPages()` 函数用于获取当前页面栈的实例，该函数以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面。
+
+1. 打开新页面：调用 API `wx.navigateTo` 或使用组件 `<navigator open-type="navigateTo"/>`，作用是保留当前页面，跳转到应用内的某个指定页面。
+2. 页面重定向：调用 API `wx.redirectTo` 或使用组件 `<navigator open-type="redirectTo"/>`，作用是关闭当前页面，跳转到应用内的某个指定页面。
+3. 页面返回：调用 API `wx.navigateBack` 或使用组件 `<navigator open-type="navigateBack">` 或用户按左上角返回按钮，作用是关闭当前页面，返回上一级或多级页面。
+4. Tab 切换：调用 API `wx.switchTab` 或使用组件 `<navigator open-type="switchTab"/>` 或用户切换 Tab，作用是跳转到指定 tabBar 页面，并关闭其他所有非 tabBar 页面。
+5. 重启动：调用 API `wx.reLaunch` 或使用组件 `<navigator open-type="reLaunch"/>`，作用是关闭当前所有页面，跳转到应用内的某个指定页面。	
+
+- 6.2.5 视图层
+- 6.2.6 自定义组件
 
 ## 6.3 常用组件
 
