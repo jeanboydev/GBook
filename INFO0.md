@@ -378,14 +378,39 @@ Page({
 
 - 6.3.1 视图容器
 
-
+1. view
+2. scroll-view
+3. swiper
 
 - 6.3.2 基础内容
+
+1. text
+2. progress
+
 - 6.3.3 表单组件
-- 6.3.4 导航
-- 6.3.5 媒体组件
-- 6.3.6 地图
+
+1. button
+2. checkbox
+3. radio
+4. input
+5. textarea
+6. form
+7. slider
+8. switch
+9. picker
+
+- 6.3.4 媒体组件
+
+1. image
+2. audio
+3. video
+
+- 6.3.5 地图
+
 - 6.3.7 开放能力
+
+1. web-view
+2. official-account
 
 ## 6.4 常用 API
 
