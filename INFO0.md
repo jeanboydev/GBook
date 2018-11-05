@@ -8,7 +8,7 @@
 
 我们可以在微信聊天列表中下拉，或者在 `发现` -> `小程序` 中都可以找到小程序。相对于原生 App 来说小程序的用户可便捷地获取服务，不用安装，即开即用，用完就走。省流量，省安装时间，不占用桌面；小程序还可以跨平台（同时支持 iOS 和 Android），降低开发成本，推广更容易更简单。
 
-![图6-1 App 对比微信小程序图](/Users/next/Desktop/GBook/images/6-1.jpg)
+![图6-1 App 对比微信小程序图](/Users/next/Work/Web-App/GBook/images/6-1.jpg)
 
 简单来说微信小程序就是在微信的平台上开发出的应用，用户只需要下载微信既可使用小程序。同时微信为微信小程序提供了一套基础组件库，可以满足开发的基础开发需求，从而实现简单的快速开发。
 
@@ -22,25 +22,25 @@
 
 注册完微信小程序开发者后，我们需要登录小程序管理平台，在首页我们可以看到 `小程序发布流程`。我们需要根据提示先完善小程序信息，然后下载并安装微信开发者工具。
 
-![图6-2 小程序发布流程图](/Users/next/Desktop/GBook/images/6-2.png)
+![图6-2 小程序发布流程图](/Users/next/Work/Web-App/GBook/images/6-2.png)
 
 下载并安装好微信开发者工具后，的效果图如下：
 
-![图6-3 微信开发者工具效果图](/Users/next/Desktop/GBook/images/6-3.png)
+![图6-3 微信开发者工具效果图](/Users/next/Work/Web-App/GBook/images/6-3.png)
 
 - 6.1.3 Hello 小程序
 
 接下来开始创建我们的第一个微信小程序项目，我们在开发者工具中选择 `小程序项目`，然后选择加号新建一个小程序项目，选择项目目录、填写 AppID、项目名称。
 
-![图6-4 创建小程序项目效果图](/Users/next/Desktop/GBook/images/6-4.png)
+![图6-4 创建小程序项目效果图](/Users/next/Work/Web-App/GBook/images/6-4.png)
 
 AppID 我们可以在 `小程序管理平台` 中的 `设置` -> `开发设置` 中找到。
 
-![图6-5 开发设置效果图](/Users/next/Desktop/GBook/images/6-5.png)
+![图6-5 开发设置效果图](/Users/next/Work/Web-App/GBook/images/6-5.png)
 
 创建好项目之后就能看到开发工具的全貌了。
 
-![图6-6 开发工具项目效果图](/Users/next/Desktop/GBook/images/6-6.png)
+![图6-6 开发工具项目效果图](/Users/next/Work/Web-App/GBook/images/6-6.png)
 
 - 6.1.4 代码构成
 
@@ -203,7 +203,7 @@ Page({
 
 我们来通过一张图看一下  Page 实例的生命周期：
 
-![页面生命周期图][]
+![图6-7 页面生命周期图](/Users/next/Work/Web-App/GBook/images/6-7.png)
 
 - 6.2.4 路由
 
@@ -218,11 +218,168 @@ Page({
 5. 重启动：调用 API `wx.reLaunch` 或使用组件 `<navigator open-type="reLaunch"/>`，作用是关闭当前所有页面，跳转到应用内的某个指定页面。	
 
 - 6.2.5 视图层
-- 6.2.6 自定义组件
+
+视图层主要由 WXML 与 WXSS 编写，由组件来进行展示。视图层的主要任务就是展示逻辑层提供的数据，同时将用户的操作的事件发送给逻辑层。
+
+1. 数据绑定
+
+数据绑定就是将 Page 中的 data 数据在 WXML 中展示，当我们操作 Page 中的 data 时 WXML 中会动态更新。我们来看下示例：
+
+WXML：
+
+```html
+<view> {{ message }} </view>
+```
+
+Page：
+
+```javascript
+Page({
+  data: {
+    message: 'Hello World!'
+  }
+})
+```
+
+示例中 WXML 通过 `{{ message }}` 的方式获取了 Page 中 data 名称为 message 的数据，当我们在 Page 中修改 message 的值时 WXML 中的值也会动态更新。
+
+2. 列表渲染
+
+列表渲染就是我们在展示一组相同数据结构的数据时用到的渲染方式。我们可以在组件上使用 `wx:for` 控制属性绑定一个数组，即可使用数组中各项的数据重复渲染该组件。
+
+WXML：
+
+```html
+<!-- 这里的 index 和 item 是默认的变量名，也就是说使用 wx:for 来渲染都会默认有这两个变量 -->
+<view wx:for="{{array}}">
+  {{index}}: {{item.message}}
+</view>
+```
+
+Page：
+
+```javascript
+Page({
+  data: {
+    array: [{
+      message: 'foo',
+    }, {
+      message: 'bar'
+    }]
+  }
+})
+```
+
+这里仅做简单的介绍，详情请参考 `微信公众平台` -> `小程序开发` -> `框架` -> `视图层` -> `列表渲染` 。
+
+3. 条件渲染
+
+跟列表渲染的语法很相似，WXML 中还支持 `wx:if`、`wx:else`、`wx:elif` 等条件渲染方式。
+
+```html
+<view wx:if="{{length > 5}}"> 1 </view>
+<view wx:elif="{{length > 2}}"> 2 </view>
+<view wx:else> 3 </view>
+```
+
+4. 模板
+
+WXML 还提供模板（template），可以在模板中定义代码片段，然后在不同的地方调用。
+
+定义模板：
+
+```html
+<template name="test">
+  <view>
+    <text> 内容: {{content}} </text>
+  </view>
+</template>
+```
+
+这里使用 `<template/>` 标签的 name 属性定义了一个名为 test 的模板，模板接受的参数为 content。
+
+使用模板：
+
+```html
+<template is="test" data="{{content:'哈哈'}}"/>
+```
+
+模板的使用也很简单，只需要引入模板文件使用 `<template/>` 标签指定模板的名称，通过 data 属性来传入参数即可。
+
+5. 事件
+
+什么是事件：
+
+> 1. 事件是视图层到逻辑层的通讯方式。
+> 2. 事件可以将用户的行为反馈到逻辑层进行处理。
+> 3. 事件可以绑定在组件上，当达到触发事件，就会执行逻辑层中对应的事件处理函数。
+> 4. 事件对象可以携带额外信息，如 id, dataset, touches。
+
+事件的使用方式：
+
+如 `bindtap`，当用户点击该组件的时候会在该页面对应的 Page 中找到相应的事件处理函数。
+
+```html
+<view id="tapTest" data-hi="WeChat" bindtap="tapName"> Click me! </view>
+```
+
+在相应的 Page 定义中写上相应的事件处理函数，参数是 event。
+
+```javascript
+Page({
+  tapName: function(event) {
+    console.log(event)
+  }
+})
+```
+
+可以看到 log 出来的信息大致如下：
+
+```json
+{
+  "type":"tap",
+  "timeStamp":895,
+  "target": {//点击对象
+    "id": "tapTest",//对象 ID
+    "dataset":  {//data-hi 的数据
+      "hi":"WeChat"
+    }
+  },
+  "currentTarget":  {
+    "id": "tapTest",
+    "dataset": {
+      "hi":"WeChat"
+    }
+  },
+  "detail": {
+    "x":53,
+    "y":14
+  },
+  "touches":[{
+    "identifier":0,
+    "pageX":53,
+    "pageY":14,
+    "clientX":53,
+    "clientY":14
+  }],
+  "changedTouches":[{
+    "identifier":0,
+    "pageX":53,
+    "pageY":14,
+    "clientX":53,
+    "clientY":14
+  }]
+}
+```
+
+当然微信小程序支持的事件还有很多，具体可在  `微信公众平台` -> `小程序开发` -> `框架` -> `视图层` -> `事件` 中找到。
 
 ## 6.3 常用组件
 
 - 6.3.1 视图容器
+
+
+
 - 6.3.2 基础内容
 - 6.3.3 表单组件
 - 6.3.4 导航
