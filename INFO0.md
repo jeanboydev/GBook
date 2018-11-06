@@ -378,46 +378,256 @@ Page({
 
 - 6.3.1 视图容器
 
-1. view
-2. scroll-view
-3. swiper
+1. view：相当于 HTML 中的 `<div>`，我们来看下它的用法：
+
+```html
+<view>
+    <view class="title">横向布局</view>
+    <view class="flex-row">
+        <view class="a">A</view>
+        <view class="b">B</view>
+        <view class="c">C</view>
+    </view>
+    <view class="title">纵向布局</view>
+    <view class="flex-column">
+        <view class="a">A</view>
+        <view class="b">B</view>
+        <view class="c">C</view>
+    </view>
+</view>
+```
+
+图6-8
+
+2. scroll-view：可滚动的视图区域，也就是可以水平或者垂直滚动的容器。
+
+```html
+<view>
+    <view class="title">横向滚动</view>
+    <scroll-view scroll-x class="scroll-view">
+        <view class="flex-row">
+            <view class="a">A</view>
+            <view class="b">B</view>
+            <view class="c">C</view>
+        </view>
+    </scroll-view>
+    <view class="title">纵向滚动</view>
+    <scroll-view scroll-y class="scroll-view">
+        <view class="flex-column">
+            <view class="a">A</view>
+            <view class="b">B</view>
+            <view class="c">C</view>
+        </view>
+    </scroll-view>
+</view>
+```
+
+图 6-9
+
+3. swiper：滑块视图容器，也就我们常见的 banner 轮播图效果。
+
+```html
+<view>
+    <swiper indicator-dots="true" autoplay="true" interval="2000" duration="1000">
+        <swiper-item>
+            <view class="a" />
+        </swiper-item>
+        <swiper-item>
+            <view class="b" />
+        </swiper-item>
+        <swiper-item>
+            <view class="c" />
+        </swiper-item>
+    </swiper>
+</view>
+```
+
+图 6-10
 
 - 6.3.2 基础内容
 
-1. text
-2. progress
+1. text：文本可以理解为 HTML 中的 `<span>`。
+
+```html
+<text>{{text}}</text>
+```
+
+2. progress：进度条。
+
+```html
+<progress percent="20" show-info />
+<progress percent="40" stroke-width="12" />
+<progress percent="60" color="pink" />
+<progress percent="80" active />
+```
+
+图 6-11
 
 - 6.3.3 表单组件
 
-1. button
-2. checkbox
-3. radio
-4. input
-5. textarea
-6. form
-7. slider
-8. switch
-9. picker
+1. button：按钮。
+
+```html
+<button type="default">default</button>
+<button type="primary">primary</button>
+<button type="warn">warn</button>
+```
+
+图 6-12
+
+2. checkbox：复选框。
+
+```html
+ <checkbox-group bindchange="checkboxChange">
+     <label class="checkbox" wx:for="{{checkBoxItems}}" wx:key="index">
+         <checkbox value="{{item.value}}" checked="{{item.checked}}" />
+         {{item.name}}
+     </label>
+</checkbox-group>
+```
+
+图 6-13
+
+3. radio：单选按钮。
+
+```html
+ <radio-group class="radio-group" bindchange="radioChange">
+     <label class="radio" wx:for="{{radioItems}}" wx:key="index">
+         <radio value="{{item.value}}" checked="{{item.checked}}" />
+         {{item.name}}
+     </label>
+</radio-group>
+```
+
+图 6-14
+
+4. input：输入框。
+
+```html
+<input placeholder="这是一个 input" />
+```
+
+图 6-15
+
+5. textarea：多行输入框。
+
+```html
+<textarea placeholder="这是一个 textarea" />
+```
+
+图 6-16
+
+6. form：表单，就是将组件内的用户输入的`<switch/>` `<input/>` `<checkbox/>` `<slider/>` `<radio/>` `<picker/>` 的内容提交。
+
+当点击 `<form/>` 表单中 formType 为 submit 的 `<button/>` 组件时，会将表单组件中的 value 值进行提交，需要在表单组件中加上 name 来作为 key。
+
+```html
+<form bindsubmit="formSubmit" bindreset="formReset">
+     <button formType="submit">Submit</button>
+     <button formType="reset">Reset</button>
+</form>
+```
+
+7. slider：滑动选择器。
+
+```html
+<slider bindchange="sliderChange" step="5" />
+```
+
+图 6-17
+
+8. switch：开关选择器。
+
+```html
+<switch bindchange="switchChange" />
+```
+
+图 6-18
+
+9. picker：从底部弹起的滚动选择器。
+
+```html
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+     <view class="picker">当前选择：{{array[index]}}</view>
+</picker>
+```
+
+图 6-19
 
 - 6.3.4 媒体组件
 
-1. image
-2. audio
-3. video
+1. image：图片。
+
+```html
+<image src="" mode="scaleToFill"></image>
+```
+
+图 6-20
+
+2. audio：播放音频。
+
+```html
+<audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{audioSrc}}" id="myAudio" controls loop></audio>
+<button type="primary" bindtap="audioPlay">播放</button>
+<button type="primary" bindtap="audioPause">暂停</button>
+<button type="primary" bindtap="audio14">设置当前播放时间为14秒</button>
+<button type="primary" bindtap="audioStart">回到开头</button>
+```
+
+图 6-21
+
+3. video：播放视频。
+
+```html
+<video id="myVideo" src="" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+<button bindtap="bindButtonTap">获取视频</button>
+```
+
+图 6-22
 
 - 6.3.5 地图
 
-- 6.3.7 开放能力
+```html
+<map id="map" longitude="113.324520" latitude="23.099994" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+```
 
-1. web-view
-2. official-account
+图 6-23
+
+- 6.3.6 web-view
+
+```html
+<web-view src="https://mp.weixin.qq.com/"></web-view>
+```
+
+图 6-24
 
 ## 6.4 常用 API
 
 - 6.4.1 网络
-1. 上传
-2. 下载
-3. 请求
+1. 上传：就是将本地资源（图片或者文件）上传到服务器端。
+
+```javascript
+wx.chooseImage({//从手机中选取文件
+    success: function (res) {//选取到的文件
+        const tempFilePaths = res.tempFilePaths;
+        wx.uploadFile({//开始上传文件
+            url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+            filePath: tempFilePaths[0],//设置文件地址
+            name: 'file',
+            formData: {
+                'user': 'test'
+            },
+            success: function (res) {//图片上传成功
+                const data = res.data;
+                //do something
+            }
+        });
+    }
+});
+```
+
+1. 下载
+2. 请求
 - 6.4.2 媒体
 1. 音频
 2. 相机
