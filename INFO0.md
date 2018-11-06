@@ -626,26 +626,169 @@ wx.chooseImage({//从手机中选取文件
 });
 ```
 
-1. 下载
-2. 请求
-- 6.4.2 媒体
-1. 音频
-2. 相机
-3. 视频
-- 6.4.3 文件
-- 6.4.4 数据缓存
-- 6.4.5 位置
+2. 下载：就是从服务器下载文件资源到本地。
+
+```javascript
+wx.downloadFile({
+    url: 'https://example.com/audio/123', //仅为示例，并非真实的资源
+    success: function (res) {
+        // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调
+        // 业务需要自行判断是否下载到了想要的内容
+        if (res.statusCode === 200) {
+            let filePath = res.tempFilePath;// 下载成功的文件路径
+        }
+    }
+});
+```
+
+3. 请求：发起 HTTPS 网络请求。
+
+```javascript
+ wx.request({
+     url: 'test.php', //仅为示例，并非真实的接口地址
+     data: {// 请求参数
+         x: ''
+     },
+     header: {// 请求头
+         'content-type': 'application/json' // 默认值
+     },
+     success: function (res) {
+         // 请求成功
+     },
+     fail: function (res) {
+         // 请求失败
+     }
+ });
+```
+
+- 6.4.2 数据缓存：微信小程序的数据缓存主要是使用 localStorage。
+
+```javascript
+wx.clearStorage();// 清空所有数据，异步处理
+wx.clearStorageSync();// 清空所有数据，同步处理
+
+wx.getStorage({// 获取数据，异步处理
+    key: 'key',
+    success: function (res) {
+        console.log(res.data);
+    }
+});
+let data = wx.getStorageSync('key');// 获取数据，同步处理
+
+wx.removeStorage({// 移除数据，异步处理
+    key: 'key',
+    success: function (res) {
+        console.log(res.data);
+    }
+});
+wx.removeStorageSync('key');// 移除数据，同步处理
+
+wx.setStorage({// 保存数据，异步处理
+    key: 'key',
+    value: 'value'
+});
+wx.setStorageSync('key', 'value');// 保存数据，同步处理
+```
+
+- 6.4.5 位置：获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用。
+```javascript
+ wx.getLocation({
+     type: 'wgs84',
+     success: function (res) {
+         const latitude = res.latitude;
+         const longitude = res.longitude;
+         const speed = res.speed;
+         const accuracy = res.accuracy;
+     }
+ });
+```
+
 - 6.4.6 设备
-1. 网络
-2. 电话
+1. 网络：获取用户网络状态。
+
+```javascript
+ wx.getNetworkType({
+     success: function (res) {
+         const networkType = res.networkType;
+     }
+ });
+```
+
+2. 电话：拨打电话。
+
+```javascript
+ wx.makePhoneCall({
+     phoneNumber: '1340000' //仅为示例，并非真实的电话号码
+ });
+```
+
 3. 扫码
+
+```javascript
+wx.scanCode({// 允许从相机和相册扫码
+    success: function (res) {
+        console.log(res);
+    }
+})
+
+wx.scanCode({// 只允许从相机扫码
+    onlyFromCamera: true,
+    success: function (res) {
+        console.log(res);
+    }
+});
+```
+
 - 6.4.7 开放接口
 1. 授权
-2. 支付
+
+```html
+<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+    获取用户信息
+</button>
+<button bindgetphonenumber="bindGetPhoneNumber" open-type="getPhoneNumber">
+    获取用户手机号
+</button>
+```
+
+
+
+2. 支付：发起微信支付。
+
+```javascript
+ wx.requestPayment({
+     timeStamp: '',// 从服务器端获取
+     nonceStr: '',// 从服务器端获取
+     package: '',// 从服务器端获取
+     signType: '',// 从服务器端获取
+     paySign: '',// 从服务器端获取
+     success: function (res) {
+         // 支付成功
+     },
+     fail: function (res) {
+         // 支付失败
+     }
+ });
+```
+
+
+
 3. 小程序跳转
+
+
+
 4. 设置
+
+
+
 5. 数据分析
+
+
+
+
+
 6. 用户信息
+
 - 6.4.8 更新
 
 
