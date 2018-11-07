@@ -564,6 +564,14 @@ Page({
 
 ![图6-20 image 示例图](/Users/next/Work/Web-App/GBook/images/6-20.png)
 
+我们可以看到图片是变行的，这里与 `mode="scaleToFill"` 有关，常用的 mode 属性如下：
+
+| 模式 | 值          | 说明                                                         |
+| ---- | ----------- | ------------------------------------------------------------ |
+| 缩放 | scaleToFill | 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素  |
+| 缩放 | aspectFit   | 保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。 |
+| 缩放 | aspectFill  | 保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。 |
+
 2. audio：播放音频。
 
 ```html
@@ -610,15 +618,13 @@ Page({
 
 ![图6-23 map 示例图](/Users/next/Work/Web-App/GBook/images/6-23.png)
 
-- 6.3.6 web-view
+- 6.3.6 web-view：展示网页。由于目前不对个人小程序开放这里不做展示。
 
 ```html
-<web-view src="https://mp.weixin.qq.com/"></web-view>
+<web-view src="https://jeanboy.cn"></web-view>
 ```
 
-![图6-24 web-view 示例图](/Users/next/Work/Web-App/GBook/images/6-24.png)
-
-- 6.3.7 其他
+- 6.3.7 总结
 
 这里仅仅示例了常用的组件，其他组件的介绍可以在 `微信公众平台` -> `小程序开发` -> `组件` 中找到。
 
