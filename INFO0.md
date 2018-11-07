@@ -107,7 +107,7 @@ AppID 我们可以在 `小程序管理平台` 中的 `设置` -> `开发设置` 
 
 ```json
 {
-    "pages": [//所有的页面都需要在这里配置，一般开发者工具在新建页面时会自动添加
+    "pages": [//所有的页面都需要在这里配置
         "pages/home/home"
     ],
     "window": {//全局页面顶部样式
@@ -631,7 +631,7 @@ Page({
 <button type="primary" bindtap="audioStart">回到开头</button>
 ```
 
-![图6-21 audio 示例图](/Users/next/Work/Web-App/GBook/images/6-22.png)
+![图6-21 audio 示例图](/Users/next/Work/Web-App/GBook/images/6-21.png)
 
 3. video：播放视频。
 
