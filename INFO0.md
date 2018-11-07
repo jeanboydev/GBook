@@ -397,6 +397,8 @@ Page({
 </view>
 ```
 
+效果图如下，我们可以看到 HTML 中 `<div>` 可以实现的的效果 `<view>` 都可以实现。
+
 ![图6-8 view 示例图](/Users/next/Work/Web-App/GBook/images/6-8.png)
 
 2. scroll-view：可滚动的视图区域，也就是可以水平或者垂直滚动的容器。
@@ -422,6 +424,8 @@ Page({
 </view>
 ```
 
+`<scroll-view>` 组件可以很方便的做出横向或纵向滚动的效果，常见的导航栏、滑动列表等都可以实现。
+
 ![图6-9 scroll-view 示例图](/Users/next/Work/Web-App/GBook/images/6-9.png)
 
 3. swiper：滑块视图容器，也就我们常见的 banner 轮播图效果。
@@ -442,6 +446,8 @@ Page({
 </view>
 ```
 
+`<swiper>` 组件最常见的使用场景就是轮播图效果了，当然我们也可以使用 swiper 实现引导页等效果。
+
 ![图6-10 swiper 示例图](/Users/next/Work/Web-App/GBook/images/6-10.png)
 
 - 6.3.2 基础内容
@@ -461,6 +467,8 @@ Page({
 <progress percent="80" active />
 ```
 
+`<progress>` 组件可以帮助我们快速实现进度加载的效果，可以根据需求自定义样式。
+
 ![图6-11 text、progress 示例图](/Users/next/Work/Web-App/GBook/images/6-11.png)
 
 - 6.3.3 表单组件
@@ -472,6 +480,8 @@ Page({
 <button type="primary">primary</button>
 <button type="warn">warn</button>
 ```
+
+`<button>` 组件虽然使用起来很方便，但是当需要自定义样式时却不是很方便，我们可以使用 `<view>` 组件代替。
 
 ![图6-12 button 示例图](/Users/next/Work/Web-App/GBook/images/6-12.png)
 
@@ -486,6 +496,20 @@ Page({
 </checkbox-group>
 ```
 
+```javascript
+Page({
+    data: {
+        checkBoxItems: [
+            { name: 'USA', value: '美国' },
+            { name: 'CHN', value: '中国', checked: 'true' },
+            { name: 'BRA', value: '巴西' },
+            { name: 'JPN', value: '日本' },
+            { name: 'ENG', value: '英国' },
+            { name: 'TUR', value: '法国' }]
+    }
+})
+```
+
 ![图6-13 checkbox 示例图](/Users/next/Work/Web-App/GBook/images/6-13.png)
 
 3. radio：单选按钮。
@@ -497,6 +521,16 @@ Page({
         {{item.name}}
     </label>
 </radio-group>
+```
+
+```javascript
+Page({
+    data: {
+         radioItems: [
+            { name: '男', value: '1' },
+            { name: '女', value: '2', checked: 'true' }]
+    }
+})
 ```
 
 ![图6-14 radio 示例图](/Users/next/Work/Web-App/GBook/images/6-14.png)
@@ -552,6 +586,15 @@ Page({
 </picker>
 ```
 
+```javascript
+Page({
+    data: {
+        array: ['美国', '中国', '巴西', '日本'],
+        index: 1
+    }
+})
+```
+
 ![图6-19 picker 示例图](/Users/next/Work/Web-App/GBook/images/6-19.png)
 
 - 6.3.4 媒体组件
@@ -564,7 +607,7 @@ Page({
 
 ![图6-20 image 示例图](/Users/next/Work/Web-App/GBook/images/6-20.png)
 
-我们可以看到图片是变行的，这里与 `mode="scaleToFill"` 有关，常用的 mode 属性如下：
+我们可以看到图片是变形的，这里与 `mode="scaleToFill"` 有关，常用的 mode 属性如下：
 
 | 模式 | 值          | 说明                                                         |
 | ---- | ----------- | ------------------------------------------------------------ |
@@ -875,3 +918,7 @@ updateManager.onUpdateFailed(function () {
     console.log("onUpdateFailed");
 });
 ```
+
+- 6.4.9 总结
+
+这里仅仅示例了常用的 API，其他开放 API 的介绍可以在 `微信公众平台` -> `小程序开发` -> `API` 中找到。
