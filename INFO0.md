@@ -567,7 +567,13 @@ Page({
 2. audio：播放音频。
 
 ```html
-<audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{audioSrc}}" id="myAudio" controls loop></audio>
+<audio poster="{{poster}}" 
+       name="{{name}}" 
+       author="{{author}}" 
+       src="{{audioSrc}}" 
+       id="myAudio" 
+       controls 
+       loop></audio>
 <button type="primary" bindtap="audioPlay">播放</button>
 <button type="primary" bindtap="audioPause">暂停</button>
 <button type="primary" bindtap="audio14">设置当前播放时间为14秒</button>
@@ -588,7 +594,18 @@ Page({
 - 6.3.5 地图
 
 ```html
-<map id="map" longitude="113.324520" latitude="23.099994" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+<map id="map" 
+     longitude="113.324520" 
+     latitude="23.099994" 
+     scale="14" 
+     controls="{{controls}}" 
+     bindcontroltap="controltap" 
+     markers="{{markers}}" 
+     bindmarkertap="markertap" 
+     polyline="{{polyline}}" 
+     bindregionchange="regionchange" 
+     show-location 
+     style="width: 100%; height: 300px;"></map>
 ```
 
 图 6-23
@@ -740,17 +757,35 @@ wx.scanCode({// 只允许从相机扫码
 ```
 
 - 6.4.7 开放接口
-1. 授权
+1. 授权：向用户发起授权请求。调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。
 
-```html
-<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
-    获取用户信息
-</button>
-<button bindgetphonenumber="bindGetPhoneNumber" open-type="getPhoneNumber">
-    获取用户手机号
-</button>
+```javascript
+// 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
+wx.getSetting({
+    success: function (res) {
+        if (res.authSetting['scope.record']) {// 已授权
+            // 用户已经同意小程序使用录音功能，不会弹窗询问
+            wx.startRecord();
+        } else {// 没有权限
+             wx.authorize({// 请求权限会弹窗询问
+                 scope: 'scope.record',
+                 success: function () {
+                     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+                     wx.startRecord();
+                 }
+             });
+        }
+    }
+});
 ```
 
+微信小程序中常用的 scope 如下：
+
+| scope              | 对应接口                                           | 描述     |
+| ------------------ | -------------------------------------------------- | -------- |
+| scope.userInfo     | wx.getUserInfo                                     | 用户信息 |
+| scope.userLocation | wx.getLocation, wx.chooseLocation, wx.openLocation | 地理位置 |
+| scope.address      | wx.chooseAddress                                   | 通讯地址 |
 
 
 2. 支付：发起微信支付。
@@ -771,38 +806,58 @@ wx.scanCode({// 只允许从相机扫码
  });
 ```
 
+3. 小程序跳转：小程序之间相互跳转。
 
+```javascript
+wx.navigateToMiniProgram({// 打开另一个小程序
+    appId: '',// 要打开的小程序 appId
+    path: 'page/index/index?id=123',//打开的页面路径，如果为空则打开首页
+    extraData: {//需要传递给目标小程序的数据
+        foo: 'bar'
+    },
+    envVersion: 'develop',
+    success: function (res) {
+        // 打开成功
+    }
+});
 
-3. 小程序跳转
+wx.navigateBackMiniProgram({//返回到上一个小程序
+    extraData: {//需要返回给上一个小程序的数据
+        foo: 'bar'
+    },
+    success: function (res) {
+        // 返回成功
+    }
+});
+```
 
+4. 数据分析：自定义分析数据上报接口。使用前，需要在小程序管理后台自定义分析中新建事件，配置好事件名与字段。
 
-
-4. 设置
-
-
-
-5. 数据分析
-
-
-
-
-
-6. 用户信息
+```javascript
+wx.reportAnalytics('purchase', {
+    price: 120,
+    color: 'red'
+});
+```
 
 - 6.4.8 更新
 
+用于检查并管理小程序的更新。
 
-
-## 要求标准
-
-6.1 快速入门
-
-小程序注册，给个网址让读者自己注册，然后说下注意实现，比如个人和企业的差别，是否能用微信支付
-
-弄一个简易的demo，讲下项目结构、代码结构等，让大家有整体的感觉
-
-6.2 常用的控件介绍，比如文本、button、图片、输入框、列表、动画等，每个控件介绍下常用属性，每个都一段代码 + 一张效果截图
-
-6.3 进一步的例子，涉及到生命周期、WXSS样式与WXS模块、页面路由和模块，通过例子来讲这些东西
-
-6.4 网络请求、存储等，都要通过例子来描述
+```javascript
+//微信小程序检查更新
+const updateManager = wx.getUpdateManager();
+updateManager.onCheckForUpdate(function (res) {
+    // 请求完新版本信息的回调
+    console.log("onCheckForUpdate:" + res.hasUpdate);
+});
+updateManager.onUpdateReady(function () {
+    // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+    console.log("onUpdateReady");
+    updateManager.applyUpdate();
+});
+updateManager.onUpdateFailed(function () {
+    // 新的版本下载失败
+    console.log("onUpdateFailed");
+});
+```
