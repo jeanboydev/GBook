@@ -397,7 +397,7 @@ Page({
 </view>
 ```
 
-图6-8
+![图6-8 view 示例图](/Users/next/Work/Web-App/GBook/images/6-8.png)
 
 2. scroll-view：可滚动的视图区域，也就是可以水平或者垂直滚动的容器。
 
@@ -422,7 +422,7 @@ Page({
 </view>
 ```
 
-图 6-9
+![图6-9 scroll-view 示例图](/Users/next/Work/Web-App/GBook/images/6-9.png)
 
 3. swiper：滑块视图容器，也就我们常见的 banner 轮播图效果。
 
@@ -442,7 +442,7 @@ Page({
 </view>
 ```
 
-图 6-10
+![图6-10 swiper 示例图](/Users/next/Work/Web-App/GBook/images/6-10.png)
 
 - 6.3.2 基础内容
 
@@ -461,7 +461,7 @@ Page({
 <progress percent="80" active />
 ```
 
-图 6-11
+![图6-11 text、progress 示例图](/Users/next/Work/Web-App/GBook/images/6-11.png)
 
 - 6.3.3 表单组件
 
@@ -473,33 +473,33 @@ Page({
 <button type="warn">warn</button>
 ```
 
-图 6-12
+![图6-12 button 示例图](/Users/next/Work/Web-App/GBook/images/6-12.png)
 
 2. checkbox：复选框。
 
 ```html
- <checkbox-group bindchange="checkboxChange">
-     <label class="checkbox" wx:for="{{checkBoxItems}}" wx:key="index">
-         <checkbox value="{{item.value}}" checked="{{item.checked}}" />
-         {{item.name}}
-     </label>
+<checkbox-group bindchange="checkboxChange">
+    <label class="checkbox" wx:for="{{checkBoxItems}}" wx:key="index">
+        <checkbox value="{{item.value}}" checked="{{item.checked}}" />
+        {{item.name}}
+    </label>
 </checkbox-group>
 ```
 
-图 6-13
+![图6-13 checkbox 示例图](/Users/next/Work/Web-App/GBook/images/6-13.png)
 
 3. radio：单选按钮。
 
 ```html
- <radio-group class="radio-group" bindchange="radioChange">
-     <label class="radio" wx:for="{{radioItems}}" wx:key="index">
-         <radio value="{{item.value}}" checked="{{item.checked}}" />
-         {{item.name}}
-     </label>
+<radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{radioItems}}" wx:key="index">
+        <radio value="{{item.value}}" checked="{{item.checked}}" />
+        {{item.name}}
+    </label>
 </radio-group>
 ```
 
-图 6-14
+![图6-14 radio 示例图](/Users/next/Work/Web-App/GBook/images/6-14.png)
 
 4. input：输入框。
 
@@ -507,7 +507,7 @@ Page({
 <input placeholder="这是一个 input" />
 ```
 
-图 6-15
+![图6-15 input 示例图](/Users/next/Work/Web-App/GBook/images/6-15.png)
 
 5. textarea：多行输入框。
 
@@ -515,7 +515,7 @@ Page({
 <textarea placeholder="这是一个 textarea" />
 ```
 
-图 6-16
+![图6-16 textarea 示例图](/Users/next/Work/Web-App/GBook/images/6-16.png)
 
 6. form：表单，就是将组件内的用户输入的`<switch/>` `<input/>` `<checkbox/>` `<slider/>` `<radio/>` `<picker/>` 的内容提交。
 
@@ -534,7 +534,7 @@ Page({
 <slider bindchange="sliderChange" step="5" />
 ```
 
-图 6-17
+![图6-17 slider 示例图](/Users/next/Work/Web-App/GBook/images/6-17.png)
 
 8. switch：开关选择器。
 
@@ -542,7 +542,7 @@ Page({
 <switch bindchange="switchChange" />
 ```
 
-图 6-18
+![图6-18 switch 示例图](/Users/next/Work/Web-App/GBook/images/6-18.png)
 
 9. picker：从底部弹起的滚动选择器。
 
@@ -552,7 +552,7 @@ Page({
 </picker>
 ```
 
-图 6-19
+![图6-19 picker 示例图](/Users/next/Work/Web-App/GBook/images/6-19.png)
 
 - 6.3.4 媒体组件
 
@@ -562,7 +562,7 @@ Page({
 <image src="" mode="scaleToFill"></image>
 ```
 
-图 6-20
+![图6-20 image 示例图](/Users/next/Work/Web-App/GBook/images/6-20.png)
 
 2. audio：播放音频。
 
@@ -580,7 +580,7 @@ Page({
 <button type="primary" bindtap="audioStart">回到开头</button>
 ```
 
-图 6-21
+![图6-21 audio 示例图](/Users/next/Work/Web-App/GBook/images/6-22.png)
 
 3. video：播放视频。
 
@@ -589,7 +589,7 @@ Page({
 <button bindtap="bindButtonTap">获取视频</button>
 ```
 
-图 6-22
+![图6-22 video 示例图](/Users/next/Work/Web-App/GBook/images/6-22.png)
 
 - 6.3.5 地图
 
@@ -608,7 +608,7 @@ Page({
      style="width: 100%; height: 300px;"></map>
 ```
 
-图 6-23
+![图6-23 map 示例图](/Users/next/Work/Web-App/GBook/images/6-23.png)
 
 - 6.3.6 web-view
 
@@ -616,7 +616,13 @@ Page({
 <web-view src="https://mp.weixin.qq.com/"></web-view>
 ```
 
-图 6-24
+![图6-24 web-view 示例图](/Users/next/Work/Web-App/GBook/images/6-24.png)
+
+- 6.3.7 其他
+
+这里仅仅示例了常用的组件，其他组件的介绍可以在 `微信公众平台` -> `小程序开发` -> `组件` 中找到。
+
+本章节所有的示例代码详见：https://github.com/jeanboydev/Wechat-Demo
 
 ## 6.4 常用 API
 
@@ -851,11 +857,13 @@ updateManager.onCheckForUpdate(function (res) {
     // 请求完新版本信息的回调
     console.log("onCheckForUpdate:" + res.hasUpdate);
 });
+
 updateManager.onUpdateReady(function () {
     // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
     console.log("onUpdateReady");
     updateManager.applyUpdate();
 });
+
 updateManager.onUpdateFailed(function () {
     // 新的版本下载失败
     console.log("onUpdateFailed");
