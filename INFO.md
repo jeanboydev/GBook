@@ -6,7 +6,7 @@
 
 首先我们使用微信开发者工具创建一个项目，并选中左上角编辑器的按钮。我们会在右边看到下图的内容：
 
-![图7-1-1 微信开发者工具中的编辑器](/Users/next/Desktop/GBook/images/7-1-1.png)
+![图7-1-1 微信开发者工具中的编辑器](/Users/next/Work/Web-App/GBook/images/7-1-1.png)
 <center>图7-1-1 微信开发者工具中的编辑器</center>、
 
 上图内容就是我们创建好的项目的目录，其中：
@@ -20,7 +20,7 @@
 
 仅仅只有上面的两个目录是不够用的，我们可以多创建几个目录来方便管理我们的代码：
 
-![图7-1-2 项目目录](/Users/next/Desktop/GBook/images/7-1-2.png)
+![图7-1-2 项目目录](/Users/next/Work/Web-App/GBook/images/7-1-2.png)
 <center>图7-1-2 项目目录</center>
 
 - `component` 目录用于存放我们自定义的组件（注：该项目暂未用到）。
@@ -31,7 +31,7 @@
 
 接下来我们进入项目实战部分，我们的图书商城需求主要分为以下几个部分。
 
-![图7-2-1 项目框架](/Users/next/Desktop/GBook/images/7-2-1.png)
+![图7-2-1 项目框架](/Users/next/Work/Web-App/GBook/images/7-2-1.png)
 <center>图7-2-1 项目框架</center>
 
 如图所示可以看到，我们的图书商城主要有登录与注册页面、首页、个人中心页面，图书详情页面、收藏页面。下面我们将一一介绍它们是如何实现的。
@@ -65,12 +65,12 @@ wx.request({
 
   首先我们先实现注册页面与登录页面，由于登录页面与注册页面很相似，所以这里仅展示注册页面的实现过程。先来看下两个页面效果：
 
-  ![图7-2-2 登录与注册页面](/Users/next/Desktop/GBook/images/7-2-2.png)
+  ![图7-2-2 登录与注册页面](/Users/next/Work/Web-App/GBook/images/7-2-2.png)
   <center>图7-2-2 注册页面</center>
 
   通过效果图可以看到，注册页面主要分为 Logo、标题、输入框和注册按钮 4 大部分组成。我们先来看下注册页面结构图：
 
-  ![图7-2-3 登录页面结构图](/Users/next/Desktop/GBook/images/7-2-2-3.png)
+  ![图7-2-3 登录页面结构图](/Users/next/Work/Web-App/GBook/images/7-2-2-3.png)
   <center>图7-2-3 登录页面结构图</center>
 
   从页面结构图可以看出，整个页面需要有一个大容器  `view` 水平和垂直都居中。容器中第一部分需要一个 `view` 作为 `image` 的父容器使 Logo 水平居中。容器中第二部分为标题和描述，下面比较简单了是两个 `input` 输入框，一个注册按钮。我们先来看下注册页面的结构代码：
@@ -215,12 +215,12 @@ wx.request({
 
   接下来我们来实现首页页面，先来看下效果图：
 
-  ![图7-2-4 首页页面](/Users/next/Desktop/GBook/images/7-2-3.png)
+  ![图7-2-4 首页页面](/Users/next/Work/Web-App/GBook/images/7-2-3.png)
   <center>图7-2-4 首页页面</center>
 
   通过效果图可以看到，首页页面主要分为上下两个部分，上面部分主要是导航菜单，下面部分是一个列表。我们看下拆分后的页面结构图：
 
-  ![图7-2-3-1 首页页面结构图](/Users/next/Desktop/GBook/images/7-2-3-1.png)
+  ![图7-2-3-1 首页页面结构图](/Users/next/Work/Web-App/GBook/images/7-2-3-1.png)
   <center>图7-2-4 首页页面结构图</center>
 
   从页面结构图可以看出，首页页面需要一个导航菜单和一个滑动列表。我们先来看下首页页面的结构代码：
@@ -443,12 +443,12 @@ Page({
 
   接下来我们来实现个人中心页面，先来看下效果图：
 
-  ![图7-2-4 个人中心页面](/Users/next/Desktop/GBook/images/7-2-4.png)
+  ![图7-2-4 个人中心页面](/Users/next/Work/Web-App/GBook/images/7-2-4.png)
   <center>图7-2-4 个人中心页面</center>
 
   通过效果图可以看到，个人中心页面主要分为两大部分，上面个人信息部分和下面滑动列表部分。通过我们来看下拆分后的页面结构图：
 
-  ![图7-2-4 个人中心页面](/Users/next/Desktop/GBook/images/7-2-4-1.png)
+  ![图7-2-4 个人中心页面](/Users/next/Work/Web-App/GBook/images/7-2-4-1.png)
   <center>图7-2-4 个人中心页面结构图</center>
 
   从页面结构图我们可以看出：个人信息展示部分需要一个父容器，头像水平居中。头像下面是推荐卡部分，可以使用 `Flex` 布局来实现推荐卡。下面是功能列表比较简单。我们先来看下个人中心页面的结构代码：
@@ -614,12 +614,12 @@ Page({
 
   接下来我们来实现图书详情页面，先看下效果图：
 
-  ![图7-2-5 图书详情页面](/Users/next/Desktop/GBook/images/7-2-5.png)
+  ![图7-2-5 图书详情页面](/Users/next/Work/Web-App/GBook/images/7-2-5.png)
   <center>图7-2-5 图书详情页面</center>
 
   通过效果图可以看到，页面主要分为图书封面、图书标题、图书介绍、图书评论、底部评论框 5 大部分。接下来我们看下页面结构图一步一步实现它：
 
-  ![图7-2-5 图书详情页面](/Users/next/Desktop/GBook/images/7-2-5-1-1.png)
+  ![图7-2-5 图书详情页面](/Users/next/Work/Web-App/GBook/images/7-2-5-1-1.png)
   <center>图7-2-5 图书详情页面结构图</center>
 
   从页面结构中可以看出：图书封面需要一个 `view` 父容器，中间 `image` 水平垂直居中显示；图书标题需要一个 `view` 父容器，标题居左、收藏居右显示；图书介绍只需要一个容器直接展示内容即可；图书评论需要一个 `view` 父容器，每条评论也需要一个父容器单独布局；底部评论框需要一个 `view` 父容器，输入框居左，按钮居右显示。
@@ -1050,12 +1050,12 @@ Page({
 
   接下来我们来实现商城的最后一个页面图书收藏页面，先看下效果图：
 
-  ![图7-2-6 收藏页面](/Users/next/Desktop/GBook/images/7-2-6.png)
+  ![图7-2-6 收藏页面](/Users/next/Work/Web-App/GBook/images/7-2-6.png)
   <center>图7-2-6 收藏页面</center>
 
   通过页面效果图可以看到，收藏页面只有一个滑动列表。我们来看下页面结构图：
 
-  ![图7-2-6 收藏页面](/Users/next/Desktop/GBook/images/7-2-6-1.png)
+  ![图7-2-6 收藏页面](/Users/next/Work/Web-App/GBook/images/7-2-6-1.png)
   <center>图7-2-6 收藏页面结构图</center>
 
   收藏页面整体比较简单，只需要对其中一个 `item` 进行布局就行了。我们先来看下收藏页面的结构代码：
@@ -1149,12 +1149,12 @@ Page({
 
   项目开发完成后就可以上传代码了，在微信开发者工具右上角可以找到 `上传` 按钮，点击上传然后再点击确定。
 
-  ![图7-3-1 微信开发者工具中的上传](/Users/next/Desktop/GBook/images/7-3-1.png)
+  ![图7-3-1 微信开发者工具中的上传](/Users/next/Work/Web-App/GBook/images/7-3-1.png)
   <center>图7-3-1 微信开发者工具中的上传</center>
 
   下面需要填写上传的版本信息，填写相关信息后点击上传即可。
 
-  ![图7-3-2 填写上传信息](/Users/next/Desktop/GBook/images/7-3-2.png)
+  ![图7-3-2 填写上传信息](/Users/next/Work/Web-App/GBook/images/7-3-2.png)
 
   <center>图7-3-2 填写上传信息</center>
 
@@ -1162,29 +1162,29 @@ Page({
 
   代码上传后，我们需要登录到微信公众平台。在微信公众平台的左侧找到 `开发管理`。
 
-  ![图7-3-3 开发管理](/Users/next/Desktop/GBook/images/7-3-3.png)
+  ![图7-3-3 开发管理](/Users/next/Work/Web-App/GBook/images/7-3-3.png)
   <center>图7-3-3 开发管理</center>
 
   点击开发管理之后，我们在底部可以看到刚才上传的代码。
 
-  ![图7-3-4 提交审核](/Users/next/Desktop/GBook/images/7-3-4.png)
+  ![图7-3-4 提交审核](/Users/next/Work/Web-App/GBook/images/7-3-4.png)
   <center>图7-3-4 提交审核</center>
 
   点击提交审核，然后会看到一些条款不管它，打上对勾点击下一步。
 
-  ![图7-3-5 确认提交审核](/Users/next/Desktop/GBook/images/7-3-5.png)
+  ![图7-3-5 确认提交审核](/Users/next/Work/Web-App/GBook/images/7-3-5.png)
   <center>图7-3-5 确认提交审核</center>
 
   到这里需要我们填写一些信息，首先需要选中首页页面路径，也就是 `app.json` 中 `pages` 下的第一个路径。
 
   然后填写完信息点击提交审核。
 
-  ![图7-3-6 填写项目配置](/Users/next/Desktop/GBook/images/7-3-6.png)
+  ![图7-3-6 填写项目配置](/Users/next/Work/Web-App/GBook/images/7-3-6.png)
   <center>图7-3-6 填写项目配置</center>
 
   提交审核之后会在 `开发管理` 下看到小程序已经处于审核中的状态了。
 
-  ![图7-3-7 已提交的审核版本](/Users/next/Desktop/GBook/images/7-3-7.png)
+  ![图7-3-7 已提交的审核版本](/Users/next/Work/Web-App/GBook/images/7-3-7.png)
   <center>图7-3-7 已提交的审核版本</center>
 
   一般 2-3 小时就会审核通过了，审核通过之后，管理员的微信中会收到小程序通过审核的通知。此时登录`小程序管理后台` - `开发管理` - `审核版本中`可以看到通过审核的版本。然后需要我们点击进行公测，最后点击发布，即可发布小程序，发布后就能在微信中搜索到我们的小程序了。
