@@ -22,8 +22,8 @@ Page({
     },
     toLoadData: function () {
         this.setData({
-            tabList: data.tabList,
-            dataList: data.dataList
+            tabList: data.home.tabList,
+            dataList: data.home.dataList
         });
     },
     onTabItemClick: function (e) {
